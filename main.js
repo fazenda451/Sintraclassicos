@@ -1,32 +1,4 @@
-// Carrega os parciais HTML e depois inicializa interacções
-async function carregarParciais() {
-  const mapas = [
-    { id: 'header-container', ficheiro: 'partials/header.html' },
-    { id: 'hero-container', ficheiro: 'sections/hero.html' },
-    { id: 'proximos-eventos-container', ficheiro: 'sections/proximos-eventos.html' },
-    { id: 'agenda-container', ficheiro: 'sections/agenda.html' },
-    { id: 'galeria-container', ficheiro: 'sections/galeria.html' },
-    { id: 'comunidade-container', ficheiro: 'sections/comunidade.html' },
-    { id: 'contactos-container', ficheiro: 'sections/contactos.html' },
-    { id: 'footer-container', ficheiro: 'partials/footer.html' },
-    { id: 'modal-container', ficheiro: 'partials/modal.html' }
-  ];
-
-  const pedidos = mapas.map(async (item) => {
-    const alvo = document.getElementById(item.id);
-    if (!alvo) return;
-    try {
-      const resposta = await fetch(item.ficheiro);
-      const html = await resposta.text();
-      alvo.innerHTML = html;
-    } catch (e) {
-      console.error('Erro a carregar', item.ficheiro, e);
-    }
-  });
-
-  await Promise.all(pedidos);
-}
-
+// Inicializa todas as interações do site
 function inicializarInteracoes() {
   // Modal de feedback (reutilizável)
   const feedbackModalEl = document.getElementById('feedbackModal');
@@ -95,7 +67,7 @@ function inicializarInteracoes() {
     });
   });
 
-  // Scrollspy manual (porque o header é carregado dinamicamente)
+  // Scrollspy para destacar secção ativa no menu
   if (bootstrap.ScrollSpy) {
     new bootstrap.ScrollSpy(document.body, {
       target: '#mainNav',
@@ -104,8 +76,7 @@ function inicializarInteracoes() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await carregarParciais();
+document.addEventListener('DOMContentLoaded', function () {
   inicializarInteracoes();
 });
 
