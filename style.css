@@ -1,0 +1,510 @@
+:root {
+  /* Paleta vintage / clássico */
+  --sc-primary: hsl(350, 45%, 30%);        /* bordô – cor principal */
+  --sc-gold: hsl(42, 75%, 50%);            /* dourado – acentos elegantes */
+  --sc-gold-strong: hsl(42, 80%, 45%);
+  --sc-bg-light: hsl(40, 30%, 96%);        /* creme claro – fundo principal */
+  --sc-foreground: hsl(30, 20%, 15%);      /* castanho escuro – texto principal */
+  --sc-muted: hsl(35, 25%, 90%);           /* bege suave – fundos secundários */
+  --sc-accent: hsl(38, 35%, 92%);          /* creme quente – hover/cards */
+}
+
+body {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--sc-bg-light);
+  color: var(--sc-foreground);
+}
+
+/* Links globais na paleta vintage */
+a {
+  color: var(--sc-primary);
+  text-decoration-color: var(--sc-primary);
+}
+
+a:hover {
+  color: var(--sc-gold-strong);
+  text-decoration-color: var(--sc-gold-strong);
+}
+
+.navbar-brand span {
+  font-weight: 700;
+}
+
+.navbar {
+  background-color: var(--sc-bg-light) !important;
+  border-bottom: 1px solid var(--sc-muted);
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.navbar .navbar-brand {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 1.05rem;
+  color: var(--sc-foreground);
+}
+
+.navbar .navbar-brand img {
+  max-height: 30px;
+  width: auto;
+}
+
+.navbar .nav-link {
+  color: var(--sc-foreground);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+  color: var(--sc-gold);
+}
+
+.text-primary {
+  color: var(--sc-gold) !important;
+}
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 4.5rem;
+  background-image:
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65)),
+    url("img/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #f9fafb;
+}
+
+.hero-gradient {
+  display: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #f9fafb;
+}
+
+.hero-title-main,
+.hero-title-secondary {
+  font-family: "Playfair Display", "Times New Roman", serif;
+}
+
+.hero-title-main {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+}
+
+.hero-title-secondary {
+  font-size: clamp(3.2rem, 5.4vw, 4.9rem);
+  color: var(--sc-gold);
+}
+
+.hero-subtitle {
+  max-width: 720px;
+  margin-inline: auto;
+  color: #e5e7eb;
+}
+
+.hero-badges .badge {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(229, 231, 235, 0.35);
+  backdrop-filter: blur(2px);
+  border-radius: 4px;
+  color: #e5e7eb;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  color: #e5e7eb;
+  position: relative;
+}
+
+.hero-kicker::before,
+.hero-kicker::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 80px;
+  background-color: rgba(249, 250, 251, 0.55);
+}
+
+.hero-kicker::before {
+  margin-right: 0.75rem;
+}
+
+.hero-kicker::after {
+  margin-left: 0.75rem;
+}
+
+.hero-kicker-text {
+  white-space: nowrap;
+}
+
+.hero-discover {
+  color: #e5e7eb;
+}
+
+.hero-discover-arrow {
+  width: 1px;
+  height: 32px;
+  margin-inline: auto;
+  background: linear-gradient(to bottom, rgba(249, 250, 251, 0.3), #f9fafb);
+  position: relative;
+}
+
+.hero-discover-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid #f9fafb;
+  border-bottom: 1px solid #f9fafb;
+}
+
+.glass-card {
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+.event-tag {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+}
+
+.section-padding {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.section-title {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: .9rem;
+  color: var(--sc-gold-strong);
+}
+
+.section-heading {
+  font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+}
+
+.event-card {
+  background: var(--sc-accent);
+  border-radius: 6px;
+  border: 1px solid var(--sc-muted);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.event-card h3 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--sc-foreground);
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.18);
+  border-color: var(--sc-gold);
+}
+
+.event-card img {
+  object-fit: cover;
+}
+
+.event-pill {
+  background: var(--sc-muted);
+  border-radius: 4px;
+  border: 1px solid var(--sc-accent);
+  padding-inline: .9rem;
+  padding-block: .35rem;
+  font-size: .78rem;
+}
+
+.badge-soft {
+  background: var(--sc-muted);
+  border-radius: 4px;
+  padding-inline: .75rem;
+  padding-block: .3rem;
+  border: 1px solid var(--sc-accent);
+  font-size: .72rem;
+}
+
+/* estados dos badges na paleta vintage */
+.badge-soft.text-success,
+.badge-soft.text-warning,
+.badge-soft.text-danger,
+.badge-soft.text-light {
+  color: var(--sc-foreground) !important;
+}
+
+.timeline-line {
+  position: absolute;
+  left: .9rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--sc-muted);
+}
+
+.timeline-dot {
+  width: .9rem;
+  height: .9rem;
+  border-radius: 999px;
+  background: var(--sc-primary);
+  box-shadow: none;
+}
+
+.gallery-grid img {
+  border-radius: 6px;
+  border: 1px solid var(--sc-muted);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  object-fit: cover;
+}
+
+/* galeria com hover e overlay de texto */
+.gallery-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--sc-muted);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  background-color: var(--sc-muted);
+  cursor: pointer;
+}
+
+.gallery-image {
+  height: 210px;
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.25)),
+    url("img/galeria-placeholder.jpg");
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.1));
+  color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem 1.1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-overlay h3 {
+  margin: 0 0 0.25rem;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 0.95rem;
+}
+
+.gallery-overlay p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(249, 250, 251, 0.9);
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.05);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.footer {
+  border-top: 1px solid rgba(15, 23, 42, 0.9);
+  background: #111827;
+  color: rgba(249, 250, 251, 0.8);
+}
+
+.text-muted-75 {
+  color: rgba(249, 250, 251, 0.7);
+}
+
+.footer-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background-color: var(--sc-primary);
+  color: #fdfaf5;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 0.9rem;
+}
+
+.footer-mark-initials {
+  letter-spacing: 0.06em;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: rgba(249, 250, 251, 0.75);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.footer-link:hover {
+  color: var(--sc-primary);
+  text-decoration: none;
+}
+
+.footer-brand {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 1rem;
+}
+
+.footer-heading {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.75rem;
+  color: rgba(249, 250, 251, 0.9);
+}
+
+.footer-social-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(249, 250, 251, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(249, 250, 251, 0.8);
+}
+
+.footer-social-circle:hover {
+  background-color: var(--sc-primary);
+  border-color: var(--sc-primary);
+  color: #fdfaf5;
+}
+
+.footer-separator {
+  border-color: rgba(55, 65, 81, 0.9);
+}
+
+.footer-links-list li + li {
+  margin-top: 0.25rem;
+}
+
+/* cards laterais da secção Comunidade */
+.community-pill {
+  padding: 1.25rem 1.4rem;
+  border-radius: 6px;
+  background: var(--sc-muted);
+  border: 1px solid var(--sc-accent);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+}
+
+.community-pill h6,
+.community-pill .h6 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--sc-foreground);
+}
+
+.btn-gradient {
+  border-radius: 6px;
+  background: var(--sc-primary);
+  color: #ffffff;
+  border: 1px solid hsl(350, 45%, 24%);
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-gradient:hover {
+  color: #f9fafb;
+  filter: brightness(1.05);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+}
+
+.btn-ghost {
+  border-radius: 6px;
+  border: 1px solid rgba(249, 250, 251, 0.8);
+  background: transparent;
+  color: #f9fafb;
+}
+
+.btn-ghost:hover {
+  background: rgba(249, 250, 251, 0.12);
+  color: #f9fafb;
+}
+
+/* Sobrescrever azuis padrão do Bootstrap */
+.btn-outline-info,
+.btn-outline-primary {
+  color: var(--sc-primary);
+  border-color: var(--sc-primary);
+  background-color: transparent;
+}
+
+.btn-outline-info:hover,
+.btn-outline-primary:hover {
+  color: #ffffff;
+  background-color: var(--sc-primary);
+  border-color: var(--sc-primary);
+}
+
+.text-info {
+  color: var(--sc-primary) !important;
+}
+
+.navbar .brand-text {
+  font-size: 1rem;
+}
+
+.btn-header-cta {
+  border-radius: 0;
+  background-color: var(--sc-gold);
+  color: var(--sc-foreground);
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.btn-header-cta:hover {
+  background-color: var(--sc-gold-strong);
+  color: var(--sc-foreground);
+}
+
+.modal-content.bg-black {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding-top: 5.5rem;
+  }
+}
+
+
