@@ -31,7 +31,7 @@ function inicializarInteracoes() {
     comunidadeForm.addEventListener('submit', function (e) {
       e.preventDefault();
       abrirModal(
-        'Obrigado pela tua disponibilidade! Vamos analisar a tua candidatura ao núcleo de organização e responder-te em breve.'
+        'Obrigado pela sua sugestão! Vamos analisar o seu feedback para melhorar a experiência de todos os que participam no SintraClássicos.'
       );
       comunidadeForm.reset();
     });
