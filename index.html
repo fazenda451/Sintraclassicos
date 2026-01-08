@@ -29,6 +29,18 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Mapa interativo - DEVE ser carregado ANTES da Google Maps API -->
+    <script src="mapa.js"></script>
+     
+    <!-- Google Maps JavaScript API -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD29npbSKjbSEUaS8yzazCQ-K4VtlrkR1E&loading=async&callback=inicializarMapaQuandoPronto"
+      async
+      defer
+    ></script>
+    <!-- MarkerClusterer para agrupar waypoints -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
     <!-- Estilos custom -->
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -260,17 +272,17 @@
               encontros de garagem, passeios surpresa e parcerias com outros clubes da Grande Lisboa.
             </p>
             <ul class="text-secondary small mb-3 ps-3">
-              <li>Eventos destacados por tipo (passeio, exposição, convívio noturno).</li>
-              <li>Indicação de grau de dificuldade dos percursos.</li>
-              <li>Possibilidade de te inscreveres diretamente online (brevemente).</li>
+             
             </ul>
             <div class="d-flex flex-wrap gap-2">
-              <span class="badge-soft text-info">Passeios panorâmicos</span>
-              <span class="badge-soft text-info">Encontros estáticos</span>
-              <span class="badge-soft text-info">Eventos solidários</span>
-              <span class="badge-soft text-info">Clássicos &amp; café</span>
+
+            </div>
+
+            <div class="mt-4">
+              <div class="mapa-container" id="mapa-eventos" role="region" aria-label="Mapa de eventos"></div>
             </div>
           </div>
+          <!-- Timeline no lado direito -->
           <div class="col-lg-7 position-relative">
             <div class="timeline-line d-none d-md-block"></div>
             <div class="d-flex flex-column gap-4 ms-md-5">
@@ -334,66 +346,7 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Galeria -->
-    <section id="galeria" class="section-padding">
-      <div class="container">
-        <div class="row align-items-end mb-4">
-          <div class="col-md-8">
-            <div class="section-title mb-2">Galeria</div>
-            <h2 class="section-heading mb-2">Alguns momentos dos últimos encontros.</h2>
-            <p class="text-secondary mb-0">
-              Mesmo sem teres o teu clássico pronto, podes viver o ambiente através dos registos dos
-              fotógrafos da comunidade.
-            </p>
-          </div>
-          <div class="col-md-4 text-md-end mt-3 mt-md-0">
-            <button class="btn btn-ghost btn-sm">Enviar fotografias do teu clássico</button>
-          </div>
-        </div>
-
-        <div class="row g-3 g-md-4 gallery-grid">
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Encontro de Verão 2024</h3>
-                <p>Exemplo: foto ampla da praça com vários clássicos alinhados ao pôr‑do‑sol.</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Detalhes de Interior</h3>
-                <p>Exemplo: close‑up de volante, painel de instrumentos ou pormenores de época.</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Noite no Garage Meet</h3>
-                <p>Exemplo: luzes quentes na garagem, clássicos lado a lado e ambiente descontraído.</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Sintra &amp; Costa</h3>
-                <p>Exemplo: foto do passeio junto ao mar com a serra em fundo.</p>
-              </div>
-            </article>
-          </div>
-        </div>
       </div>
     </section>
 
