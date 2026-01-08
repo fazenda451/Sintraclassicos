@@ -276,6 +276,41 @@ a:hover {
   box-shadow: none;
 }
 
+/* Estilos para o mapa interativo */
+.mapa-container {
+  width: 100%;
+  height: 600px;
+  min-height: 500px;
+  border-radius: 6px;
+  border: 1px solid var(--sc-muted);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  background-color: var(--sc-muted);
+}
+
+/* Responsividade do mapa */
+@media (max-width: 991.98px) {
+  .mapa-container {
+    height: 400px;
+    min-height: 400px;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Garante que o mapa ocupa toda a altura disponível na secção */
+  #agenda .col-lg-5 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mapa-container {
+    flex: 1;
+    height: 100%;
+    min-height: 600px;
+  }
+}
+
 .gallery-grid img {
   border-radius: 6px;
   border: 1px solid var(--sc-muted);
