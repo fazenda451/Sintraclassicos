@@ -74,6 +74,22 @@ function inicializarInteracoes() {
       offset: 80
     });
   }
+
+  // Fechar o offcanvas móvel ao clicar num link interno do menu (ex.: #proximos-eventos)
+  const mobileMenuEl = document.getElementById('mobileMenu');
+  if (mobileMenuEl) {
+    mobileMenuEl.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        const instance = bootstrap.Offcanvas.getInstance(mobileMenuEl);
+        if (instance) {
+          instance.hide();
+        } else {
+          // criar e fechar se ainda não existir (fallback)
+          new bootstrap.Offcanvas(mobileMenuEl).hide();
+        }
+      });
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
