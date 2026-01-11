@@ -80,6 +80,96 @@ a:hover {
   width: auto;
 }
 
+/* Botão para abrir menu móvel (visível em telas pequenas) */
+.btn-mobile {
+  color: var(--sc-foreground);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 0.32rem 0.6rem;
+}
+
+/* Offcanvas mobile: estilo escuro, alinhado à paleta do site */
+.mobile-offcanvas .offcanvas-header {
+  border-bottom: none; /* removido para evitar linhas estranhas */
+}
+
+/* Painel móvel: entrada rápida vindo da direita (sem delays) */
+.mobile-offcanvas {
+  background: linear-gradient(180deg, rgba(8,10,12,0.98), rgba(10,12,14,0.98));
+  color: #fff;
+  /* começa fora da tela à direita */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 300ms cubic-bezier(.22,.9,.3,1), opacity 220ms ease;
+}
+
+/* Estado visível do offcanvas (Bootstrap adiciona .show) */
+.mobile-offcanvas.offcanvas.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Conteúdo interna: aparece junto com o painel, sem delays para sensação de arrastar */
+.mobile-offcanvas .offcanvas-header,
+.mobile-offcanvas .offcanvas-body {
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 220ms ease, transform 220ms cubic-bezier(.22,.9,.3,1);
+}
+
+.mobile-offcanvas.offcanvas.show .offcanvas-header,
+.mobile-offcanvas.offcanvas.show .offcanvas-body {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mantém o padding e restantes estilos */
+.mobile-offcanvas .offcanvas-body {
+  padding-top: 1rem;
+}
+
+.mobile-offcanvas .offcanvas-body {
+  padding-top: 1rem;
+}
+
+.offcanvas-logo {
+  height: 34px;
+  width: auto;
+}
+
+/* Nota informativa no offcanvas: maior contraste para legibilidade */
+.offcanvas-note {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.offcanvas-feature-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.mobile-nav ul li a {
+  display: block;
+  padding: 0.8rem 0;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: none; /* removido para visual mais limpo */
+}
+
+.mobile-nav ul li a:hover {
+  color: var(--sc-gold);
+}
+
+@media (min-width: 992px) {
+  /* Esconde o offcanvas button em ecrãs maiores, já que a navbar normal serve */
+  .btn-mobile { display: none; }
+}
+
 .navbar-logo {
   display: inline-block;
   max-height: 36px;
