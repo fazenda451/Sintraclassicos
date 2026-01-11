@@ -15,6 +15,38 @@ body {
   color: var(--sc-foreground);
 }
 
+/* Full-screen blackout loader with centered blinking white logo */
+#site-loader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#site-loader .loader-logo {
+  width: clamp(140px, 26vw, 320px);
+  height: auto;
+  filter: brightness(0) invert(1);
+  animation: loader-blink 1.6s infinite ease-in-out;
+}
+
+#site-loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes loader-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.18; }
+  100% { opacity: 1; }
+}
+
 /* Links globais na paleta vintage */
 a {
   color: var(--sc-primary);
@@ -45,6 +77,12 @@ a:hover {
 
 .navbar .navbar-brand img {
   max-height: 30px;
+  width: auto;
+}
+
+.navbar-logo {
+  display: inline-block;
+  max-height: 36px;
   width: auto;
 }
 
@@ -106,6 +144,14 @@ a:hover {
 .hero-title-secondary {
   font-size: clamp(3.2rem, 5.4vw, 4.9rem);
   color: var(--sc-gold);
+}
+
+.hero-logo {
+  display: block;
+  margin-inline: auto;
+  width: clamp(220px, 40vw, 520px);
+  max-width: 100%;
+  height: auto;
 }
 
 .hero-subtitle {
@@ -231,6 +277,95 @@ a:hover {
 
 .event-card img {
   object-fit: cover;
+}
+
+/* Loja: cartões de produto (vibes semelhantes a "Próximos eventos") */
+.product-card {
+  background: linear-gradient(to bottom, rgba(17,24,39,0.04), rgba(17,24,39,0.02));
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.product-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img {
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.product-media:hover .product-img {
+  transform: scale(1.04);
+}
+
+.product-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sc-foreground);
+  letter-spacing: 0.04em;
+}
+
+.product-card h3 {
+  font-family: "Playfair Display", serif;
+  color: var(--sc-foreground);
+  margin-bottom: 0.4rem;
+}
+
+.product-card .price {
+  color: var(--sc-foreground);
+  font-size: 1rem;
+}
+
+.product-card .small {
+  color: rgba(249, 250, 251, 0.72);
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.16);
+  border-color: var(--sc-gold);
+}
+
+/* Botão da loja alinhado à paleta do site */
+.btn-shop {
+  color: var(--sc-gold);
+  border: 1px solid var(--sc-gold);
+  background: transparent;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.08s ease;
+}
+
+.btn-shop:hover {
+  background: var(--sc-gold);
+  color: #111;
+  transform: translateY(-1px);
+}
+
+.btn-shop:disabled,
+.btn-shop[disabled] {
+  border-color: var(--sc-muted);
+  color: var(--sc-muted);
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.95;
+}
+
+@media (max-width: 576px) {
+  .product-img {
+    height: 180px;
+  }
 }
 
 .event-pill {
