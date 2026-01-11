@@ -137,6 +137,8 @@ Nenhum! O projeto funciona diretamente no navegador.
 1. Abre o ficheiro `index.html` com um duplo clique
 2. O site abrirá automaticamente no teu navegador padrão
 
+> **Nota:** Se estiveres a usar o mapa, copia `.env.example` para `.env`, preenche `GOOGLE_API_KEY` e executa `npm run generate-config` antes de abrir a página (ou sempre que alterares a chave).
+
 #### Opção 2: Com Servidor Local
 
 **Visual Studio Code:**

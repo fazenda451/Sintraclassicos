@@ -31,13 +31,25 @@
 
     <!-- Mapa interativo - DEVE ser carregado ANTES da Google Maps API -->
     <script src="mapa.js"></script>
-     
-    <!-- Google Maps JavaScript API -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD29npbSKjbSEUaS8yzazCQ-K4VtlrkR1E&loading=async&callback=inicializarMapaQuandoPronto"
-      async
-      defer
-    ></script>
+
+    <!-- Config (gerado a partir de .env) -->
+    <script src="config.js"></script>
+
+    <!-- Injeta dinamicamente a Google Maps JavaScript API usando a chave em window.__ENV -->
+    <script>
+      (function() {
+        var key = window.__ENV && window.__ENV.GOOGLE_API_KEY;
+        if (!key) {
+          console.warn('Google API key not found in window.__ENV; the map will not be loaded. Copy .env.example → .env and run `npm run generate-config`.');
+          return;
+        }
+        var s = document.createElement('script');
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&loading=async&callback=inicializarMapaQuandoPronto';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      })();
+    </script>
     <!-- MarkerClusterer para agrupar waypoints -->
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
 
@@ -46,6 +58,34 @@
   </head>
 
   <body data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Site loader: blackout with blinking logo -->
+    <div id="site-loader" role="status" aria-label="A carregar" aria-live="polite">
+      <img src="img/Sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="loader-logo" />
+    </div>
+    <script>
+      (function(){
+        var start = performance.now();
+        var loader = document.getElementById('site-loader');
+        function hideLoader(){
+          if(!loader) return;
+          loader.classList.add('loader-hidden');
+          setTimeout(function(){ if(loader.parentNode) loader.parentNode.removeChild(loader); }, 500);
+        }
+        function onLoad(){
+          var elapsed = performance.now() - start;
+          var remaining = Math.max(0, 3000 - elapsed);
+          setTimeout(hideLoader, remaining);
+        }
+        if (document.readyState === 'complete') {
+          onLoad();
+        } else {
+          window.addEventListener('load', onLoad);
+          // Fallback: garante que o loader desaparece após 5s se load falhar
+          setTimeout(hideLoader, 5000);
+        }
+      })();
+    </script>
+
     <!-- Header -->
     <nav
       id="mainNav"
@@ -53,9 +93,8 @@
     >
       <div class="container py-2">
         <a class="navbar-brand d-flex align-items-center gap-2" href="#topo">
-          <span class="brand-text">
-            Sintra <span class="text-primary">Clássicos</span>
-          </span>
+          <img src="img/Sintra_Classico_logo(Preto).png" alt="Sintra Clássicos" class="navbar-logo" />
+          <span class="visually-hidden">Sintra Clássicos</span>
         </a>
         <button
           class="navbar-toggler"
@@ -84,6 +123,9 @@
               <a class="nav-link" href="#galeria">Galeria</a>
             </li>
             <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#loja">Loja</a>
+            </li>
+            <li class="nav-item px-lg-2">
               <a class="nav-link" href="#comunidade">Comunidade</a>
             </li>
             <li class="nav-item px-lg-2 me-lg-3">
@@ -105,14 +147,8 @@
       <div class="container hero-content">
         <div class="row justify-content-center">
           <div class="col-xl-8 col-lg-9 text-center">
-            <div class="hero-kicker text-uppercase mb-3">
-              <span class="hero-kicker-line"></span>
-              <span class="hero-kicker-text">Desde 2014</span>
-              <span class="hero-kicker-line"></span>
-            </div>
             <h1 class="hero-title mb-3">
-              <span class="hero-title-main d-block">Sintra</span>
-              <span class="hero-title-secondary d-block">Clássicos</span>
+              <img src="img/sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="hero-logo" />
             </h1>
             <p class="hero-subtitle mb-4">
               Uma comunidade criada para receber e expôr o património automóvel clássico e desportivo nacional.
@@ -389,6 +425,132 @@
               <div class="gallery-overlay">
                 <h3>Setembro 2025</h3>
                 <p>Uma seleção de fotos do evento</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loja -->
+    <section id="loja" class="section-padding border-top border-secondary border-opacity-25">
+      <div class="container">
+        <div class="row align-items-end mb-4">
+          <div class="col-md-8">
+            <div class="section-title mb-2">Loja</div>
+            <h2 class="section-heading mb-2">Merchandising</h2>
+            <p class="text-secondary mb-0">Stickers e t-shirts com o logo Sintra Clássicos. Para requisitar estes itens, desloca-te a um dos nossos colaboradores nos eventos.</p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <span class="badge-soft text-light">Vendas presenciais</span>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Pack de Stickers">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Pack de Stickers (3 unidades)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Conjunto de 3 autocolantes com designs exclusivos Sintra Clássicos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€5</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Sticker Individual">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Sticker Individual</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Autocolante individual com o logo. Perfeito para capacetes e carros.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€2</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="T-Shirt Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">T-Shirt (Algodão) - Unisexo</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">T-shirt de algodão com o logo Sintra Clássicos. Disponível em várias cores e tamanhos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€20</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Gorra Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Gorra (Unisexo)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Gorra com o logo bordado, ajustável para vários tamanhos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€15</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Caneca Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Caneca (Cerâmica)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Caneca de cerâmica com impressão da logo Sintra Clássicos — resistente à máquina de lavar.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€10</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Poster Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Poster (A3)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Poster A3 com arte exclusiva Sintra Clássicos, papel couché de alta qualidade.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€8</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
               </div>
             </article>
           </div>
