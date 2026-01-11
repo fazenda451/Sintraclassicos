@@ -11,7 +11,10 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/pt-PT/docs/Web/JavaScript)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
+![Preview do site](img/preview.png)
+
 </div>
+
 
 ---
 
@@ -25,7 +28,7 @@ O site oferece uma experiência visual elegante inspirada no património automó
 
 - 🎨 **Design Vintage** - Paleta de cores inspirada em automóveis clássicos
 - 📱 **Totalmente Responsivo** - Adapta-se perfeitamente a todos os dispositivos
-- ⚡ **Performance Otimizada** - Carregamento rápido sem dependências externas
+- ⚡ **Performance Otimizada** - Carregamento rápido (bibliotecas servidas via CDN); não requer servidor para abrir, exceto para gerar a configuração do mapa quando necessário
 - ♿ **Acessível** - Estrutura semântica e navegação por teclado
 - 🎯 **Fácil de Usar** - Interface intuitiva e navegação clara
 
@@ -53,6 +56,8 @@ O site oferece uma experiência visual elegante inspirada no património automó
 | **JavaScript** | ES6+ | Funcionalidades interativas |
 | **Bootstrap** | 5.3.3 | Framework CSS para layout responsivo |
 | **Google Fonts** | - | Tipografias Lato e Playfair Display |
+| **Font Awesome** | 6.x | Ícones para redes sociais e UI |
+| **Google Maps API + MarkerClusterer** | - | Mapa interativo e clusterização de marcadores (opcional; requer API key) |
 
 </div>
 
@@ -95,7 +100,7 @@ Sintraclassicos/
 ### 🎮 Interatividade
 
 #### Formulários
-- 📬 Newsletter/alerta de eventos (hero)
+- 📬 Newsletter/alerta de eventos (hero) — opcional; o handler JS está preparado se o formulário for adicionado ao HTML
 - 📝 Candidatura ao núcleo de organização (comunidade)
 - 💼 Contacto para eventos/parcerias
 
@@ -129,7 +134,8 @@ O design utiliza uma paleta vintage inspirada em automóveis clássicos:
 
 ### 📋 Pré-requisitos
 
-Nenhum! O projeto funciona diretamente no navegador.
+- **Nenhum** para simplesmente abrir o site (funciona diretamente no navegador).
+- **Node.js (opcional)** — necessário para executar scripts como `npm run generate-config` que geram `config.js` a partir de `.env` (utilizado pela Google Maps API).
 
 ### 💻 Execução
 
@@ -188,6 +194,10 @@ Todo o conteúdo está incluído diretamente no `index.html` para garantir que o
 ### 📝 Formulários
 
 Os formulários são processados no lado do cliente (demonstração académica). Em produção, seria necessário implementar um backend para processar os dados.
+
+### ⚙️ Scripts e configuração
+
+- `scripts/generate-config.js` — pequeno script Node.js que lê um ficheiro `.env` e gera `config.js` (contendo `window.__ENV`) com a `GOOGLE_API_KEY`. Execute `npm run generate-config` depois de criar um `.env` a partir de `.env.example` para ativar o mapa.
 
 ### 💬 Modais
 
