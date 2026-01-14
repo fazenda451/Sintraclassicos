@@ -5,9 +5,40 @@ function inicializarInteracoes() {
   const feedbackModalBody = document.getElementById('feedbackModalBody');
   const feedbackModal = feedbackModalEl ? new bootstrap.Modal(feedbackModalEl) : null;
 
-  function abrirModal(mensagem) {
+  function abrirModal(mensagem, mostrarBotaoFormulario = false) {
     if (!feedbackModal || !feedbackModalBody) return;
     feedbackModalBody.textContent = mensagem;
+    
+    // Gerir botões do footer do modal
+    const modalFooter = document.querySelector('#feedbackModal .modal-footer');
+    if (modalFooter) {
+      if (mostrarBotaoFormulario) {
+        // Criar botão de formulário
+        const btnFormulario = document.createElement('button');
+        btnFormulario.type = 'button';
+        btnFormulario.className = 'btn btn-gradient btn-sm px-4';
+        btnFormulario.textContent = 'Preencher formulário';
+        btnFormulario.addEventListener('click', function() {
+          window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLScTlzMefwu33HMBlvpZujtD8BFjMlnnM5nzaUhUAzuSrII_6Q/viewform?pli=1&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnkRFRPuCg1XSwP0K3fQpJtSWqSxuiD_q8QtYgWJey2N9_FNyV6RJECfIlWuQ_aem_WycFfdWDNWRL5w0DevxzMw';
+        });
+        
+        // Botão de fechar
+        const btnFechar = document.createElement('button');
+        btnFechar.type = 'button';
+        btnFechar.className = 'btn btn-ghost btn-sm';
+        btnFechar.textContent = 'Fechar';
+        btnFechar.setAttribute('data-bs-dismiss', 'modal');
+        
+        // Limpar e adicionar botões
+        modalFooter.innerHTML = '';
+        modalFooter.appendChild(btnFechar);
+        modalFooter.appendChild(btnFormulario);
+      } else {
+        // Restaurar botão padrão "Fechar"
+        modalFooter.innerHTML = '<button type="button" class="btn btn-ghost btn-sm" data-bs-dismiss="modal">Fechar</button>';
+      }
+    }
+    
     feedbackModal.show();
   }
 
@@ -62,7 +93,8 @@ function inicializarInteracoes() {
       abrirModal(
         'Registámos o teu interesse em "' +
           nomeEvento +
-          '". Em breve vais receber mais informação (demonstração académica).'
+          '". Preenche o formulário para completar a tua inscrição.',
+        true // Mostrar botão de formulário
       );
     });
   });
