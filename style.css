@@ -607,17 +607,8 @@ a:hover {
 }
 
 .footer-mark {
-  width: 32px;
+  width: 64px;
   height: 32px;
-  border-radius: 999px;
-  background-color: var(--sc-primary);
-  color: #fdfaf5;
-  font-family: "Playfair Display", "Times New Roman", serif;
-  font-size: 0.9rem;
-}
-
-.footer-mark-initials {
-  letter-spacing: 0.06em;
 }
 
 .footer-link {
@@ -766,5 +757,21 @@ a:hover {
     padding-top: 5.5rem;
   }
 }
+
+/* Estilos para o botão de formulário no modal */
+#feedbackModal .modal-footer .btn-gradient {
+  background: var(--sc-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid hsl(350, 45%, 24%) !important;
+  font-weight: 600;
+}
+
+#feedbackModal .modal-footer .btn-gradient:hover {
+  background: hsl(350, 45%, 25%) !important;
+  color: #ffffff !important;
+  filter: brightness(1.05);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+}
+
 
 
