@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "generate-config": "node scripts/generate-config.js",
-    "dev": "npx serve . -p 8888",
+    "build": "npm run generate-config",
+    "dev": "npm run generate-config && npx serve . -p 8888",
     "serve": "npx serve .",
     "netlify:dev": "netlify dev",
     "cms:proxy": "npx netlify-cms-proxy-server"
