@@ -56,7 +56,7 @@ async function loadJSON(path, bypassCache = false) {
 async function loadCollection(folder) {
   try {
     // Lista de ficheiros conhecidos (pode ser melhorado com uma API que liste ficheiros)
-    const files = await fetch(`${folder}/.index.json`).catch(() => null);
+    const files = await fetch(`${folder}/index.json`).catch(() => null);
     if (files && files.ok) {
       const fileList = await files.json();
       const data = await Promise.all(
@@ -95,7 +95,7 @@ async function loadEventos(forceReload = false) {
   // Tenta carregar um índice de ficheiros, senão usa lista padrão
   let eventFiles = [];
   try {
-    const index = await loadJSON('content/eventos/.index.json', forceReload || !ENABLE_CACHE);
+    const index = await loadJSON('content/eventos/index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       eventFiles = index.map(f => `content/eventos/${f}`);
     }
@@ -126,7 +126,7 @@ async function loadAgenda(forceReload = false) {
   
   let agendaFiles = [];
   try {
-    const index = await loadJSON('content/agenda/.index.json', forceReload || !ENABLE_CACHE);
+    const index = await loadJSON('content/agenda/index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       agendaFiles = index.map(f => `content/agenda/${f}`);
     }
@@ -160,7 +160,7 @@ async function loadGaleria(forceReload = false) {
   
   let galeriaFiles = [];
   try {
-    const index = await loadJSON('content/galeria/.index.json', forceReload || !ENABLE_CACHE);
+    const index = await loadJSON('content/galeria/index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       galeriaFiles = index.map(f => `content/galeria/${f}`);
     }
@@ -194,7 +194,7 @@ async function loadLoja(forceReload = false) {
   
   let lojaFiles = [];
   try {
-    const index = await loadJSON('content/loja/.index.json', forceReload || !ENABLE_CACHE);
+    const index = await loadJSON('content/loja/index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       lojaFiles = index.map(f => `content/loja/${f}`);
     }
@@ -268,11 +268,18 @@ function renderHero(data) {
  * Renderiza eventos
  */
 function renderEventos(eventos) {
-  if (!eventos || eventos.length === 0) return;
+  if (!eventos || eventos.length === 0) {
+    console.warn('renderEventos: Nenhum evento para renderizar');
+    return;
+  }
   
   const container = document.querySelector('#proximos-eventos .row.g-4');
-  if (!container) return;
+  if (!container) {
+    console.error('renderEventos: Container não encontrado (#proximos-eventos .row.g-4)');
+    return;
+  }
   
+  console.log('renderEventos: Renderizando', eventos.length, 'eventos');
   container.innerHTML = eventos.map(evento => `
     <div class="col-md-6 col-lg-4">
       <article class="event-card h-100 d-flex flex-column">
@@ -322,11 +329,18 @@ function renderEventos(eventos) {
  * Renderiza agenda
  */
 function renderAgenda(agenda) {
-  if (!agenda || agenda.length === 0) return;
+  if (!agenda || agenda.length === 0) {
+    console.warn('renderAgenda: Nenhum item de agenda para renderizar');
+    return;
+  }
   
   const container = document.querySelector('#agenda .col-lg-7 .d-flex.flex-column');
-  if (!container) return;
+  if (!container) {
+    console.error('renderAgenda: Container não encontrado (#agenda .col-lg-7 .d-flex.flex-column)');
+    return;
+  }
   
+  console.log('renderAgenda: Renderizando', agenda.length, 'itens');
   container.innerHTML = agenda.map(item => `
     <div class="d-flex gap-3">
       <div class="d-none d-md-flex flex-column align-items-center pt-1">
@@ -348,11 +362,18 @@ function renderAgenda(agenda) {
  * Renderiza galeria
  */
 function renderGaleria(galeria) {
-  if (!galeria || galeria.length === 0) return;
+  if (!galeria || galeria.length === 0) {
+    console.warn('renderGaleria: Nenhum item de galeria para renderizar');
+    return;
+  }
   
   const container = document.querySelector('#galeria .gallery-grid');
-  if (!container) return;
+  if (!container) {
+    console.error('renderGaleria: Container não encontrado (#galeria .gallery-grid)');
+    return;
+  }
   
+  console.log('renderGaleria: Renderizando', galeria.length, 'itens');
   container.innerHTML = galeria.map(item => `
     <div class="col-6 col-lg-3">
       <article class="gallery-item">
@@ -370,11 +391,18 @@ function renderGaleria(galeria) {
  * Renderiza loja
  */
 function renderLoja(produtos) {
-  if (!produtos || produtos.length === 0) return;
+  if (!produtos || produtos.length === 0) {
+    console.warn('renderLoja: Nenhum produto para renderizar');
+    return;
+  }
   
   const container = document.querySelector('#loja .row.g-4.mt-3');
-  if (!container) return;
+  if (!container) {
+    console.error('renderLoja: Container não encontrado (#loja .row.g-4.mt-3)');
+    return;
+  }
   
+  console.log('renderLoja: Renderizando', produtos.length, 'produtos');
   container.innerHTML = produtos.map(produto => `
     <div class="col-md-6 col-lg-4">
       <article class="product-card h-100 d-flex flex-column">
@@ -462,6 +490,8 @@ function renderContactos(data) {
  */
 async function initCMS(forceReload = false) {
   try {
+    console.log('initCMS: Iniciando carregamento do CMS...');
+    
     // Carregar todos os dados em paralelo
     const [hero, eventos, agenda, galeria, loja, comunidade, contactos] = await Promise.all([
       loadHero(forceReload),
@@ -473,6 +503,16 @@ async function initCMS(forceReload = false) {
       loadContactos(forceReload)
     ]);
     
+    console.log('initCMS: Dados carregados:', {
+      hero: !!hero,
+      eventos: eventos?.length || 0,
+      agenda: agenda?.length || 0,
+      galeria: galeria?.length || 0,
+      loja: loja?.length || 0,
+      comunidade: !!comunidade,
+      contactos: !!contactos
+    });
+    
     // Renderizar tudo
     renderHero(hero);
     renderEventos(eventos);
@@ -482,17 +522,26 @@ async function initCMS(forceReload = false) {
     renderComunidade(comunidade);
     renderContactos(contactos);
     
+    console.log('initCMS: Renderização concluída');
+    
   } catch (error) {
     console.error('Erro ao carregar conteúdo do CMS:', error);
   }
 }
 
 // Inicializar quando o DOM estiver pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initCMS);
-} else {
-  initCMS();
+function startCMS() {
+  // Aguardar um pouco para garantir que o DOM está completamente renderizado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => initCMS(), 100);
+    });
+  } else {
+    setTimeout(() => initCMS(), 100);
+  }
 }
+
+startCMS();
 
 // Exportar funções para uso externo
 window.cmsLoader = {
