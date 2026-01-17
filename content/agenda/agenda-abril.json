@@ -4,6 +4,7 @@
   "description": "Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.",
   "type": "Evento temático • Base aérea Nº1(Pêro Pinheiro)",
   "location": "Base aérea Nº1(Pêro Pinheiro)",
-  "order": 3
+  "order": 3,
+  "published": true
 }
 

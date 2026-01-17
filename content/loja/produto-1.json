@@ -3,6 +3,7 @@
   "description": "Conjunto de 3 autocolantes com designs exclusivos Sintra Clássicos.",
   "price": "€5",
   "image": "img/stickers.png",
-  "available": true
+  "available": true,
+  "published": true
 }
 

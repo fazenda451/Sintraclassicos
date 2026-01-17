@@ -3,6 +3,7 @@
   "description": "Uma seleção de fotos do evento",
   "image": "img/preview.png",
   "date": "2025-10-01",
-  "order": 3
+  "order": 3,
+  "published": true
 }
 

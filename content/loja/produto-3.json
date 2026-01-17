@@ -3,6 +3,7 @@
   "description": "T-shirt de algodão com o logo Sintra Clássicos. Disponível em várias cores e tamanhos.",
   "price": "€20",
   "image": "img/stickers.png",
-  "available": true
+  "available": true,
+  "published": true
 }
 

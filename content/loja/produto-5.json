@@ -3,6 +3,7 @@
   "description": "Caneca de cerâmica com impressão da logo Sintra Clássicos — resistente à máquina de lavar.",
   "price": "€10",
   "image": "img/stickers.png",
-  "available": true
+  "available": true,
+  "published": true
 }
 
