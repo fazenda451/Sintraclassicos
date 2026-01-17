@@ -28,7 +28,7 @@ async function loadJSON(path) {
 async function loadCollection(folder) {
   try {
     // Lista de ficheiros conhecidos (pode ser melhorado com uma API que liste ficheiros)
-    const files = await fetch(`${folder}/index.json`).catch(() => null);
+    const files = await fetch(`${folder}/.index.json`).catch(() => null);
     if (files && files.ok) {
       const fileList = await files.json();
       const data = await Promise.all(
@@ -65,7 +65,7 @@ async function loadEventos() {
   // Tenta carregar um índice de ficheiros, senão usa lista padrão
   let eventFiles = [];
   try {
-    const index = await loadJSON('content/eventos/index.json');
+    const index = await loadJSON('content/eventos/.index.json');
     if (index && Array.isArray(index)) {
       eventFiles = index.map(f => `content/eventos/${f}`);
     }
@@ -95,7 +95,7 @@ async function loadAgenda() {
   
   let agendaFiles = [];
   try {
-    const index = await loadJSON('content/agenda/index.json');
+    const index = await loadJSON('content/agenda/.index.json');
     if (index && Array.isArray(index)) {
       agendaFiles = index.map(f => `content/agenda/${f}`);
     }
@@ -128,7 +128,7 @@ async function loadGaleria() {
   
   let galeriaFiles = [];
   try {
-    const index = await loadJSON('content/galeria/index.json');
+    const index = await loadJSON('content/galeria/.index.json');
     if (index && Array.isArray(index)) {
       galeriaFiles = index.map(f => `content/galeria/${f}`);
     }
@@ -161,7 +161,7 @@ async function loadLoja() {
   
   let lojaFiles = [];
   try {
-    const index = await loadJSON('content/loja/index.json');
+    const index = await loadJSON('content/loja/.index.json');
     if (index && Array.isArray(index)) {
       lojaFiles = index.map(f => `content/loja/${f}`);
     }
