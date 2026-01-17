@@ -4,7 +4,7 @@
 # Configuração para o Git Gateway (autenticação do CMS)
 [build]
   publish = "."
-  command = "echo 'Static site - no build needed'"
+  command = "npm run build"
 
 # Configuração do servidor de desenvolvimento
 [dev]
