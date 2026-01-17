@@ -4,6 +4,7 @@
   "description": "Ao longo do ano, o SintraClássicos visa organizar eventos que abrangem diversas eras e modelos do mundo automóvel.",
   "type": "Mais informações nas nossas redes sociais",
   "location": "",
-  "order": 4
+  "order": 4,
+  "published": true
 }
 
