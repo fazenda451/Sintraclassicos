@@ -6,12 +6,40 @@
 // Cache para os dados carregados
 const cmsCache = {};
 
+// Desabilitar cache por padrão em desenvolvimento
+// Para habilitar cache, defina window.ENABLE_CMS_CACHE = true
+const ENABLE_CACHE = window.ENABLE_CMS_CACHE !== false && 
+                     !window.location.hostname.includes('localhost') && 
+                     !window.location.hostname.includes('127.0.0.1');
+
+/**
+ * Limpa o cache do CMS
+ */
+function clearCMSCache() {
+  Object.keys(cmsCache).forEach(key => delete cmsCache[key]);
+  console.log('Cache do CMS limpo');
+}
+
+/**
+ * Força recarregamento de todos os dados do CMS
+ */
+async function reloadCMS() {
+  clearCMSCache();
+  await initCMS(true);
+}
+
 /**
  * Carrega um ficheiro JSON
+ * @param {string} path - Caminho do ficheiro JSON
+ * @param {boolean} bypassCache - Se true, adiciona timestamp para forçar recarregamento
  */
-async function loadJSON(path) {
+async function loadJSON(path, bypassCache = false) {
   try {
-    const response = await fetch(path);
+    // Adiciona cache-busting se necessário
+    const url = bypassCache ? `${path}?t=${Date.now()}` : path;
+    const response = await fetch(url, {
+      cache: bypassCache ? 'no-cache' : 'default'
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -48,24 +76,26 @@ async function loadCollection(folder) {
 
 /**
  * Carrega dados do Hero
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadHero() {
-  if (cmsCache.hero) return cmsCache.hero;
-  const data = await loadJSON('content/hero/hero.json');
-  if (data) cmsCache.hero = data;
+async function loadHero(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.hero) return cmsCache.hero;
+  const data = await loadJSON('content/hero/hero.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.hero = data;
   return data;
 }
 
 /**
  * Carrega eventos
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadEventos() {
-  if (cmsCache.eventos) return cmsCache.eventos;
+async function loadEventos(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.eventos) return cmsCache.eventos;
   
   // Tenta carregar um índice de ficheiros, senão usa lista padrão
   let eventFiles = [];
   try {
-    const index = await loadJSON('content/eventos/.index.json');
+    const index = await loadJSON('content/eventos/.index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       eventFiles = index.map(f => `content/eventos/${f}`);
     }
@@ -79,23 +109,24 @@ async function loadEventos() {
   }
   
   const eventos = await Promise.all(
-    eventFiles.map(file => loadJSON(file))
+    eventFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
   
   const published = eventos.filter(e => e && e.published !== false);
-  if (published.length > 0) cmsCache.eventos = published;
+  if (published.length > 0 && ENABLE_CACHE) cmsCache.eventos = published;
   return published;
 }
 
 /**
  * Carrega agenda
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadAgenda() {
-  if (cmsCache.agenda) return cmsCache.agenda;
+async function loadAgenda(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.agenda) return cmsCache.agenda;
   
   let agendaFiles = [];
   try {
-    const index = await loadJSON('content/agenda/.index.json');
+    const index = await loadJSON('content/agenda/.index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       agendaFiles = index.map(f => `content/agenda/${f}`);
     }
@@ -109,26 +140,27 @@ async function loadAgenda() {
   }
   
   const agenda = await Promise.all(
-    agendaFiles.map(file => loadJSON(file))
+    agendaFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
   
   const sorted = agenda
     .filter(a => a !== null)
     .sort((a, b) => (a.order || 0) - (b.order || 0));
   
-  if (sorted.length > 0) cmsCache.agenda = sorted;
+  if (sorted.length > 0 && ENABLE_CACHE) cmsCache.agenda = sorted;
   return sorted;
 }
 
 /**
  * Carrega galeria
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadGaleria() {
-  if (cmsCache.galeria) return cmsCache.galeria;
+async function loadGaleria(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.galeria) return cmsCache.galeria;
   
   let galeriaFiles = [];
   try {
-    const index = await loadJSON('content/galeria/.index.json');
+    const index = await loadJSON('content/galeria/.index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       galeriaFiles = index.map(f => `content/galeria/${f}`);
     }
@@ -142,26 +174,27 @@ async function loadGaleria() {
   }
   
   const galeria = await Promise.all(
-    galeriaFiles.map(file => loadJSON(file))
+    galeriaFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
   
   const sorted = galeria
     .filter(g => g !== null)
     .sort((a, b) => (a.order || 0) - (b.order || 0));
   
-  if (sorted.length > 0) cmsCache.galeria = sorted;
+  if (sorted.length > 0 && ENABLE_CACHE) cmsCache.galeria = sorted;
   return sorted;
 }
 
 /**
  * Carrega produtos da loja
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadLoja() {
-  if (cmsCache.loja) return cmsCache.loja;
+async function loadLoja(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.loja) return cmsCache.loja;
   
   let lojaFiles = [];
   try {
-    const index = await loadJSON('content/loja/.index.json');
+    const index = await loadJSON('content/loja/.index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       lojaFiles = index.map(f => `content/loja/${f}`);
     }
@@ -177,31 +210,33 @@ async function loadLoja() {
   }
   
   const produtos = await Promise.all(
-    lojaFiles.map(file => loadJSON(file))
+    lojaFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
   
   const available = produtos.filter(p => p && p.available !== false);
-  if (available.length > 0) cmsCache.loja = available;
+  if (available.length > 0 && ENABLE_CACHE) cmsCache.loja = available;
   return available;
 }
 
 /**
  * Carrega dados da comunidade
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadComunidade() {
-  if (cmsCache.comunidade) return cmsCache.comunidade;
-  const data = await loadJSON('content/comunidade/comunidade.json');
-  if (data) cmsCache.comunidade = data;
+async function loadComunidade(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.comunidade) return cmsCache.comunidade;
+  const data = await loadJSON('content/comunidade/comunidade.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.comunidade = data;
   return data;
 }
 
 /**
  * Carrega contactos
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function loadContactos() {
-  if (cmsCache.contactos) return cmsCache.contactos;
-  const data = await loadJSON('content/contactos/contactos.json');
-  if (data) cmsCache.contactos = data;
+async function loadContactos(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.contactos) return cmsCache.contactos;
+  const data = await loadJSON('content/contactos/contactos.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.contactos = data;
   return data;
 }
 
@@ -423,18 +458,19 @@ function renderContactos(data) {
 
 /**
  * Inicializa e carrega todo o conteúdo do CMS
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
-async function initCMS() {
+async function initCMS(forceReload = false) {
   try {
     // Carregar todos os dados em paralelo
     const [hero, eventos, agenda, galeria, loja, comunidade, contactos] = await Promise.all([
-      loadHero(),
-      loadEventos(),
-      loadAgenda(),
-      loadGaleria(),
-      loadLoja(),
-      loadComunidade(),
-      loadContactos()
+      loadHero(forceReload),
+      loadEventos(forceReload),
+      loadAgenda(forceReload),
+      loadGaleria(forceReload),
+      loadLoja(forceReload),
+      loadComunidade(forceReload),
+      loadContactos(forceReload)
     ]);
     
     // Renderizar tudo
@@ -467,6 +503,66 @@ window.cmsLoader = {
   loadLoja,
   loadComunidade,
   loadContactos,
-  initCMS
+  initCMS,
+  clearCMSCache,
+  reloadCMS
 };
+
+// Detectar quando o Netlify CMS salva alterações e recarregar
+(function() {
+  // Verificar se há parâmetro na URL para forçar recarregamento
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('reload') === 'true') {
+    setTimeout(() => initCMS(true), 100);
+  }
+  
+  // Adicionar listener para eventos de storage (útil quando o CMS salva)
+  window.addEventListener('storage', (e) => {
+    if (e.key && e.key.startsWith('netlify-cms')) {
+      reloadCMS();
+    }
+  });
+  
+  // Polling para verificar se os arquivos foram atualizados (fallback)
+  // Verifica a cada 5 segundos se estamos na página do admin
+  if (window.location.pathname.includes('/admin')) {
+    let lastCheck = Date.now();
+    setInterval(async () => {
+      try {
+        // Verifica se algum arquivo foi modificado recentemente
+        const checkTime = Date.now();
+        const response = await fetch('content/hero/hero.json?t=' + checkTime, { method: 'HEAD' });
+        const lastModified = response.headers.get('last-modified');
+        if (lastModified) {
+          const modifiedTime = new Date(lastModified).getTime();
+          if (modifiedTime > lastCheck) {
+            console.log('Alterações detectadas no CMS - recarregando...');
+            reloadCMS();
+            lastCheck = modifiedTime;
+          }
+        }
+      } catch (e) {
+        // Ignorar erros de polling
+      }
+    }, 5000);
+  }
+  
+  // Detectar quando o Netlify CMS salva (usando eventos customizados)
+  if (window.CMS) {
+    window.CMS.registerEventListener({
+      name: 'preSave',
+      handler: () => {
+        console.log('CMS: Salvando alterações...');
+      }
+    });
+    
+    window.CMS.registerEventListener({
+      name: 'postSave',
+      handler: () => {
+        console.log('CMS: Alterações salvas - recarregando site...');
+        setTimeout(() => reloadCMS(), 1000);
+      }
+    });
+  }
+})();
 
