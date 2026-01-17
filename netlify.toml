@@ -1,0 +1,33 @@
+# Netlify configuration file
+# Este ficheiro configura o Netlify para funcionar com o CMS
+
+# Configuração para o Git Gateway (autenticação do CMS)
+[build]
+  publish = "."
+  command = "echo 'Static site - no build needed'"
+
+# Configuração do servidor de desenvolvimento
+[dev]
+  command = "npx serve . -p 8888"
+  port = 8888
+  publish = "."
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Redirect para o config.yml do CMS
+[[redirects]]
+  from = "/config.yml"
+  to = "/static/admin/config.yml"
+  status = 200
+
+# Headers para segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+

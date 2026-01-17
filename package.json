@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "generate-config": "node scripts/generate-config.js"
+    "generate-config": "node scripts/generate-config.js",
+    "dev": "npx serve . -p 8888",
+    "serve": "npx serve .",
+    "netlify:dev": "netlify dev",
+    "cms:proxy": "npx netlify-cms-proxy-server"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0",
+    "netlify-cms-proxy-server": "^1.3.0"
   }
 }
