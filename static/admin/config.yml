@@ -27,6 +27,7 @@ collections:
     extension: "json"
     slug: "evento-{{slug}}.json" # Filename template, e.g., evento-1.json
     summary: "{{title}} - {{location}}"
+    # NOTA: O arquivo index.json não deve ser editado - é usado apenas para listar os arquivos
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string", required: true}
       - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
