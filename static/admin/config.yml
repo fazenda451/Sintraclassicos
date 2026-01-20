@@ -115,7 +115,7 @@ collections:
       - {label: "Email", name: "email", widget: "string"}
       - {label: "Instagram URL", name: "instagramUrl", widget: "string"}
       - {label: "Facebook URL", name: "facebookUrl", widget: "string"}
-      - {label: "Benefits List", name: "benefits", widget: "list", fields: [{label: "Benefit", name: "benefit", widget: "string"}]}
+      - {label: "Benefits List", name: "benefits", widget: "list", field: {label: "Benefit", name: "benefit", widget: "string"}}
 
   - name: "config"
     label: "Configurações Gerais"

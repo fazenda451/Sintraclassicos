@@ -1,9 +1,8 @@
 {
-  "title": "Pack de Stickers (3 unidades)",
-  "description": "Conjunto de 3 autocolantes com designs exclusivos Sintra Clássicos.",
-  "price": "€5",
-  "image": "img/stickers.png",
+  "title": "Sticker Individual",
+  "description": "Autocolante individual com o logótipo SintraClássicos. Conta com as seguintes dimensões: ",
+  "price": "€2",
+  "image": "/img/scsticker.png",
   "available": true,
   "published": true
 }
-

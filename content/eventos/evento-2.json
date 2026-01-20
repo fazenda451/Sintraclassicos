@@ -1,13 +1,12 @@
 {
-  "title": "Evento Mercedes-Benz W123",
-  "date": "2026-02-15T09:30:00.000Z",
-  "location": "Fevereiro 2026 • Base Aérea Nº1",
-  "image": "img/MESFEVEREIROW123.jpeg",
-  "description": "Concentração estática para celebrar os 50 anos do icónico modelo Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior.",
-  "price": "Gratuito",
-  "startTime": "Início ás 09h30",
-  "endTime": "Término ás 12h30",
-  "visitantFee": "A entrada a visitantes é gratuita",
-  "published": true
+  "endTime": "N/D",
+  "price": "N/D",
+  "published": true,
+  "date": "1010-01-01 01:01",
+  "startTime": "N/D",
+  "location": "Março • N/D",
+  "title": "Evento Mensal • Março",
+  "image": "/img/sintraclassicosposterdefault.jpeg",
+  "visitantFee": "N/D",
+  "description": "Evento com especificações ainda por determinar. Mais informações em breve!"
 }
-
