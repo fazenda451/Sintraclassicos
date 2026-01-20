@@ -1,15 +1,11 @@
 {
-  "subtitle": "As regras que deve conhecer",
-  "description": "Todos os eventos SintraClássicos contam com um conjunto de regras estipuladas para fornecer a melhor experiência ao espaço que nos recebe, participantes e visitantes, fique a conhecê-las abaixo.",
-  "introParagraph1": "Após a revalidação da parceria com o Museu do Ar, a participação nos eventos do Sintra Clássicos que se realizam na Base aérea de Sintra, foram alvo de uma revisão das regras.",
-  "introParagraph2": "Assim, agradecemos que leia as mesmas e responda a este formulário de inscrição com as informações pedidas. Estas apenas serão usadas por questões de segurança e para efectuar o controlo das entradas em todos os eventos",
-  "introParagraph3": "O encontro está aberto a Automóveis e Motos Clássicos e Desportivos Topos de Gama. Estes últimos só entrarão por convite da organização",
   "classicosTitle": "Clássicos",
   "classicosDescription": "Veículos a partir dos 30 anos de idade, com data da primeira matrícula até 1994, movidos a gasolina, dentro da sua originalidade de fábrica ou com modificações de época.",
   "classicosNote": "Só são admitidos automóveis a gasóleo cuja primeira matricula seja até 1983, os quais devem estar dentro da sua originalidade de fábrica.",
+  "introParagraph1": "Após a revalidação da parceria com o Museu do Ar, a participação nos eventos do Sintra Clássicos que se realizam na Base aérea de Sintra, foram alvo de uma revisão das regras.",
+  "introParagraph2": "Assim, agradecemos que leia as mesmas e responda a este formulário de inscrição com as informações pedidas. Estas apenas serão usadas por questões de segurança e para efectuar o controlo das entradas em todos os eventos",
+  "introParagraph3": "O encontro está aberto a Automóveis e Motos Clássicos e Desportivos Topos de Gama. Estes últimos só entrarão por convite da organização",
   "desportivosTitle": "Desportivos Topos de Gama",
-  "desportivosBadge": "Entrada por convite da organização via email",
-  "desportivosDescription": "Veículos desportivos movidos a gasolina com motorizações de cariz desportivo, que tenham sido pensados para uma condução desportiva, tais como coupes, roadsters, cabrios, hatchbacks ou sedans de séries limitadas ou com motorizações fora do comum, assim como superdesportivos.",
   "desportivosNote": "*A cada mês serão selecionados cerca de 30 automóveis Desportivos Topos de Gama e será enviado um email com o convite para participar no evento.",
   "rules": [
     "O número máximo de entrada de veículos passa a ser de 150.",
@@ -17,5 +13,9 @@
     "Todas as inscrições serão alvo de selecção por parte da organização.",
     "Apenas as inscrições não aceites serão comunicadas via email, as restantes consideram-se inscritas 3 dias após a data de inscrição..",
     "As inscrições devem ser efectuadas até 3 dias antes da data do evento."
-  ]
+  ],
+  "subtitle": "As regras que deve conhecer.",
+  "desportivosDescription": "Veículos desportivos movidos a gasolina com motorizações de cariz desportivo, que tenham sido pensados para uma condução desportiva, tais como coupes, roadsters, cabrios, hatchbacks ou sedans de séries limitadas ou com motorizações fora do comum, assim como superdesportivos.",
+  "description": "Todos os eventos SintraClássicos contam com um conjunto de regras estipuladas para fornecer a melhor experiência ao espaço que nos recebe, participantes e visitantes, fique a conhecê-las abaixo.",
+  "desportivosBadge": "Entrada por convite da organização via email"
 }
