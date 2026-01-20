@@ -366,7 +366,11 @@ a:hover {
 }
 
 .event-card img {
-  object-fit: cover;
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 350px !important; /* aumentar altura */
+  display: block !important;
+  object-position: center !important;
 }
 
 /* Loja: cartões de produto (vibes semelhantes a "Próximos eventos") */
@@ -386,7 +390,7 @@ a:hover {
 
 .product-img {
   height: 220px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 0.35s ease;
 }
