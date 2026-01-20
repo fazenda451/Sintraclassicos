@@ -241,6 +241,17 @@ async function loadContactos(forceReload = false) {
 }
 
 /**
+ * Carrega regras
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
+ */
+async function loadRegras(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.regras) return cmsCache.regras;
+  const data = await loadJSON('content/regras/regras.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.regras = data;
+  return data;
+}
+
+/**
  * Renderiza o Hero
  */
 function renderHero(data) {
@@ -485,6 +496,68 @@ function renderContactos(data) {
 }
 
 /**
+ * Renderiza regras
+ */
+function renderRegras(data) {
+  if (!data) return;
+  
+  // Atualizar subtítulo e descrição
+  const subtitleEl = document.getElementById('regras-subtitle');
+  if (subtitleEl && data.subtitle) subtitleEl.textContent = data.subtitle;
+  
+  const descEl = document.getElementById('regras-description');
+  if (descEl && data.description) descEl.textContent = data.description;
+  
+  // Atualizar parágrafos de introdução
+  const introContainer = document.getElementById('regras-intro');
+  if (introContainer && data.introParagraph1 && data.introParagraph2 && data.introParagraph3) {
+    introContainer.innerHTML = `
+      <p class="mb-3">${data.introParagraph1}</p>
+      <p class="mb-3">${data.introParagraph2}</p>
+      <p class="mb-0">${data.introParagraph3}</p>
+    `;
+  }
+  
+  // Atualizar definição de Clássicos
+  const classicosTitle = document.getElementById('regras-classicos-title');
+  if (classicosTitle && data.classicosTitle) classicosTitle.textContent = data.classicosTitle;
+  
+  const classicosDesc = document.getElementById('regras-classicos-desc');
+  if (classicosDesc && data.classicosDescription) classicosDesc.textContent = data.classicosDescription;
+  
+  const classicosNote = document.getElementById('regras-classicos-note');
+  if (classicosNote && data.classicosNote) {
+    classicosNote.innerHTML = `<strong>Nota:</strong> ${data.classicosNote}`;
+  }
+  
+  // Atualizar definição de Desportivos
+  const desportivosTitle = document.getElementById('regras-desportivos-title');
+  if (desportivosTitle && data.desportivosTitle) desportivosTitle.textContent = data.desportivosTitle;
+  
+  const desportivosBadge = document.getElementById('regras-desportivos-badge');
+  if (desportivosBadge && data.desportivosBadge) desportivosBadge.textContent = data.desportivosBadge;
+  
+  const desportivosDesc = document.getElementById('regras-desportivos-desc');
+  if (desportivosDesc && data.desportivosDescription) desportivosDesc.textContent = data.desportivosDescription;
+  
+  const desportivosNote = document.getElementById('regras-desportivos-note');
+  if (desportivosNote && data.desportivosNote) {
+    desportivosNote.innerHTML = `<strong>*</strong>${data.desportivosNote}`;
+  }
+  
+  // Atualizar lista de regras
+  const rulesContainer = document.getElementById('regras-list');
+  if (rulesContainer && data.rules && Array.isArray(data.rules)) {
+    rulesContainer.innerHTML = data.rules.map(rule => `
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+        <span>${rule}</span>
+      </li>
+    `).join('');
+  }
+}
+
+/**
  * Inicializa e carrega todo o conteúdo do CMS
  * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
@@ -493,14 +566,15 @@ async function initCMS(forceReload = false) {
     console.log('initCMS: Iniciando carregamento do CMS...');
     
     // Carregar todos os dados em paralelo
-    const [hero, eventos, agenda, galeria, loja, comunidade, contactos] = await Promise.all([
+    const [hero, eventos, agenda, galeria, loja, comunidade, contactos, regras] = await Promise.all([
       loadHero(forceReload),
       loadEventos(forceReload),
       loadAgenda(forceReload),
       loadGaleria(forceReload),
       loadLoja(forceReload),
       loadComunidade(forceReload),
-      loadContactos(forceReload)
+      loadContactos(forceReload),
+      loadRegras(forceReload)
     ]);
     
     console.log('initCMS: Dados carregados:', {
@@ -510,7 +584,8 @@ async function initCMS(forceReload = false) {
       galeria: galeria?.length || 0,
       loja: loja?.length || 0,
       comunidade: !!comunidade,
-      contactos: !!contactos
+      contactos: !!contactos,
+      regras: !!regras
     });
     
     // Renderizar tudo
@@ -521,6 +596,7 @@ async function initCMS(forceReload = false) {
     renderLoja(loja);
     renderComunidade(comunidade);
     renderContactos(contactos);
+    renderRegras(regras);
     
     console.log('initCMS: Renderização concluída');
     
@@ -552,6 +628,7 @@ window.cmsLoader = {
   loadLoja,
   loadComunidade,
   loadContactos,
+  loadRegras,
   initCMS,
   clearCMSCache,
   reloadCMS

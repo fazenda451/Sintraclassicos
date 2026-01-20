@@ -117,6 +117,27 @@ collections:
       - {label: "Facebook URL", name: "facebookUrl", widget: "string"}
       - {label: "Benefits List", name: "benefits", widget: "list", field: {label: "Benefit", name: "benefit", widget: "string"}}
 
+  - name: "regras"
+    label: "Regras"
+    folder: "content/regras"
+    create: false
+    format: "json"
+    slug: "regras.json"
+    fields:
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Introduction Paragraph 1", name: "introParagraph1", widget: "text"}
+      - {label: "Introduction Paragraph 2", name: "introParagraph2", widget: "text"}
+      - {label: "Introduction Paragraph 3", name: "introParagraph3", widget: "text"}
+      - {label: "Classicos Title", name: "classicosTitle", widget: "string"}
+      - {label: "Classicos Description", name: "classicosDescription", widget: "text"}
+      - {label: "Classicos Note", name: "classicosNote", widget: "text"}
+      - {label: "Desportivos Title", name: "desportivosTitle", widget: "string"}
+      - {label: "Desportivos Badge", name: "desportivosBadge", widget: "string"}
+      - {label: "Desportivos Description", name: "desportivosDescription", widget: "text"}
+      - {label: "Desportivos Note", name: "desportivosNote", widget: "text"}
+      - {label: "Rules List", name: "rules", widget: "list", field: {label: "Rule", name: "rule", widget: "text"}}
+
   - name: "config"
     label: "Configurações Gerais"
     folder: "content/config"
