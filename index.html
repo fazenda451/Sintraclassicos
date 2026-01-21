@@ -692,11 +692,17 @@
               <p class="text-secondary small mb-3">
                 Estamos sempre há procura de sugestões e feedback da comunidade. Partilhe a sua experiência nos nossos eventos e diga-nos no que podemos melhorar.
               </p>
-              <form id="comunidade-form" class="row g-3">
+              <form id="comunidade-form" class="row g-3" action="https://formsubmit.co/rodrigo.m.fazenda@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nova sugestão da Comunidade - Sintra Clássicos">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="#" id="comunidade-next">
+                
                 <div class="col-md-6">
                   <label class="form-label small text-secondary mb-1" for="nomeComunidade">Nome</label>
                   <input
                     id="nomeComunidade"
+                    name="Nome"
                     type="text"
                     class="form-control form-control-sm"
                     placeholder="O teu nome"
@@ -707,6 +713,7 @@
                   <label class="form-label small text-secondary mb-1" for="emailComunidade">Email</label>
                   <input
                     id="emailComunidade"
+                    name="Email"
                     type="email"
                     class="form-control form-control-sm"
                     placeholder="email@exemplo.pt"
@@ -720,6 +727,7 @@
                   >
                   <textarea
                     id="mensagemComunidade"
+                    name="Mensagem"
                     rows="3"
                     class="form-control form-control-sm"
                     placeholder="Conta-nos um pouco da tua experiência..."
@@ -758,13 +766,19 @@
           <div class="col-lg-7">
             <div class="glass-card p-4 p-md-5">
               <h3 class="h5 mb-3">Formulário rápido de contacto</h3>
-              <form id="contacto-form" class="row g-3">
+              <form id="contacto-form" class="row g-3" action="https://formsubmit.co/rodrigo.m.fazenda@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nova proposta de evento/parceria - Sintra Clássicos">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="#" id="contacto-next">
+                
                 <div class="col-md-6">
                   <label class="form-label small text-secondary mb-1" for="nomeContacto"
                     >Nome / Organizador</label
                   >
                   <input
                     id="nomeContacto"
+                    name="Nome / Organizador"
                     type="text"
                     class="form-control form-control-sm"
                     placeholder="O teu nome ou nome do clube"
@@ -777,6 +791,7 @@
                   >
                   <input
                     id="emailContacto"
+                    name="Email"
                     type="email"
                     class="form-control form-control-sm"
                     placeholder="email@exemplo.pt"
@@ -789,15 +804,16 @@
                   >
                   <select
                     id="tipoEvento"
+                    name="Tipo de evento"
                     class="form-select form-select-sm"
                     required
                   >
                     <option value="" selected disabled>Seleciona uma opção</option>
-                    <option value="evento_estatico">Evento estático</option>
-                    <option value="passeio">Passeio / roteiro</option>
-                    <option value="festival">Festival / exposição alargada</option>
-                    <option value="parceria">Proposta de parceria</option>
-                    <option value="outro">Outro</option>
+                    <option value="Evento estático">Evento estático</option>
+                    <option value="Passeio / roteiro">Passeio / roteiro</option>
+                    <option value="Festival / exposição alargada">Festival / exposição alargada</option>
+                    <option value="Proposta de parceria">Proposta de parceria</option>
+                    <option value="Outro">Outro</option>
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -806,6 +822,7 @@
                   >
                   <input
                     id="dataPrevista"
+                    name="Data prevista"
                     type="date"
                     class="form-control form-control-sm"
                   />
@@ -816,6 +833,7 @@
                   >
                   <textarea
                     id="detalhesEvento"
+                    name="Detalhes do evento"
                     rows="3"
                     class="form-control form-control-sm"
                     placeholder="Local, horário, número estimado de viaturas, necessidades específicas..."
