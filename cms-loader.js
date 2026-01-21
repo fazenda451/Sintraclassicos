@@ -118,19 +118,33 @@ async function loadEventos(forceReload = false) {
 }
 
 /**
- * Carrega agenda
+ * Carrega agenda (secções da timeline no lado direito)
+ * Usa content/agenda/agenda.json com lista "sections" gerida no admin.
  * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
 async function loadAgenda(forceReload = false) {
   if (!forceReload && ENABLE_CACHE && cmsCache.agenda) return cmsCache.agenda;
-  
+
+  try {
+    const data = await loadJSON('content/agenda/agenda.json', forceReload || !ENABLE_CACHE);
+    if (data && Array.isArray(data.sections)) {
+      const sorted = data.sections
+        .filter(s => s && s.published !== false)
+        .sort((a, b) => (a.order || 0) - (b.order || 0));
+      if (sorted.length > 0 && ENABLE_CACHE) cmsCache.agenda = sorted;
+      return sorted;
+    }
+  } catch (e) {
+    /* fallback: método antigo com index + ficheiros separados */
+  }
+
   let agendaFiles = [];
   try {
     const index = await loadJSON('content/agenda/index.json', forceReload || !ENABLE_CACHE);
     if (index && Array.isArray(index)) {
       agendaFiles = index.map(f => `content/agenda/${f}`);
     }
-  } catch (e) {
+  } catch (e2) {
     agendaFiles = [
       'content/agenda/agenda-fevereiro.json',
       'content/agenda/agenda-marco.json',
@@ -138,15 +152,13 @@ async function loadAgenda(forceReload = false) {
       'content/agenda/agenda-ano.json'
     ];
   }
-  
+
   const agenda = await Promise.all(
     agendaFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
-  
   const sorted = agenda
     .filter(a => a !== null)
     .sort((a, b) => (a.order || 0) - (b.order || 0));
-  
   if (sorted.length > 0 && ENABLE_CACHE) cmsCache.agenda = sorted;
   return sorted;
 }
