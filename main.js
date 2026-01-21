@@ -86,17 +86,22 @@ function inicializarInteracoes() {
     });
   }
 
-  // Botões da loja: "Requisitar no evento"
-  document.querySelectorAll('.product-card button[enable]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var card = btn.closest('.product-card') || btn.closest('article');
-      var tituloEl = card ? card.querySelector('h3') : null;
-      var nomeProduto = (tituloEl && tituloEl.textContent) ? tituloEl.textContent.trim() : 'este item';
-      abrirModal(
-        'Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar'
-      );
+  // Botões da loja: "Requisitar no evento" (usando event delegation para funcionar com conteúdo dinâmico)
+  const lojaContainer = document.getElementById('loja');
+  if (lojaContainer) {
+    lojaContainer.addEventListener('click', function (e) {
+      // Verificar se o clique foi em um botão com atributo "enable"
+      const btn = e.target.closest('button[enable]');
+      if (btn) {
+        var card = btn.closest('.product-card') || btn.closest('article');
+        var tituloEl = card ? card.querySelector('h3') : null;
+        var nomeProduto = (tituloEl && tituloEl.textContent) ? tituloEl.textContent.trim() : 'este item';
+        abrirModal(
+          'Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar'
+        );
+      }
     });
-  });
+  }
 
   // Botões "Quero participar" / "Pré-inscrição"
   document.querySelectorAll('[data-event]').forEach(function (btn) {
