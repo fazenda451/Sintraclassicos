@@ -311,7 +311,7 @@ function renderEventos(eventos) {
           </p>
           <ul class="small text-secondary mb-3 ps-3">
             ${evento.startTime ? `<li>${evento.startTime}</li>` : ''}
-            ${evento.endTime ? `<li>${evento.endTime}</li>` : ''}
+            ${evento.Registration ? `<li>${evento.Registration}</li>` : ''}
             ${evento.visitantFee ? `<li>${evento.visitantFee}</li>` : ''}
           </ul>
           <button class="btn btn-outline-info btn-sm mt-auto w-100" data-event="${evento.title}">
