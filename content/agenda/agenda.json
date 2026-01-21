@@ -1,0 +1,40 @@
+{
+  "sections": [
+    {
+      "month": "Fevereiro 2026",
+      "title": "Evento Mercedes-Benz W123",
+      "description": "Evento que partilha a paixão pelo modelo W123 da Mercedes-Benz. Celebrando os seus 50 anos de existência.",
+      "type": "Evento temático • Museu Do Ar(Sintra)",
+      "location": "Museu Do Ar(Sintra)",
+      "order": 1,
+      "published": true
+    },
+    {
+      "month": "Março 2026",
+      "title": "Sintra Clássicos • Março",
+      "description": "Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.",
+      "type": "Evento temático • N/D",
+      "location": "N/D",
+      "order": 2,
+      "published": true
+    },
+    {
+      "month": "Abril 2026",
+      "title": "Sintra Clássicos • Abril",
+      "description": "Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.",
+      "type": "Evento temático • N/D",
+      "location": "N/D",
+      "order": 3,
+      "published": true
+    },
+    {
+      "month": "Todo o ano",
+      "title": "Eventos Anuais",
+      "description": "Ao longo do ano, o SintraClássicos visa organizar eventos que abrangem diversas eras e modelos do mundo automóvel.",
+      "type": "Mais informações nas nossas redes sociais",
+      "location": " ",
+      "order": 4,
+      "published": true
+    }
+  ]
+}

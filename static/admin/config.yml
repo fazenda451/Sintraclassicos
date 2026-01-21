@@ -43,19 +43,22 @@ collections:
 
   - name: "agenda"
     label: "Agenda Anual"
-    folder: "content/agenda"
-    create: true
+    file: "content/agenda/agenda.json"
     format: "json"
-    slug: "{{slug}}.json"
-    summary: "{{title}} - {{month}}"
+    description: "Secções da timeline no lado direito da Agenda. Use «Adicionar secção» para novas entradas e o ícone do lixo para remover."
     fields:
-      - {label: "Month", name: "month", widget: "string"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Type", name: "type", widget: "string"}
-      - {label: "Location", name: "location", widget: "string"}
-      - {label: "Order", name: "order", widget: "number", default: 0}
-      - {label: "Published", name: "published", widget: "boolean", default: true}
+      - label: "Secções da Agenda"
+        name: "sections"
+        widget: "list"
+        summary: "{{month}} - {{title}}"
+        fields:
+          - {label: "Mês / Período", name: "month", widget: "string", hint: "Ex: Fevereiro 2026, Todo o ano"}
+          - {label: "Título", name: "title", widget: "string"}
+          - {label: "Descrição", name: "description", widget: "text"}
+          - {label: "Tipo", name: "type", widget: "string", hint: "Ex: Evento temático • Local"}
+          - {label: "Local", name: "location", widget: "string", required: false}
+          - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 0, hint: "Ordenação (0, 1, 2...)"}
+          - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "galeria"
     label: "Galeria"
