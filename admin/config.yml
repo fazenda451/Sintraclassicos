@@ -42,22 +42,25 @@ collections:
 
   - name: "agenda"
     label: "Agenda Anual"
-    file: "content/agenda/agenda.json"
-    format: "json"
-    description: "Secções da timeline no lado direito da Agenda. Use «Adicionar secção» para novas entradas e o ícone do lixo para remover."
-    fields:
-      - label: "Secções da Agenda"
-        name: "sections"
-        widget: "list"
-        summary: "{{month}} - {{title}}"
+    files:
+      - file: "content/agenda/agenda.json"
+        label: "Secções da Agenda"
+        name: "agenda"
+        format: "json"
         fields:
-          - {label: "Mês / Período", name: "month", widget: "string", hint: "Ex: Fevereiro 2026, Todo o ano"}
-          - {label: "Título", name: "title", widget: "string"}
-          - {label: "Descrição", name: "description", widget: "text"}
-          - {label: "Tipo", name: "type", widget: "string", hint: "Ex: Evento temático • Local"}
-          - {label: "Local", name: "location", widget: "string", required: false}
-          - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 0, hint: "Ordenação (0, 1, 2...)"}
-          - {label: "Publicado", name: "published", widget: "boolean", default: true}
+          - label: "Secções da Agenda"
+            name: "sections"
+            widget: "list"
+            summary: "{{month}} - {{title}}"
+            hint: "Secções da timeline no lado direito. Use «Adicionar secção» para novas entradas e o ícone do lixo para remover."
+            fields:
+              - {label: "Mês / Período", name: "month", widget: "string", hint: "Ex: Fevereiro 2026, Todo o ano"}
+              - {label: "Título", name: "title", widget: "string"}
+              - {label: "Descrição", name: "description", widget: "text"}
+              - {label: "Tipo", name: "type", widget: "string", hint: "Ex: Evento temático • Local"}
+              - {label: "Local", name: "location", widget: "string", required: false}
+              - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 0, hint: "Ordenação (0, 1, 2...)"}
+              - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "galeria"
     label: "Galeria"
