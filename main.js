@@ -103,9 +103,9 @@ function inicializarInteracoes() {
     btn.addEventListener('click', function () {
       const nomeEvento = btn.getAttribute('data-event') || 'neste evento';
       abrirModal(
-        'Registámos o teu interesse em "' +
+        'Agradecemos pelo seu interesse em "' +
           nomeEvento +
-          '". Preenche o formulário para completar a tua inscrição.',
+          '". Para proceder com a sua inscrição, preencha o formulário abaixo',
         true // Mostrar botão de formulário
       );
     });
