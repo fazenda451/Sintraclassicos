@@ -56,33 +56,118 @@ function inicializarInteracoes() {
     });
   }
 
-  // Form comunidade
+  // Form comunidade - usar fetch para enviar e mostrar feedback
   const comunidadeForm = document.getElementById('comunidade-form');
   if (comunidadeForm) {
-    comunidadeForm.addEventListener('submit', function (e) {
+    comunidadeForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      abrirModal(
-        'Obrigado pela sua sugestão! Vamos analisar o seu feedback para melhorar a experiência de todos os que participam no SintraClássicos.'
-      );
-      comunidadeForm.reset();
+      
+      // Desabilitar botão durante o envio
+      const submitBtn = comunidadeForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'A enviar...';
+      }
+
+      try {
+        // Criar FormData do formulário
+        const formData = new FormData(comunidadeForm);
+        
+        // Enviar para FormSubmit
+        const response = await fetch('https://formsubmit.co/ajax/rodrigo.m.fazenda@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          abrirModal(
+            'Obrigado pela sua sugestão! Vamos analisar o seu feedback para melhorar a experiência de todos os que participam no SintraClássicos.'
+          );
+          comunidadeForm.reset();
+        } else {
+          throw new Error('Erro ao enviar');
+        }
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        abrirModal(
+          'Ocorreu um erro ao enviar a sua mensagem. Por favor, tente novamente mais tarde ou contacte-nos diretamente.'
+        );
+      } finally {
+        // Restaurar botão
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
     });
   }
 
-  // Form contacto
+  // Form contacto - usar fetch para enviar e mostrar feedback
   const contactoForm = document.getElementById('contacto-form');
   const contactoFeedback = document.getElementById('contacto-feedback');
   if (contactoForm) {
-    contactoForm.addEventListener('submit', function (e) {
+    contactoForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      abrirModal(
-        'Os detalhes do teu evento/parceria foram enviados. A equipa Sintra Clássicos entrará em contacto para alinhar os próximos passos.'
-      );
-      if (contactoFeedback) {
-        contactoFeedback.textContent = 'Mensagem enviada com sucesso.';
-        contactoFeedback.classList.remove('text-danger');
-        contactoFeedback.classList.add('text-success');
+      
+      // Desabilitar botão durante o envio
+      const submitBtn = contactoForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'A enviar...';
       }
-      contactoForm.reset();
+
+      // Limpar feedback anterior
+      if (contactoFeedback) {
+        contactoFeedback.textContent = '';
+        contactoFeedback.classList.remove('text-danger', 'text-success');
+      }
+
+      try {
+        // Criar FormData do formulário
+        const formData = new FormData(contactoForm);
+        
+        // Enviar para FormSubmit
+        const response = await fetch('https://formsubmit.co/ajax/rodrigo.m.fazenda@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          abrirModal(
+            'Os detalhes do teu evento/parceria foram enviados. A equipa Sintra Clássicos entrará em contacto para alinhar os próximos passos.'
+          );
+          if (contactoFeedback) {
+            contactoFeedback.textContent = 'Mensagem enviada com sucesso.';
+            contactoFeedback.classList.remove('text-danger');
+            contactoFeedback.classList.add('text-success');
+          }
+          contactoForm.reset();
+        } else {
+          throw new Error('Erro ao enviar');
+        }
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        if (contactoFeedback) {
+          contactoFeedback.textContent = 'Erro ao enviar. Tente novamente.';
+          contactoFeedback.classList.remove('text-success');
+          contactoFeedback.classList.add('text-danger');
+        }
+        abrirModal(
+          'Ocorreu um erro ao enviar a sua mensagem. Por favor, tente novamente mais tarde ou contacte-nos diretamente.'
+        );
+      } finally {
+        // Restaurar botão
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
     });
   }
 
