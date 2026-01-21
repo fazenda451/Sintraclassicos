@@ -371,7 +371,7 @@ function renderAgenda(agenda) {
       </div>
       <div class="flex-grow-1">
         ${item.month ? `<div class="badge-soft text-secondary mb-1">${item.month}</div>` : ''}
-        ${item.title ? `<h3 class="h6 text-light mb-1">${item.title}</h3>` : ''}
+        ${item.title ? `<h3 class="h6 mb-1" style="color: var(--sc-gold) !important;">${item.title}</h3>` : ''}
         <p class="text-secondary small mb-1">
           ${item.description || ''}
         </p>
