@@ -459,16 +459,18 @@ function renderComunidade(data) {
   const descEl = document.querySelector('#comunidade .col-lg-6 > p.text-secondary');
   if (descEl && data.description) descEl.textContent = data.description;
   
-  const ownersTitle = document.querySelector('#comunidade .community-pill:first-child h3');
+  // Bloco para proprietários
+  const ownersTitle = document.getElementById('community-owners-title');
   if (ownersTitle && data.forOwnersTitle) ownersTitle.textContent = data.forOwnersTitle;
   
-  const ownersText = document.querySelector('#comunidade .community-pill:first-child p');
+  const ownersText = document.getElementById('community-owners-text');
   if (ownersText && data.forOwnersText) ownersText.textContent = data.forOwnersText;
   
-  const enthusiastsTitle = document.querySelector('#comunidade .community-pill:last-child h3');
+  // Bloco para entusiastas
+  const enthusiastsTitle = document.getElementById('community-enthusiasts-title');
   if (enthusiastsTitle && data.forEnthusiastsTitle) enthusiastsTitle.textContent = data.forEnthusiastsTitle;
   
-  const enthusiastsText = document.querySelector('#comunidade .community-pill:last-child p');
+  const enthusiastsText = document.getElementById('community-enthusiasts-text');
   if (enthusiastsText && data.forEnthusiastsText) enthusiastsText.textContent = data.forEnthusiastsText;
   
   const suggestionTitle = document.querySelector('#comunidade .glass-card h3');
