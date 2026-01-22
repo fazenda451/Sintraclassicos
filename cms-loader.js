@@ -264,6 +264,17 @@ async function loadRegras(forceReload = false) {
 }
 
 /**
+ * Carrega configurações gerais do site
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
+ */
+async function loadConfig(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.config) return cmsCache.config;
+  const data = await loadJSON('content/config/site.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.config = data;
+  return data;
+}
+
+/**
  * Renderiza o Hero
  */
 function renderHero(data) {
@@ -572,6 +583,25 @@ function renderRegras(data) {
 }
 
 /**
+ * Renderiza configurações gerais do site
+ */
+function renderConfig(data) {
+  if (!data) return;
+  
+  // Atualizar tagline do footer
+  const footerTaglineEl = document.getElementById('footer-tagline');
+  if (footerTaglineEl && data.footerTagline) {
+    footerTaglineEl.textContent = `"${data.footerTagline}"`;
+  }
+  
+  // Atualizar footer text se necessário
+  const footerTextEl = document.querySelector('footer .text-muted-75');
+  if (footerTextEl && data.footerText) {
+    footerTextEl.textContent = data.footerText;
+  }
+}
+
+/**
  * Inicializa e carrega todo o conteúdo do CMS
  * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
@@ -580,7 +610,7 @@ async function initCMS(forceReload = false) {
     console.log('initCMS: Iniciando carregamento do CMS...');
     
     // Carregar todos os dados em paralelo
-    const [hero, eventos, agenda, galeria, loja, comunidade, contactos, regras] = await Promise.all([
+    const [hero, eventos, agenda, galeria, loja, comunidade, contactos, regras, config] = await Promise.all([
       loadHero(forceReload),
       loadEventos(forceReload),
       loadAgenda(forceReload),
@@ -588,7 +618,8 @@ async function initCMS(forceReload = false) {
       loadLoja(forceReload),
       loadComunidade(forceReload),
       loadContactos(forceReload),
-      loadRegras(forceReload)
+      loadRegras(forceReload),
+      loadConfig(forceReload)
     ]);
     
     console.log('initCMS: Dados carregados:', {
@@ -599,7 +630,8 @@ async function initCMS(forceReload = false) {
       loja: loja?.length || 0,
       comunidade: !!comunidade,
       contactos: !!contactos,
-      regras: !!regras
+      regras: !!regras,
+      config: !!config
     });
     
     // Renderizar tudo
@@ -611,6 +643,7 @@ async function initCMS(forceReload = false) {
     renderComunidade(comunidade);
     renderContactos(contactos);
     renderRegras(regras);
+    renderConfig(config);
     
     console.log('initCMS: Renderização concluída');
     
@@ -643,6 +676,7 @@ window.cmsLoader = {
   loadComunidade,
   loadContactos,
   loadRegras,
+  loadConfig,
   initCMS,
   clearCMSCache,
   reloadCMS
