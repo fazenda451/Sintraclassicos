@@ -75,7 +75,7 @@ function inicializarInteracoes() {
         const formData = new FormData(comunidadeForm);
         
         // Enviar para FormSubmit
-        const response = await fetch('https://formsubmit.co/ajax/rodrigo.m.fazenda@gmail.com', {
+        const response = await fetch('https://formsubmit.co/ajax/sintraclassicos14@gmail.com', {
           method: 'POST',
           body: formData
         });
@@ -131,7 +131,7 @@ function inicializarInteracoes() {
         const formData = new FormData(contactoForm);
         
         // Enviar para FormSubmit
-        const response = await fetch('https://formsubmit.co/ajax/rodrigo.m.fazenda@gmail.com', {
+        const response = await fetch('https://formsubmit.co/ajax/sintraclassicos14@gmail.comm', {
           method: 'POST',
           body: formData
         });
