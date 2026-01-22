@@ -607,12 +607,21 @@ a:hover {
 }
 
 .text-muted-75 {
-  color: rgba(249, 250, 251, 0.7);
+  color: rgba(249, 250, 251, 0.55);
 }
 
 .footer-mark {
-  width: 64px;
-  height: 32px;
+  width: 96px;
+  height: 48px;
+}
+
+.footer .fa-brands {
+  font-size: 1.2rem;
+}
+
+.footer .navbar-logo {
+  max-height: 56px;
+  width: auto;
 }
 
 .footer-link {
@@ -668,6 +677,17 @@ a:hover {
 
 .footer-links-list li + li {
   margin-top: 0.25rem;
+}
+
+.developer-link {
+  color: rgba(249, 250, 251, 0.55);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.developer-link:hover {
+  color: var(--sc-gold);
+  text-decoration: none;
 }
 
 /* cards laterais da secção Comunidade */
