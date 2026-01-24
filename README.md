@@ -313,13 +313,17 @@ Sistema de modal reutilizável através do Bootstrap, utilizado para feedback ao
 
 ## 👥 Autores
 
-Trabalho académico desenvolvido no âmbito de **Programação Web**.
+Trabalho académico desenvolvido no âmbito de **Programação Web** por:
+
+- Rodrigo Fazenda
+- Tomas Felicio
+- Rafael Correia
 
 ---
 
 ## 📄 Licença
 
-Este projeto foi desenvolvido para fins académicos.
+Este projeto foi desenvolvido para fins académicos e Profissionais.
 
 ---
 
