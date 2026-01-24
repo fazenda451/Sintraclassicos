@@ -70,8 +70,28 @@ Sintraclassicos/
 │
 ├── 📄 index.html          # Página principal (todo o conteúdo HTML)
 ├── 📜 main.js             # Lógica JavaScript principal
+├── 📜 mapa.js             # Lógica do mapa interativo
+├── 📜 cms-loader.js       # Carrega conteúdo dinamicamente do CMS
 ├── 🎨 style.css           # Estilos customizados
+├── 📄 package.json        # Dependências e scripts
+├── 📄 netlify.toml        # Configuração do Netlify
 │
+├── 📁 admin/              # Interface do CMS
+│   ├── index.html         # Interface do CMS
+│   └── config.yml         # Configuração do CMS
+├── 📁 static/admin/       # Configuração do CMS (produção)
+│   └── config.yml
+├── 📁 content/            # Conteúdo editável via CMS
+│   ├── hero/
+│   ├── eventos/
+│   ├── agenda/
+│   ├── galeria/
+│   ├── loja/
+│   ├── comunidade/
+│   ├── contactos/
+│   └── config/
+├── 📁 scripts/            # Scripts de build
+│   └── generate-config.js # Gera config.js a partir de .env
 └── 📁 img/                # Imagens
     ├── 🖼️ banner.jpg      # Banner principal
     └── 🖼️ logo.jpg         # Logótipo
@@ -195,9 +215,95 @@ Todo o conteúdo está incluído diretamente no `index.html` para garantir que o
 
 Os formulários são processados no lado do cliente (demonstração académica). Em produção, seria necessário implementar um backend para processar os dados.
 
-### ⚙️ Scripts e configuração
+### 🔄 Sistema de Conteúdo Dinâmico
 
-- `scripts/generate-config.js` — pequeno script Node.js que lê um ficheiro `.env` e gera `config.js` (contendo `window.__ENV`) com a `GOOGLE_API_KEY`. Execute `npm run generate-config` depois de criar um `.env` a partir de `.env.example` para ativar o mapa.
+O site carrega conteúdo dinamicamente através do `cms-loader.js`, que lê ficheiros JSON da pasta `content/`. Isto permite:
+- Edição de conteúdo via CMS sem alterar código
+- Versionamento de conteúdo no Git
+- Deploy automático após alterações no CMS
+
+### ⚙️ Scripts Disponíveis
+
+```bash
+# Gerar config.js a partir de .env (para Google Maps)
+npm run generate-config
+
+# Build completo (gera config.js)
+npm run build
+
+# Servidor local simples
+npm run serve
+
+# Servidor local na porta 8888
+npm run dev
+
+# Netlify Dev (simula ambiente Netlify com CMS)
+npm run netlify:dev
+```
+
+### 🔧 Configuração do Google Maps
+
+Para usar o mapa interativo:
+
+1. **Desenvolvimento Local:**
+   - Copia `.env.example` para `.env`
+   - Adiciona a tua `GOOGLE_API_KEY` no ficheiro `.env`
+   - Executa `npm run generate-config`
+
+2. **Produção (Netlify):**
+   - Vai a **Site settings** → **Environment variables**
+   - Adiciona variável `GOOGLE_API_KEY` com o valor da tua chave
+   - O build automático gera o `config.js` durante o deploy
+
+> **Nota:** O ficheiro `config.js` está no `.gitignore` para não expor a chave no Git.
+
+### 📝 CMS (Decap CMS)
+
+O site está configurado com **Decap CMS** (anteriormente Netlify CMS) para permitir edição de conteúdo sem alterar código.
+
+#### Como Aceder ao CMS
+
+1. Acede a `https://seu-site.netlify.app/admin`
+2. Faz login com a tua conta GitHub (ou Netlify)
+3. Começa a editar conteúdo!
+
+#### Secções do CMS
+
+- **Hero Section** - Subtitle e botões
+- **Próximos Eventos** - Criar, editar e eliminar eventos
+- **Agenda Anual** - Gerir eventos da timeline
+- **Galeria** - Adicionar e gerir imagens
+- **Loja - Produtos** - Gerir produtos da loja
+- **Comunidade** - Editar textos da secção
+- **Contactos** - Atualizar informações de contacto
+- **Configurações Gerais** - Configurações do site
+
+#### Configuração no Netlify
+
+1. **Ativar Identity Service:**
+   - Vai a **Site settings** → **Identity**
+   - Clica em **Enable Identity**
+
+2. **Ativar Git Gateway:**
+   - Em **Identity** → **Services** → **Git Gateway**
+   - Clica em **Enable Git Gateway**
+
+3. **Configurar Permissões:**
+   - Em **Identity** → **Registration**
+   - Escolhe "Invite only" (recomendado) ou "Open"
+   - Convida utilizadores através de **Identity** → **Invite users**
+
+#### Testar CMS Localmente
+
+```bash
+# Instalar dependências
+npm install
+
+# Executar Netlify Dev (simula ambiente Netlify)
+npm run netlify:dev
+
+# Acede a http://localhost:8888/admin
+```
 
 ### 💬 Modais
 
