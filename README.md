@@ -293,17 +293,10 @@ O site está configurado com **Decap CMS** (anteriormente Netlify CMS) para perm
    - Escolhe "Invite only" (recomendado) ou "Open"
    - Convida utilizadores através de **Identity** → **Invite users**
 
-#### Testar CMS Localmente
 
 ```bash
 # Instalar dependências
 npm install
-
-# Executar Netlify Dev (simula ambiente Netlify)
-npm run netlify:dev
-
-# Acede a http://localhost:8888/admin
-```
 
 ### 💬 Modais
 
