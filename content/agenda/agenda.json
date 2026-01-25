@@ -35,15 +35,6 @@
       "location": " ",
       "order": 5,
       "published": true
-    },
-    {
-      "order": 4,
-      "published": true,
-      "month": "teste",
-      "title": "teste",
-      "description": "teste",
-      "type": "teste",
-      "location": "teste"
     }
   ]
 }
