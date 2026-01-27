@@ -212,6 +212,13 @@ function normalizeGaleriaItem(item) {
       item.fotos = [imagemPrincipal];
     }
   }
+
+  // Normalizar data para 00:00 se tiver hora
+  if (item.date) {
+    const date = new Date(item.date);
+    date.setHours(0, 0, 0, 0);
+    item.date = date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
+  }
   
   return item;
 }
