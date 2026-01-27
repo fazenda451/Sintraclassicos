@@ -4,7 +4,8 @@
   "descricao": "Uma seleção de fotos do evento",
   "imagemPrincipal": "/img/dezembro5.webp",
   "fotos": [
-    "/img/dezembro5.webp"
+    "/img/dezembro5.webp",
+    "/img/sintraclassicosposterdefault.jpeg"
   ],
   "date": "2025-12-01",
   "order": 1,
