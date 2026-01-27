@@ -2,9 +2,10 @@
   "id": "dezembro-2025",
   "nome": "Dezembro 2025",
   "descricao": "Uma seleção de fotos do evento",
-  "imagemPrincipal": "/img/dezembro1.webp",
+  "imagemPrincipal": "/img/dezembro5.webp",
   "fotos": [
-    "/img/dezemmbro1.webp",
+    "/img/dezembro.webp",
+    "/img/dezembro1.webp",
     "/img/dezembro2.webp",
     "/img/dezembro3.webp",
     "/img/dezembro4.webp",

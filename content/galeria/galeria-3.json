@@ -4,7 +4,20 @@
   "descricao": "Uma seleção de fotos do evento",
   "imagemPrincipal": "/img/outubro1.webp",
   "fotos": [
-    "/img/outubro1.webp"
+    "/img/outubro1.webp",
+    "/img/outubro2.webp",
+    "/img/outubro3.webp",
+    "/img/outubro4.webp",
+    "/img/outubro5.webp",
+    "/img/outubro6.webp",
+    "/img/outubro7.webp",
+    "/img/outubro8.webp",
+    "/img/outubro9.webp",
+    "/img/outubro10.webp",
+    "/img/outubro11.webp",
+    "/img/outubro12.webp",
+    "/img/outubro13.webp",
+    "/img/outubro14.webp"
   ],
   "date": "2025-10-01",
   "order": 4,
