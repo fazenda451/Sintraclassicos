@@ -81,7 +81,7 @@ collections:
         hint: "Adicione todas as fotos que deseja exibir no carrossel quando o utilizador clicar na imagem principal. Pode adicionar quantas fotos quiser."
         allow_add: true
         field: {label: "Foto", name: "foto", widget: "image"}
-      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", hint: "Data do evento/mês", required: True}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", hint: "Data do evento/mês", required: true}
       - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 1, hint: "Ordem de exibição (1 = mais recente, aparece primeiro). Quando adicionar novo mês, defina como 1 e os outros descerão automaticamente."}
       - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
