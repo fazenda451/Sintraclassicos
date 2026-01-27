@@ -154,3 +154,7 @@ collections:
       - {label: "Site Description", name: "siteDescription", widget: "text"}
       - {label: "Footer Text", name: "footerText", widget: "text"}
       - {label: "Footer Tagline", name: "footerTagline", widget: "string", hint: "Frase exibida no footer (ex: Desde 2014 a proporcionar um espaço para entusiastas do automóvel)"}
+      - {label: "Modal Participar Evento", name: "modalParticiparEvento", widget: "text", hint: "Texto da janela resultante do botão 'Quero participar'"}
+      - {label: "Modal Requisitar Produto", name: "modalRequisitarProduto", widget: "text", hint: "Texto da janela resultante do botão 'Requisitar no evento'"}
+      - {label: "Modal Feedback Comunidade", name: "modalFeedbackComunidade", widget: "text", hint: "Texto da janela resultante do preenchimento do formulário de feedback na secção 'Comunidade'"}
+      - {label: "Modal Formulário Contacto", name: "modalFormularioContacto", widget: "text", hint: "Texto da janela resultante do preenchimento do formulário rápido de contacto na secção 'Contactos'"}

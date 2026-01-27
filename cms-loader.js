@@ -350,8 +350,13 @@ function renderEventos(eventos) {
     container.querySelectorAll('[data-event]').forEach(btn => {
       btn.addEventListener('click', function() {
         const nomeEvento = btn.getAttribute('data-event') || 'neste evento';
+        // Usar texto do CMS se disponível, senão usar texto padrão
+        let mensagem = 'Agradecemos pelo seu interesse em "' + nomeEvento + '". Para proceder com a sua inscrição, preencha o formulário abaixo';
+        if (window.modalTexts && window.modalTexts.participarEvento) {
+          mensagem = window.modalTexts.participarEvento.replace('{{evento}}', nomeEvento);
+        }
         window.sintraClassicos.abrirModal(
-          'Registámos o teu interesse em "' + nomeEvento + '". Preenche o formulário para completar a tua inscrição.',
+          mensagem,
           true
         );
       });
@@ -598,6 +603,11 @@ function renderConfig(data) {
   const footerTextEl = document.querySelector('footer .text-muted-75');
   if (footerTextEl && data.footerText) {
     footerTextEl.textContent = data.footerText;
+  }
+  
+  // Atualizar textos das modais se a função estiver disponível
+  if (window.atualizarTextosModais) {
+    window.atualizarTextosModais(data);
   }
 }
 

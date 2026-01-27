@@ -1,3 +1,22 @@
+// Armazenar textos das modais do CMS (tornar global para acesso do cms-loader.js)
+window.modalTexts = {
+  participarEvento: 'Agradecemos pelo seu interesse em "{{evento}}". Para proceder com a sua inscrição, preencha o formulário abaixo',
+  requisitarProduto: 'Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar',
+  feedbackComunidade: 'Obrigado pela sua sugestão! Vamos analisar o seu feedback para melhorar a experiência de todos os que participam no SintraClássicos.',
+  formularioContacto: 'Os detalhes do teu evento/parceria foram enviados. A equipa Sintra Clássicos entrará em contacto para alinhar os próximos passos.'
+};
+const modalTexts = window.modalTexts;
+
+// Função para atualizar textos das modais do CMS
+function atualizarTextosModais(config) {
+  if (config) {
+    if (config.modalParticiparEvento) window.modalTexts.participarEvento = config.modalParticiparEvento;
+    if (config.modalRequisitarProduto) window.modalTexts.requisitarProduto = config.modalRequisitarProduto;
+    if (config.modalFeedbackComunidade) window.modalTexts.feedbackComunidade = config.modalFeedbackComunidade;
+    if (config.modalFormularioContacto) window.modalTexts.formularioContacto = config.modalFormularioContacto;
+  }
+}
+
 // Inicializa todas as interações do site
 function inicializarInteracoes() {
   // Modal de feedback (reutilizável)
@@ -84,7 +103,7 @@ function inicializarInteracoes() {
         
         if (response.ok && data.success) {
           abrirModal(
-            'Obrigado pela sua sugestão! Vamos analisar o seu feedback para melhorar a experiência de todos os que participam no SintraClássicos.'
+            window.modalTexts.feedbackComunidade
           );
           comunidadeForm.reset();
         } else {
@@ -140,7 +159,7 @@ function inicializarInteracoes() {
         
         if (response.ok && data.success) {
           abrirModal(
-            'Os detalhes do teu evento/parceria foram enviados. A equipa Sintra Clássicos entrará em contacto para alinhar os próximos passos.'
+            window.modalTexts.formularioContacto
           );
           if (contactoFeedback) {
             contactoFeedback.textContent = 'Mensagem enviada com sucesso.';
@@ -182,7 +201,7 @@ function inicializarInteracoes() {
         var tituloEl = card ? card.querySelector('h3') : null;
         var nomeProduto = (tituloEl && tituloEl.textContent) ? tituloEl.textContent.trim() : 'este item';
         abrirModal(
-          'Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar'
+          window.modalTexts.requisitarProduto
         );
       }
     });
@@ -192,10 +211,10 @@ function inicializarInteracoes() {
   document.querySelectorAll('[data-event]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       const nomeEvento = btn.getAttribute('data-event') || 'neste evento';
+      // Substituir {{evento}} pelo nome do evento
+      const mensagem = window.modalTexts.participarEvento.replace('{{evento}}', nomeEvento);
       abrirModal(
-        'Agradecemos pelo seu interesse em "' +
-          nomeEvento +
-          '". Para proceder com a sua inscrição, preencha o formulário abaixo',
+        mensagem,
         true // Mostrar botão de formulário
       );
     });
@@ -228,4 +247,23 @@ function inicializarInteracoes() {
 
 document.addEventListener('DOMContentLoaded', function () {
   inicializarInteracoes();
+  
+  // Aguardar carregamento do CMS e atualizar textos das modais
+  if (window.cmsLoader && window.cmsLoader.loadConfig) {
+    window.cmsLoader.loadConfig().then(function(config) {
+      atualizarTextosModais(config);
+    });
+  } else {
+    // Se o CMS ainda não estiver carregado, tentar novamente após um delay
+    setTimeout(function() {
+      if (window.cmsLoader && window.cmsLoader.loadConfig) {
+        window.cmsLoader.loadConfig().then(function(config) {
+          atualizarTextosModais(config);
+        });
+      }
+    }, 500);
+  }
 });
+
+// Exportar função para uso externo
+window.atualizarTextosModais = atualizarTextosModais;
