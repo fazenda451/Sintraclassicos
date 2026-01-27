@@ -1,0 +1,10 @@
+{
+  "order": 1,
+  "published": true,
+  "nome": "teste1",
+  "descricao": "tester1",
+  "imagemPrincipal": "/img/sintraclassicosposterdefault.jpeg",
+  "fotos": [
+    "/img/sintraclassicosposterdefault.jpeg"
+  ]
+}
