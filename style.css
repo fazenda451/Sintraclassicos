@@ -456,6 +456,19 @@ a:hover {
   opacity: 0.95;
 }
 
+.btn-classic {
+  background-color: var(--sc-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.08s ease;
+}
+
+.btn-classic:hover {
+  background-color: var(--sc-gold-strong);
+  color: var(--sc-foreground);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 576px) {
   .product-img {
     height: 180px;
