@@ -691,7 +691,7 @@ function openCarousel(monthId) {
     
     const carousel = new bootstrap.Carousel(carouselElement, {
       interval: false, // Desabilitar transição automática
-      wrap: false, // Não fazer loop
+      wrap: true, // Não fazer loop
       keyboard: true, // Permitir navegação por teclado
       pause: false // Não pausar (mas como interval é false, não faz diferença)
     });
