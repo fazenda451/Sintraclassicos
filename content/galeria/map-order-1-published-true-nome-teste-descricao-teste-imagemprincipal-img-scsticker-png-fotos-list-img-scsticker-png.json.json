@@ -1,0 +1,10 @@
+{
+  "order": 1,
+  "published": true,
+  "nome": "teste",
+  "descricao": "teste",
+  "imagemPrincipal": "/img/scsticker.png",
+  "fotos": [
+    "/img/scsticker.png"
+  ]
+}
