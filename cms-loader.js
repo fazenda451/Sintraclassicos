@@ -164,6 +164,59 @@ async function loadAgenda(forceReload = false) {
 }
 
 /**
+ * Normaliza dados da galeria para garantir estrutura consistente
+ * @param {Object} item - Item da galeria
+ */
+function normalizeGaleriaItem(item) {
+  if (!item) return null;
+  
+  // Gerar ID automaticamente se não existir
+  if (!item.id) {
+    // Tentar gerar ID a partir do nome, title ou slug
+    let nome = item.nome || item.title || '';
+    
+    // Se ainda não houver nome, tentar usar o nome do arquivo (slug)
+    if (!nome && item.slug) {
+      nome = item.slug.replace(/\.json$/, '').replace(/-/g, ' ');
+    }
+    
+    // Gerar ID a partir do nome
+    item.id = nome.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+      .replace(/[^a-z0-9]+/g, '-') // Substitui espaços e caracteres especiais por hífen
+      .replace(/^-+|-+$/g, ''); // Remove hífens no início e fim
+    
+    // Se ainda não houver ID, usar order como fallback
+    if (!item.id && item.order !== undefined) {
+      item.id = `galeria-${item.order}`;
+    }
+  }
+  
+  // Normalizar estrutura de fotos
+  // O CMS pode retornar como array de objetos {foto: "path"} ou array de strings
+  if (item.fotos && Array.isArray(item.fotos)) {
+    item.fotos = item.fotos.map(foto => {
+      // Se for objeto, extrair a propriedade 'foto'
+      if (typeof foto === 'object' && foto !== null) {
+        return foto.foto || foto.image || foto;
+      }
+      return foto;
+    }).filter(foto => foto); // Remover valores vazios
+  }
+  
+  // Garantir que há pelo menos a imagem principal nas fotos
+  if (!item.fotos || item.fotos.length === 0) {
+    const imagemPrincipal = item.imagemPrincipal || item.image;
+    if (imagemPrincipal) {
+      item.fotos = [imagemPrincipal];
+    }
+  }
+  
+  return item;
+}
+
+/**
  * Carrega galeria
  * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
@@ -177,6 +230,8 @@ async function loadGaleria(forceReload = false) {
       galeriaFiles = index.map(f => `content/galeria/${f}`);
     }
   } catch (e) {
+    // Fallback: tentar carregar todos os arquivos JSON da pasta galeria
+    // O CMS gerencia isso automaticamente, mas podemos ter uma lista padrão
     galeriaFiles = [
       'content/galeria/galeria-1.json',
       'content/galeria/galeria-2.json',
@@ -189,9 +244,13 @@ async function loadGaleria(forceReload = false) {
     galeriaFiles.map(file => loadJSON(file, forceReload || !ENABLE_CACHE))
   );
   
-  const sorted = galeria
-    .filter(g => g !== null)
-    .sort((a, b) => (a.order || 0) - (b.order || 0));
+  // Normalizar e filtrar itens válidos
+  const normalized = galeria
+    .map(normalizeGaleriaItem)
+    .filter(g => g !== null);
+  
+  // Ordenar por order (menor = mais recente)
+  const sorted = normalized.sort((a, b) => (a.order || 0) - (b.order || 0));
   
   if (sorted.length > 0 && ENABLE_CACHE) cmsCache.galeria = sorted;
   return sorted;
@@ -397,8 +456,235 @@ function renderAgenda(agenda) {
   `).join('');
 }
 
+// Variáveis globais para a galeria
+let galeriaData = [];
+let galeriaOffset = 0;
+const ITEMS_PER_PAGE = 4;
+
 /**
- * Renderiza galeria
+ * Renderiza galeria com navegação
+ * @param {number} offset - Offset para mostrar os meses (0 = primeiros 4, 4 = próximos 4, etc)
+ */
+function renderGallery(offset = 0) {
+  if (!galeriaData || galeriaData.length === 0) {
+    console.warn('renderGallery: Nenhum item de galeria para renderizar');
+    return;
+  }
+  
+  const container = document.querySelector('#gallery-grid');
+  if (!container) {
+    console.error('renderGallery: Container não encontrado (#gallery-grid)');
+    return;
+  }
+  
+  // Calcular quais meses mostrar
+  const startIndex = offset;
+  const endIndex = Math.min(offset + ITEMS_PER_PAGE, galeriaData.length);
+  const mesesParaMostrar = galeriaData.slice(startIndex, endIndex);
+  
+  console.log('renderGallery: Renderizando meses', startIndex + 1, 'a', endIndex, 'de', galeriaData.length);
+  
+  container.innerHTML = mesesParaMostrar.map(item => {
+    // Usar nova estrutura (imagemPrincipal) ou fallback para estrutura antiga (image)
+    const imagemPrincipal = item.imagemPrincipal || item.image || 'img/preview.png';
+    const nome = item.nome || item.title || '';
+    const descricao = item.descricao || item.description || '';
+    const id = item.id || `galeria-${item.order || 0}`;
+    
+    return `
+      <div class="col-6 col-lg-3">
+        <article class="gallery-item" data-month-id="${id}">
+          <div class="gallery-image" style="background-image: url('${imagemPrincipal}')"></div>
+          <div class="gallery-overlay">
+            <h3>${nome}</h3>
+            <p>${descricao}</p>
+          </div>
+        </article>
+      </div>
+    `;
+  }).join('');
+  
+  // Adicionar event listeners aos itens da galeria
+  container.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const monthId = this.getAttribute('data-month-id');
+      openCarousel(monthId);
+    });
+  });
+  
+  // Atualizar estado da navegação
+  updateNavigationState();
+}
+
+/**
+ * Avança para o próximo grupo de meses
+ */
+function nextGroup() {
+  const maxOffset = Math.max(0, galeriaData.length - ITEMS_PER_PAGE);
+  if (galeriaOffset < maxOffset) {
+    galeriaOffset += ITEMS_PER_PAGE;
+    renderGallery(galeriaOffset);
+  }
+}
+
+/**
+ * Volta para o grupo anterior de meses
+ */
+function prevGroup() {
+  if (galeriaOffset > 0) {
+    galeriaOffset = Math.max(0, galeriaOffset - ITEMS_PER_PAGE);
+    renderGallery(galeriaOffset);
+  }
+}
+
+/**
+ * Atualiza o estado dos botões de navegação e indicador de posição
+ */
+function updateNavigationState() {
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  const positionIndicator = document.getElementById('gallery-position');
+  const navigationContainer = document.querySelector('.gallery-navigation');
+  
+  if (!prevBtn || !nextBtn || !positionIndicator) return;
+  
+  const totalMeses = galeriaData.length;
+  const maxOffset = Math.max(0, totalMeses - ITEMS_PER_PAGE);
+  const startIndex = galeriaOffset + 1;
+  const endIndex = Math.min(galeriaOffset + ITEMS_PER_PAGE, totalMeses);
+  
+  // Se há 4 ou menos meses, esconder navegação completamente
+  if (totalMeses <= ITEMS_PER_PAGE) {
+    if (navigationContainer) {
+      navigationContainer.style.display = 'none';
+    }
+    return;
+  }
+  
+  // Mostrar navegação se há mais de 4 meses
+  if (navigationContainer) {
+    navigationContainer.style.display = 'flex';
+  }
+  
+  // Atualizar indicador de posição
+  positionIndicator.innerHTML = `<span>Mostrando meses ${startIndex}-${endIndex} de ${totalMeses}</span>`;
+  
+  // Desabilitar/habilitar botões
+  prevBtn.disabled = galeriaOffset === 0;
+  nextBtn.disabled = galeriaOffset >= maxOffset;
+  
+  // Adicionar classe disabled visual
+  if (prevBtn.disabled) {
+    prevBtn.classList.add('disabled');
+  } else {
+    prevBtn.classList.remove('disabled');
+  }
+  
+  if (nextBtn.disabled) {
+    nextBtn.classList.add('disabled');
+  } else {
+    nextBtn.classList.remove('disabled');
+  }
+}
+
+/**
+ * Abre o modal com carrossel de fotos do mês selecionado
+ * @param {string} monthId - ID do mês
+ */
+function openCarousel(monthId) {
+  const month = galeriaData.find(m => (m.id || `galeria-${m.order || 0}`) === monthId);
+  if (!month) {
+    console.error('openCarousel: Mês não encontrado:', monthId);
+    return;
+  }
+  
+  // Obter array de fotos (nova estrutura) ou usar imagem única (estrutura antiga)
+  const fotos = month.fotos || (month.image || month.imagemPrincipal ? [month.image || month.imagemPrincipal] : []);
+  
+  if (fotos.length === 0) {
+    console.warn('openCarousel: Nenhuma foto encontrada para o mês:', monthId);
+    return;
+  }
+  
+  const modal = document.getElementById('galleryCarouselModal');
+  const carouselInner = document.getElementById('gallery-carousel-inner');
+  const photoCounter = document.getElementById('gallery-photo-counter');
+  const modalTitle = document.getElementById('galleryCarouselModalLabel');
+  
+  if (!modal || !carouselInner) return;
+  
+  // Atualizar título do modal
+  if (modalTitle) {
+    modalTitle.textContent = month.nome || month.title || 'Galeria de Fotos';
+  }
+  
+  // Limpar carrossel anterior
+  carouselInner.innerHTML = '';
+  
+  // Adicionar itens ao carrossel
+  fotos.forEach((foto, index) => {
+    const isActive = index === 0 ? 'active' : '';
+    const item = document.createElement('div');
+    item.className = `carousel-item ${isActive}`;
+    item.innerHTML = `
+      <img src="${foto}" class="d-block w-100" alt="Foto ${index + 1}" style="max-height: 70vh; object-fit: contain;">
+    `;
+    carouselInner.appendChild(item);
+  });
+  
+  // Atualizar contador de fotos
+  if (photoCounter) {
+    photoCounter.innerHTML = `<span>Foto 1 de ${fotos.length}</span>`;
+  }
+  
+  // Inicializar carrossel Bootstrap (se disponível)
+  const carouselElement = document.getElementById('galleryCarousel');
+  if (carouselElement && window.bootstrap && window.bootstrap.Carousel) {
+    // Remover instância anterior se existir
+    const existingCarousel = bootstrap.Carousel.getInstance(carouselElement);
+    if (existingCarousel) {
+      existingCarousel.dispose();
+    }
+    
+    // Esconder controles se houver apenas uma foto
+    const prevControl = carouselElement.querySelector('.carousel-control-prev');
+    const nextControl = carouselElement.querySelector('.carousel-control-next');
+    if (fotos.length <= 1) {
+      if (prevControl) prevControl.style.display = 'none';
+      if (nextControl) nextControl.style.display = 'none';
+    } else {
+      if (prevControl) prevControl.style.display = 'flex';
+      if (nextControl) nextControl.style.display = 'flex';
+    }
+    
+    const carousel = new bootstrap.Carousel(carouselElement, {
+      interval: false,
+      wrap: false
+    });
+    
+    // Atualizar contador quando o slide muda
+    carouselElement.addEventListener('slid.bs.carousel', function(event) {
+      if (photoCounter) {
+        const activeIndex = event.to;
+        photoCounter.innerHTML = `<span>Foto ${activeIndex + 1} de ${fotos.length}</span>`;
+      }
+    });
+  }
+  
+  // Mostrar modal (se Bootstrap estiver disponível)
+  if (window.bootstrap && window.bootstrap.Modal) {
+    const modalInstance = new bootstrap.Modal(modal);
+    modalInstance.show();
+  } else {
+    // Fallback: mostrar modal sem Bootstrap (caso não esteja carregado ainda)
+    modal.style.display = 'block';
+    modal.classList.add('show');
+    document.body.classList.add('modal-open');
+  }
+}
+
+/**
+ * Renderiza galeria (função principal chamada pelo CMS)
  */
 function renderGaleria(galeria) {
   if (!galeria || galeria.length === 0) {
@@ -406,24 +692,28 @@ function renderGaleria(galeria) {
     return;
   }
   
-  const container = document.querySelector('#galeria .gallery-grid');
-  if (!container) {
-    console.error('renderGaleria: Container não encontrado (#galeria .gallery-grid)');
-    return;
+  // Filtrar apenas itens publicados e ordenar por order
+  galeriaData = galeria
+    .filter(item => item.published !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+  
+  // Resetar offset para mostrar os 4 mais recentes
+  galeriaOffset = 0;
+  
+  // Renderizar galeria
+  renderGallery(galeriaOffset);
+  
+  // Adicionar event listeners aos botões de navegação
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', prevGroup);
   }
   
-  console.log('renderGaleria: Renderizando', galeria.length, 'itens');
-  container.innerHTML = galeria.map(item => `
-    <div class="col-6 col-lg-3">
-      <article class="gallery-item">
-        <div class="gallery-image" style="background-image: url('${item.image || 'img/preview.png'}')"></div>
-        <div class="gallery-overlay">
-          <h3>${item.title || ''}</h3>
-          <p>${item.description || ''}</p>
-        </div>
-      </article>
-    </div>
-  `).join('');
+  if (nextBtn) {
+    nextBtn.addEventListener('click', nextGroup);
+  }
 }
 
 /**

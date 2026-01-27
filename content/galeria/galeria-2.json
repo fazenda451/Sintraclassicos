@@ -1,7 +1,11 @@
 {
-  "title": "Novembro 2025",
-  "description": "Uma seleção de fotos do evento",
-  "image": "/img/novembro15.webp",
+  "id": "novembro-2025",
+  "nome": "Novembro 2025",
+  "descricao": "Uma seleção de fotos do evento",
+  "imagemPrincipal": "/img/novembro15.webp",
+  "fotos": [
+    "/img/novembro15.webp"
+  ],
   "date": "2025-11-01",
   "order": 2,
   "published": true

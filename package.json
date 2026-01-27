@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "generate-config": "node scripts/generate-config.js",
-    "build": "npm run generate-config",
-    "dev": "npm run generate-config && npx serve . -p 8888",
+    "update-galeria-index": "node scripts/update-galeria-index.js",
+    "build": "npm run generate-config && npm run update-galeria-index",
+    "dev": "npm run generate-config && npm run update-galeria-index && npx serve . -p 8888",
     "serve": "npx serve .",
     "netlify:dev": "netlify dev",
     "cms:proxy": "npx netlify-cms-proxy-server"

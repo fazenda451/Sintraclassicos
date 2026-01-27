@@ -228,8 +228,11 @@ O site carrega conteúdo dinamicamente através do `cms-loader.js`, que lê fich
 # Gerar config.js a partir de .env (para Google Maps)
 npm run generate-config
 
-# Build completo (gera config.js)
+# Build completo (gera config.js e atualiza índices)
 npm run build
+
+# Atualizar índice da galeria (lista todos os arquivos JSON)
+npm run update-galeria-index
 
 # Servidor local simples
 npm run serve
@@ -272,11 +275,38 @@ O site está configurado com **Decap CMS** (anteriormente Netlify CMS) para perm
 - **Hero Section** - Subtitle e botões
 - **Próximos Eventos** - Criar, editar e eliminar eventos
 - **Agenda Anual** - Gerir eventos da timeline
-- **Galeria** - Adicionar e gerir imagens
+- **Galeria de Meses** - Sistema dinâmico de galeria com múltiplas fotos por mês
 - **Loja - Produtos** - Gerir produtos da loja
 - **Comunidade** - Editar textos da secção
 - **Contactos** - Atualizar informações de contacto
 - **Configurações Gerais** - Configurações do site
+
+#### 📸 Como Usar a Galeria de Meses
+
+A galeria permite criar conjuntos de fotos organizados por mês:
+
+1. **Criar Novo Mês:**
+   - No CMS, vai a **Galeria de Meses**
+   - Clica em **New Galeria de Meses**
+   - Preenche os campos:
+     - **Nome do Mês**: Ex: "Dezembro 2025"
+     - **Descrição**: Breve descrição do conjunto
+     - **Imagem Principal (Capa)**: Escolhe a melhor foto (esta aparece na galeria principal)
+     - **Fotos do Mês**: Adiciona todas as fotos que queres no carrossel (podes adicionar quantas quiseres)
+     - **Ordem**: Define como `1` para o mês mais recente (aparece primeiro)
+     - **Publicado**: Marca como `true` para aparecer no site
+
+2. **Sistema de Navegação:**
+   - A galeria mostra sempre os 4 meses mais recentes (order menor = mais recente)
+   - Quando há mais de 4 meses, aparecem setas de navegação para ver meses anteriores
+   - Ao clicar na imagem principal de um mês, abre um modal com carrossel contendo todas as fotos desse mês
+
+3. **Adicionar Novo Mês:**
+   - Quando adicionas um novo mês com `order: 1`, ele aparece na primeira posição
+   - Os outros meses descem automaticamente
+   - O 4º mês sai da vista mas fica acessível via setas de navegação
+
+> **Nota:** O `index.json` da galeria é atualizado automaticamente durante o build. Se criares novos meses localmente, executa `npm run update-galeria-index` para atualizar a lista.
 
 #### Configuração no Netlify
 

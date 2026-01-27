@@ -490,46 +490,55 @@
           </div>
         </div>
 
-        <div class="row g-3 g-md-4 gallery-grid">
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Dezembro 2025</h3>
-                <p>Uma seleção de fotos do evento</p>
-              </div>
-            </article>
+        <!-- Navegação da galeria -->
+        <div class="gallery-navigation mb-4 d-flex justify-content-between align-items-center">
+          <button class="btn btn-nav-gallery" id="gallery-prev" aria-label="Meses anteriores">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="gallery-position-indicator" id="gallery-position">
+            <span>Mostrando meses 1-4 de 4</span>
           </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Novembro 2025</h3>
-                <p>Uma seleção de fotos do evento</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Outubro 2025</h3>
-                <p>Uma seleção de fotos do evento</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-6 col-lg-3">
-            <article class="gallery-item">
-              <div class="gallery-image"></div>
-              <div class="gallery-overlay">
-                <h3>Setembro 2025</h3>
-                <p>Uma seleção de fotos do evento</p>
-              </div>
-            </article>
-          </div>
+          <button class="btn btn-nav-gallery" id="gallery-next" aria-label="Próximos meses">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Grid da galeria (será preenchido dinamicamente) -->
+        <div class="row g-3 g-md-4 gallery-grid" id="gallery-grid">
+          <!-- Conteúdo será renderizado via JavaScript -->
         </div>
       </div>
     </section>
+
+    <!-- Modal do Carrossel -->
+    <div class="modal fade" id="galleryCarouselModal" tabindex="-1" aria-labelledby="galleryCarouselModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-black text-light">
+          <div class="modal-header border-secondary border-opacity-25">
+            <h5 class="modal-title" id="galleryCarouselModalLabel">Galeria de Fotos</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner" id="gallery-carousel-inner">
+                <!-- Itens do carrossel serão adicionados dinamicamente -->
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+              </button>
+            </div>
+            <div class="gallery-photo-counter text-center py-2" id="gallery-photo-counter">
+              <span>Foto 1 de 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Loja -->
     <section id="loja" class="section-padding border-top border-secondary border-opacity-25">

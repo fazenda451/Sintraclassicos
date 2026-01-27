@@ -64,19 +64,27 @@ collections:
               - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "galeria"
-    label: "Galeria"
+    label: "Galeria de Meses"
     folder: "content/galeria"
     create: true
     format: "json"
     slug: "{{slug}}.json"
-    summary: "{{title}}"
+    summary: "{{nome}}"
+    filter: {field: "published", value: true}
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "string"}
-      - {label: "Image", name: "image", widget: "image"}
-      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Order", name: "order", widget: "number", default: 0}
-      - {label: "Published", name: "published", widget: "boolean", default: true}
+      - {label: "ID (automático)", name: "id", widget: "string", hint: "Será gerado automaticamente baseado no nome (ex: dezembro-2025). Não edite manualmente.", required: false}
+      - {label: "Nome do Mês", name: "nome", widget: "string", hint: "Ex: Dezembro 2025, Novembro 2025", required: true}
+      - {label: "Descrição", name: "descricao", widget: "text", hint: "Descrição breve do conjunto de fotos"}
+      - {label: "Imagem Principal (Capa)", name: "imagemPrincipal", widget: "image", hint: "Esta é a imagem que aparece na galeria principal. Escolha a melhor foto como capa.", required: true}
+      - label: "Fotos do Mês"
+        name: "fotos"
+        widget: "list"
+        hint: "Adicione todas as fotos que deseja exibir no carrossel quando o utilizador clicar na imagem principal. Pode adicionar quantas fotos quiser."
+        allow_add: true
+        field: {label: "Foto", name: "foto", widget: "image"}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", hint: "Data do evento/mês", required: false}
+      - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 1, hint: "Ordem de exibição (1 = mais recente, aparece primeiro). Quando adicionar novo mês, defina como 1 e os outros descerão automaticamente."}
+      - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "loja"
     label: "Loja - Produtos"
