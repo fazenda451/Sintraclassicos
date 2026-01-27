@@ -249,28 +249,29 @@ async function loadGaleria(forceReload = false) {
     .map(normalizeGaleriaItem)
     .filter(g => g !== null);
   
-  // Ordenar por order (menor = mais recente)
-  // Se houver conflitos de order, usar data como desempate (mais recente primeiro)
+  // Ordenar por data PRIMEIRO (mais recente primeiro), depois por order como desempate
+  // Isso garante que mesmo com conflitos de order, a data prevalece
   const sorted = normalized.sort((a, b) => {
-    const orderA = a.order || 999;
-    const orderB = b.order || 999;
-    
-    // Se os orders forem diferentes, ordenar por order
-    if (orderA !== orderB) {
-      return orderA - orderB;
-    }
-    
-    // Se os orders forem iguais, usar data como desempate (mais recente primeiro)
     const dateA = a.date ? new Date(a.date).getTime() : 0;
     const dateB = b.date ? new Date(b.date).getTime() : 0;
     
-    // Se as datas forem diferentes, ordenar por data (mais recente primeiro = maior timestamp)
+    // PRIORIDADE 1: Se as datas forem diferentes, ordenar por data (mais recente primeiro)
     if (dateA !== dateB) {
-      return dateB - dateA; // Invertido para mais recente primeiro
+      return dateB - dateA; // Invertido para mais recente primeiro (maior timestamp = mais recente)
     }
     
-    // Se tudo for igual, manter ordem original (por nome do arquivo)
-    return 0;
+    // PRIORIDADE 2: Se as datas forem iguais, usar order como desempate
+    const orderA = a.order || 999;
+    const orderB = b.order || 999;
+    
+    if (orderA !== orderB) {
+      return orderA - orderB; // Menor order = mais recente
+    }
+    
+    // PRIORIDADE 3: Se tudo for igual, manter ordem original (por nome)
+    const nomeA = (a.nome || a.title || '').toLowerCase();
+    const nomeB = (b.nome || b.title || '').toLowerCase();
+    return nomeA.localeCompare(nomeB);
   });
   
   if (sorted.length > 0 && ENABLE_CACHE) cmsCache.galeria = sorted;

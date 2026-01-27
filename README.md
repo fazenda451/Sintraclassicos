@@ -234,6 +234,9 @@ npm run build
 # Atualizar índice da galeria (lista todos os arquivos JSON)
 npm run update-galeria-index
 
+# Reorganizar orders da galeria automaticamente (ordena por data e reatribui orders)
+npm run reorganize-galeria
+
 # Servidor local simples
 npm run serve
 
@@ -302,11 +305,22 @@ A galeria permite criar conjuntos de fotos organizados por mês:
    - Ao clicar na imagem principal de um mês, abre um modal com carrossel contendo todas as fotos desse mês
 
 3. **Adicionar Novo Mês:**
-   - Quando adicionas um novo mês com `order: 1`, ele aparece na primeira posição
-   - Os outros meses descem automaticamente
+   - Quando adicionas um novo mês, define a **Data** corretamente (ex: "2026-01-01" para Janeiro 2026)
+   - Podes definir `order: 1` ou deixar qualquer valor - o sistema reorganiza automaticamente
+   - O script de build reorganiza os orders automaticamente baseado na data (mais recente = order 1)
+   - Os outros meses têm seus orders incrementados automaticamente
    - O 4º mês sai da vista mas fica acessível via setas de navegação
 
-> **Nota:** O `index.json` da galeria é atualizado automaticamente durante o build. Se criares novos meses localmente, executa `npm run update-galeria-index` para atualizar a lista.
+4. **Reorganização Automática:**
+   - O script `reorganize-galeria-orders.js` é executado automaticamente durante o build
+   - Ele ordena todos os meses por data (mais recente primeiro) e reatribui orders sequencialmente (1, 2, 3, 4...)
+   - Isto garante que não há conflitos de ordenação, mesmo quando múltiplos meses têm `order: 1`
+   - Para executar manualmente: `npm run reorganize-galeria`
+
+> **Nota:** 
+> - O `index.json` da galeria é atualizado automaticamente durante o build
+> - Os orders são reorganizados automaticamente durante o build baseado na data
+> - Se criares novos meses localmente, executa `npm run build` para atualizar tudo
 
 #### Configuração no Netlify
 
