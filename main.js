@@ -38,7 +38,7 @@ function inicializarInteracoes() {
         btnFormulario.className = 'btn btn-gradient btn-sm px-4';
         btnFormulario.textContent = 'Preencher formulário';
         btnFormulario.addEventListener('click', function() {
-          window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLScTlzMefwu33HMBlvpZujtD8BFjMlnnM5nzaUhUAzuSrII_6Q/viewform?pli=1&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnkRFRPuCg1XSwP0K3fQpJtSWqSxuiD_q8QtYgWJey2N9_FNyV6RJECfIlWuQ_aem_WycFfdWDNWRL5w0DevxzMw';
+          window.open('https://docs.google.com/forms/d/e/1FAIpQLScTlzMefwu33HMBlvpZujtD8BFjMlnnM5nzaUhUAzuSrII_6Q/viewform?pli=1&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnkRFRPuCg1XSwP0K3fQpJtSWqSxuiD_q8QtYgWJey2N9_FNyV6RJECfIlWuQ_aem_WycFfdWDNWRL5w0DevxzMw', '_blank');
         });
         
         // Botão de fechar
