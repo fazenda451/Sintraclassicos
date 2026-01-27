@@ -701,6 +701,51 @@ a:hover {
   cursor: pointer;
 }
 
+/* Animação de slide para navegação da galeria */
+.gallery-grid {
+  position: relative;
+  transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.gallery-grid.gallery-slide-left {
+  animation: slideLeft 0.5s ease-in-out;
+}
+
+.gallery-grid.gallery-slide-right {
+  animation: slideRight 0.5s ease-in-out;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Garantir que o carrossel não muda automaticamente */
+#galleryCarousel {
+  --bs-carousel-interval: 0;
+}
+
+#galleryCarousel.carousel {
+  --bs-carousel-interval: 0;
+}
+
 /* Responsividade da navegação */
 @media (max-width: 576px) {
   .gallery-navigation {

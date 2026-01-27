@@ -250,7 +250,28 @@ async function loadGaleria(forceReload = false) {
     .filter(g => g !== null);
   
   // Ordenar por order (menor = mais recente)
-  const sorted = normalized.sort((a, b) => (a.order || 0) - (b.order || 0));
+  // Se houver conflitos de order, usar data como desempate (mais recente primeiro)
+  const sorted = normalized.sort((a, b) => {
+    const orderA = a.order || 999;
+    const orderB = b.order || 999;
+    
+    // Se os orders forem diferentes, ordenar por order
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    
+    // Se os orders forem iguais, usar data como desempate (mais recente primeiro)
+    const dateA = a.date ? new Date(a.date).getTime() : 0;
+    const dateB = b.date ? new Date(b.date).getTime() : 0;
+    
+    // Se as datas forem diferentes, ordenar por data (mais recente primeiro = maior timestamp)
+    if (dateA !== dateB) {
+      return dateB - dateA; // Invertido para mais recente primeiro
+    }
+    
+    // Se tudo for igual, manter ordem original (por nome do arquivo)
+    return 0;
+  });
   
   if (sorted.length > 0 && ENABLE_CACHE) cmsCache.galeria = sorted;
   return sorted;
@@ -464,8 +485,9 @@ const ITEMS_PER_PAGE = 4;
 /**
  * Renderiza galeria com navegação
  * @param {number} offset - Offset para mostrar os meses (0 = primeiros 4, 4 = próximos 4, etc)
+ * @param {string} direction - Direção da animação: 'left', 'right', ou null
  */
-function renderGallery(offset = 0) {
+function renderGallery(offset = 0, direction = null) {
   if (!galeriaData || galeriaData.length === 0) {
     console.warn('renderGallery: Nenhum item de galeria para renderizar');
     return;
@@ -483,6 +505,15 @@ function renderGallery(offset = 0) {
   const mesesParaMostrar = galeriaData.slice(startIndex, endIndex);
   
   console.log('renderGallery: Renderizando meses', startIndex + 1, 'a', endIndex, 'de', galeriaData.length);
+  
+  // Adicionar classe de animação se houver direção
+  if (direction) {
+    container.classList.add(`gallery-slide-${direction}`);
+    // Remover classe após animação
+    setTimeout(() => {
+      container.classList.remove(`gallery-slide-${direction}`);
+    }, 500);
+  }
   
   container.innerHTML = mesesParaMostrar.map(item => {
     // Usar nova estrutura (imagemPrincipal) ou fallback para estrutura antiga (image)
@@ -523,7 +554,7 @@ function nextGroup() {
   const maxOffset = Math.max(0, galeriaData.length - ITEMS_PER_PAGE);
   if (galeriaOffset < maxOffset) {
     galeriaOffset += ITEMS_PER_PAGE;
-    renderGallery(galeriaOffset);
+    renderGallery(galeriaOffset, 'left'); // Animação para a esquerda (novo conteúdo vem da direita)
   }
 }
 
@@ -533,7 +564,7 @@ function nextGroup() {
 function prevGroup() {
   if (galeriaOffset > 0) {
     galeriaOffset = Math.max(0, galeriaOffset - ITEMS_PER_PAGE);
-    renderGallery(galeriaOffset);
+    renderGallery(galeriaOffset, 'right'); // Animação para a direita (novo conteúdo vem da esquerda)
   }
 }
 
@@ -658,8 +689,34 @@ function openCarousel(monthId) {
     }
     
     const carousel = new bootstrap.Carousel(carouselElement, {
-      interval: false,
-      wrap: false
+      interval: false, // Desabilitar transição automática
+      wrap: false, // Não fazer loop
+      keyboard: true, // Permitir navegação por teclado
+      pause: false // Não pausar (mas como interval é false, não faz diferença)
+    });
+    
+    // Garantir que não há transição automática (forçar múltiplas vezes)
+    carousel._config.interval = false;
+    if (carousel._interval) {
+      clearInterval(carousel._interval);
+      carousel._interval = null;
+    }
+    
+    // Remover qualquer intervalo que possa ter sido criado
+    setTimeout(() => {
+      if (carousel._interval) {
+        clearInterval(carousel._interval);
+        carousel._interval = null;
+      }
+      carousel._config.interval = false;
+    }, 100);
+    
+    // Prevenir qualquer transição automática através de event listeners
+    carouselElement.addEventListener('slide.bs.carousel', function(e) {
+      // Se não foi acionado por controle manual, prevenir
+      if (!e.relatedTarget && carousel._config.interval !== false) {
+        e.preventDefault();
+      }
     });
     
     // Atualizar contador quando o slide muda
