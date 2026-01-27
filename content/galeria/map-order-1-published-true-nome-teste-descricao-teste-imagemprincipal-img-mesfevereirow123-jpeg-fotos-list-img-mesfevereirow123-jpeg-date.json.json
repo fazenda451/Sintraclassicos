@@ -1,0 +1,11 @@
+{
+  "order": 1,
+  "published": true,
+  "nome": "teste",
+  "descricao": "teste",
+  "imagemPrincipal": "/img/mesfevereirow123.jpeg",
+  "fotos": [
+    "/img/mesfevereirow123.jpeg"
+  ],
+  "date": ""
+}
