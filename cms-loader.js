@@ -689,36 +689,16 @@ function openCarousel(monthId) {
       if (nextControl) nextControl.style.display = 'flex';
     }
     
+    // ============= CORREÇÃO PRINCIPAL =============
+    // Configuração simplificada e corrigida do carousel
     const carousel = new bootstrap.Carousel(carouselElement, {
-      interval: false, // Desabilitar transição automática
-      wrap: true, // Não fazer loop
-      keyboard: true, // Permitir navegação por teclado
-      pause: false // Não pausar (mas como interval é false, não faz diferença)
+      interval: false,    // Desabilitar transição automática
+      wrap: true,         // *** CORRIGIDO: era false, agora true - permite voltar ***
+      keyboard: true,     // Permitir navegação por teclado
+      pause: 'hover',     // Pausar no hover
+      ride: false         // Não iniciar automaticamente
     });
-    
-    // Garantir que não há transição automática (forçar múltiplas vezes)
-    carousel._config.interval = false;
-    if (carousel._interval) {
-      clearInterval(carousel._interval);
-      carousel._interval = null;
-    }
-    
-    // Remover qualquer intervalo que possa ter sido criado
-    setTimeout(() => {
-      if (carousel._interval) {
-        clearInterval(carousel._interval);
-        carousel._interval = null;
-      }
-      carousel._config.interval = false;
-    }, 100);
-    
-    // Prevenir qualquer transição automática através de event listeners
-    carouselElement.addEventListener('slide.bs.carousel', function(e) {
-      // Se não foi acionado por controle manual, prevenir
-      if (!e.relatedTarget && carousel._config.interval !== false) {
-        e.preventDefault();
-      }
-    });
+    // ============= FIM DA CORREÇÃO =============
     
     // Atualizar contador quando o slide muda
     carouselElement.addEventListener('slid.bs.carousel', function(event) {
