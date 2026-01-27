@@ -1,0 +1,11 @@
+{
+  "order": 1,
+  "published": true,
+  "nome": "Janeiro 2026",
+  "descricao": "conjunto de fotos de janeiro 2026",
+  "imagemPrincipal": "/img/banner.jpg",
+  "fotos": [
+    "/img/banner.jpg",
+    "/img/scsticker.png"
+  ]
+}
