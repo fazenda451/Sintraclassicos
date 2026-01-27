@@ -728,8 +728,9 @@ a:hover {
 }
 
 .btn-gradient:hover {
-  color: #f9fafb;
-  filter: brightness(1.05);
+  background: var(--sc-gold-strong);
+  color: #ffffff;
+  filter: brightness(1.15);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
 }
 
