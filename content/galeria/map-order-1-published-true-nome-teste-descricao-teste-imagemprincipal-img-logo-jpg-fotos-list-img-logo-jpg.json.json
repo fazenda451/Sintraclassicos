@@ -1,0 +1,10 @@
+{
+  "order": 1,
+  "published": true,
+  "nome": "teste",
+  "descricao": "TESTE",
+  "imagemPrincipal": "/img/logo.jpg",
+  "fotos": [
+    "/img/logo.jpg"
+  ]
+}
