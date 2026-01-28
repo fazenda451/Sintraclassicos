@@ -945,6 +945,18 @@ function renderConfig(data) {
     galeriaDescriptionEl.textContent = data.gallerySectionDescription;
   }
 
+  // Atualizar título da seção de eventos
+  const eventosTitleEl = document.getElementById('events-section-title');
+  if (eventosTitleEl && data.eventsSectionTitle) {
+    eventosTitleEl.textContent = data.eventsSectionTitle;
+  }
+
+  // Atualizar descrição da seção de eventos
+  const eventosDescriptionEl = document.getElementById('events-section-description');
+  if (eventosDescriptionEl && data.eventsSectionDescription) {
+    eventosDescriptionEl.textContent = data.eventsSectionDescription;
+  }
+
   // Atualizar textos das modais se a função estiver disponível
   if (window.atualizarTextosModais) {
     window.atualizarTextosModais(data);
@@ -953,6 +965,11 @@ function renderConfig(data) {
   // Atualizar textos da galeria se a função estiver disponível
   if (window.atualizarTextosGaleria) {
     window.atualizarTextosGaleria(data);
+  }
+
+  // Atualizar textos dos eventos se a função estiver disponível
+  if (window.atualizarTextosEventos) {
+    window.atualizarTextosEventos(data);
   }
 }
 

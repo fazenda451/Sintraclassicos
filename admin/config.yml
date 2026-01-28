@@ -168,3 +168,5 @@ collections:
       - {label: "Modal Formulário Contacto", name: "modalFormularioContacto", widget: "text", hint: "Texto da janela resultante do preenchimento do formulário rápido de contacto na secção 'Contactos'"}
       - {label: "Galeria Title", name: "galeriaTitle", widget: "string", hint: "Título da secção de galeria na página inicial"}
       - {label: "Galeria Description", name: "galeriaDescription", widget: "text", hint: "Descrição da secção de galeria na página inicial"}
+      - {label: "Eventos Title", name: "eventosTitle", widget: "string", hint: "Título da secção de próximos eventos na página inicial"}
+      - {label: "Eventos Description", name: "eventosDescription", widget: "text", hint: "Descrição da secção de próximos eventos na página inicial"}
