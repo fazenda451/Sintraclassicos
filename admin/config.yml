@@ -170,3 +170,5 @@ collections:
       - {label: "Galeria Description", name: "galeriaDescription", widget: "text", hint: "Descrição da secção de galeria na página inicial"}
       - {label: "Eventos Title", name: "eventosTitle", widget: "string", hint: "Título da secção de próximos eventos na página inicial"}
       - {label: "Eventos Description", name: "eventosDescription", widget: "text", hint: "Descrição da secção de próximos eventos na página inicial"}
+      - {label: "Agenda Title", name: "agendaTitle", widget: "string", hint: "Título da secção de agenda anual na página inicial"}
+      - {label: "Agenda Description", name: "agendaDescription", widget: "text", hint: "Descrição da secção de agenda anual na página inicial"}

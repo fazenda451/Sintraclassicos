@@ -934,27 +934,39 @@ function renderConfig(data) {
   }
   
   // Atualizar título da seção de galeria
-  const galeriaTitleEl = document.getElementById('gallery-section-title');
-  if (galeriaTitleEl && data.gallerySectionTitle) {
-    galeriaTitleEl.textContent = data.gallerySectionTitle;
+  const galeriaTitleEl = document.getElementById('gallery-title');
+  if (galeriaTitleEl && data.galeriaTitle) {
+    galeriaTitleEl.textContent = data.galeriaTitle;
   }
 
   // Atualizar descrição da seção de galeria
-  const galeriaDescriptionEl = document.getElementById('gallery-section-description');
-  if (galeriaDescriptionEl && data.gallerySectionDescription) {
-    galeriaDescriptionEl.textContent = data.gallerySectionDescription;
+  const galeriaDescriptionEl = document.getElementById('gallery-description');
+  if (galeriaDescriptionEl && data.galeriaDescription) {
+    galeriaDescriptionEl.textContent = data.galeriaDescription;
   }
 
   // Atualizar título da seção de eventos
-  const eventosTitleEl = document.getElementById('events-section-heading');
-  if (eventosTitleEl && data.eventsSectionTitle) {
-    eventosTitleEl.textContent = data.eventsSectionTitle;
+  const eventosTitleEl = document.getElementById('events-heading');
+  if (eventosTitleEl && data.eventosTitle) {
+    eventosTitleEl.textContent = data.eventosTitle;
   }
 
   // Atualizar descrição da seção de eventos
-  const eventosDescriptionEl = document.getElementById('events-section-description');
-  if (eventosDescriptionEl && data.eventsSectionDescription) {
-    eventosDescriptionEl.textContent = data.eventsSectionDescription;
+  const eventosDescriptionEl = document.getElementById('events-description');
+  if (eventosDescriptionEl && data.eventosDescription) {
+    eventosDescriptionEl.textContent = data.eventosDescription;
+  }
+
+  // Atualizar título da seção da agenda
+  const agendaTitleEl = document.getElementById('agenda-title');
+  if (agendaTitleEl && data.agendaTitle) {
+    agendaTitleEl.textContent = data.agendaTitle;
+  }
+
+  // Atualizar descrição da seção da agenda
+  const agendaDescriptionEl = document.getElementById('agenda-description');
+  if (agendaDescriptionEl && data.agendaDescription) {
+    agendaDescriptionEl.textContent = data.agendaDescription;
   }
 
   // Atualizar textos das modais se a função estiver disponível
@@ -970,6 +982,11 @@ function renderConfig(data) {
   // Atualizar textos dos eventos se a função estiver disponível
   if (window.atualizarTextosEventos) {
     window.atualizarTextosEventos(data);
+  }
+
+  // Atualizar textos da agenda se a função estiver disponível
+  if (window.atualizarTextosAgenda) {
+    window.atualizarTextosAgenda(data);
   }
 }
 
