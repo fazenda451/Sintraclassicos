@@ -660,28 +660,68 @@ a:hover {
   text-align: center;
 }
 
-/* Modal do carrossel */
+/* Modal do carrossel - alinhado com a paleta vintage do site */
 #galleryCarouselModal .modal-content {
-  background-color: #000 !important;
-  color: #fff !important;
+  background-color: var(--sc-bg-light) !important;
+  color: var(--sc-foreground) !important;
+  border: 1px solid var(--sc-muted);
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
 }
 
 #galleryCarouselModal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--sc-muted);
+  background-color: var(--sc-accent);
+  padding: 1.25rem 1.5rem;
+}
+
+#galleryCarouselModal .modal-title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--sc-foreground);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+#galleryCarouselModal .btn-close {
+  filter: none;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+#galleryCarouselModal .btn-close:hover {
+  opacity: 1;
+}
+
+#galleryCarouselModal .modal-body {
+  padding: 0;
+  background-color: var(--sc-muted);
 }
 
 #galleryCarouselModal .carousel-inner {
-  background-color: #000;
+  background-color: var(--sc-muted);
+  border-radius: 0;
+}
+
+#galleryCarouselModal .carousel-item {
+  background-color: var(--sc-muted);
+  padding: 2rem 1rem;
 }
 
 #galleryCarouselModal .carousel-item img {
-  background-color: #000;
+  background-color: transparent;
+  border-radius: 4px;
+  max-height: 70vh;
+  object-fit: contain;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
 }
 
 #galleryCarouselModal .carousel-control-prev,
 #galleryCarouselModal .carousel-control-next {
-  width: 50px;
-  opacity: 0.8;
+  width: 60px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
 }
 
 #galleryCarouselModal .carousel-control-prev:hover,
@@ -689,11 +729,56 @@ a:hover {
   opacity: 1;
 }
 
+#galleryCarouselModal .carousel-control-prev-icon,
+#galleryCarouselModal .carousel-control-next-icon {
+  background-color: var(--sc-primary);
+  border-radius: 50%;
+  padding: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--sc-gold);
+  transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+#galleryCarouselModal .carousel-control-prev:hover .carousel-control-prev-icon,
+#galleryCarouselModal .carousel-control-next:hover .carousel-control-next-icon {
+  background-color: var(--sc-gold-strong);
+  border-color: var(--sc-gold-strong);
+  transform: scale(1.08);
+}
+
 .gallery-photo-counter {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 500;
+  background-color: var(--sc-primary);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--sc-gold);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Indicadores do carrossel */
+#galleryCarouselModal .carousel-indicators {
+  margin-bottom: 1rem;
+}
+
+#galleryCarouselModal .carousel-indicators [data-bs-target] {
+  background-color: var(--sc-muted);
+  border: 1px solid var(--sc-primary);
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+#galleryCarouselModal .carousel-indicators .active {
+  background-color: var(--sc-gold);
+  border-color: var(--sc-gold);
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 /* Cursor pointer na imagem principal */
@@ -760,6 +845,21 @@ a:hover {
   
   .gallery-position-indicator {
     font-size: 0.75rem;
+  }
+  
+  #galleryCarouselModal .carousel-item {
+    padding: 1rem 0.5rem;
+  }
+  
+  #galleryCarouselModal .carousel-item img {
+    max-height: 60vh;
+  }
+  
+  #galleryCarouselModal .carousel-control-prev-icon,
+  #galleryCarouselModal .carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.75rem;
   }
 }
 
@@ -960,6 +1060,3 @@ a:hover {
   filter: brightness(1.05);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
 }
-
-
-
