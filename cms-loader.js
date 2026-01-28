@@ -933,6 +933,18 @@ function renderConfig(data) {
     footerTextEl.textContent = data.footerText;
   }
   
+  // Atualizar título da seção de galeria
+  const galeriaTitleEl = document.getElementById('gallery-section-title');
+  if (galeriaTitleEl && data.gallerySectionTitle) {
+    galeriaTitleEl.textContent = data.gallerySectionTitle;
+  }
+
+  // Atualizar descrição da seção de galeria
+  const galeriaDescriptionEl = document.getElementById('gallery-section-description');
+  if (galeriaDescriptionEl && data.gallerySectionDescription) {
+    galeriaDescriptionEl.textContent = data.gallerySectionDescription;
+  }
+
   // Atualizar textos das modais se a função estiver disponível
   if (window.atualizarTextosModais) {
     window.atualizarTextosModais(data);
