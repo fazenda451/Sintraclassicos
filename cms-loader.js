@@ -599,7 +599,7 @@ function updateNavigationState() {
   }
   
   // Atualizar indicador de posição
-  positionIndicator.innerHTML = `<span>Mostrando meses ${startIndex}-${endIndex} de ${totalMeses}</span>`;
+  positionIndicator.innerHTML = `<span>Meses ${startIndex}-${endIndex} de ${totalMeses}</span>`;
   
   // Desabilitar/habilitar botões
   prevBtn.disabled = galeriaOffset === 0;
