@@ -341,6 +341,7 @@ A galeria permite criar conjuntos de fotos organizados por mês:
 ```bash
 # Instalar dependências
 npm install
+```
 
 ### 💬 Modais
 
