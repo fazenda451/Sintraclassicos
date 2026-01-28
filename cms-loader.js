@@ -946,7 +946,7 @@ function renderConfig(data) {
   }
 
   // Atualizar título da seção de eventos
-  const eventosTitleEl = document.getElementById('events-section-title');
+  const eventosTitleEl = document.getElementById('events-section-heading');
   if (eventosTitleEl && data.eventsSectionTitle) {
     eventosTitleEl.textContent = data.eventsSectionTitle;
   }
