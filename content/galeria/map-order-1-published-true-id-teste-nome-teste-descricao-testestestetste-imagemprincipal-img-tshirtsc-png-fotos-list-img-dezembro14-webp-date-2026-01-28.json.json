@@ -1,0 +1,13 @@
+{
+  "order": 1,
+  "published": true,
+  "id": "teste",
+  "nome": "teste",
+  "descricao": "testestestetste",
+  "imagemPrincipal": "/img/tshirtsc.png",
+  "fotos": [
+    "/img/Dezembro14.webp",
+    "/img/Dezembro1.webp"
+  ],
+  "date": "2026-01-28"
+}
