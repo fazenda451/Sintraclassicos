@@ -1,18 +1,18 @@
 {
   "galeriaTitle": "Alguns momentos dos últimos eventos.",
+  "lojaDescription": "Uma seleção de merchandising do Sintra Clássicos.",
   "galeriaDescription": "Experiencie o ambiente dos nossos eventos através das fotografias partilhadas pela comunidade.",
   "modalParticiparEvento": "Agradecemos pelo seu interesse no \"{{evento}}\". Antes de proceder com a sua inscrição, certifique-se de ler as regras estipuladas no nosso site.",
   "footerText": "sintraclassicos14@gmail.com",
+  "agendaTitle": "Os eventos que este ano tem reservado.",
   "modalFormularioContacto": "Obrigado! Os detalhes do seu evento/parceria foram enviados. Iremos avaliar a sua proposta e entrar em contacto assim que possível.",
   "modalRequisitarProduto": "Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar.",
-  "modalFeedbackComunidade": "Obrigado pela seu feedback! Vamos analisá-lo para melhorar a experiência de todos os que participam no Sintra Clássicos.",
+  "agendaDescription": "Fique a par dos eventos anuais que organizamos e participe connosco ao longo do ano.",
   "siteTitle": "Sintra Clássicos | Clássicos e Desportivos ",
   "footerTagline": "Desde 2014 a proporcionar um espaço para entusiastas do automóvel",
   "siteDescription": "Comunidade de automóveis clássicos e desportivos. Descobre automóveis únicos e junta-te a outros entusiastas.",
   "eventosTitle": "Quando nos pode visitar?",
-  "eventosDescription": "Os eventos que se irão realizar brevemente.",
-  "agendaTitle": "Os eventos que este ano tem reservado.",
-  "agendaDescription": "Fique a par dos eventos anuais que organizamos e participe connosco ao longo do ano.",
   "lojaTitle": "Merchandising",
-  "lojaDescription": "Stickers e t-shirts com o logo Sintra Clássicos. Para requisitar estes itens, desloca-te a um dos nossos colaboradores nos eventos."
+  "eventosDescription": "Os eventos que se irão realizar brevemente.",
+  "modalFeedbackComunidade": "Obrigado pela seu feedback! Vamos analisá-lo para melhorar a experiência de todos os que participam no Sintra Clássicos."
 }
