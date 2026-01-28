@@ -937,6 +937,11 @@ function renderConfig(data) {
   if (window.atualizarTextosModais) {
     window.atualizarTextosModais(data);
   }
+
+  // Atualizar textos da galeria se a função estiver disponível
+  if (window.atualizarTextosGaleria) {
+    window.atualizarTextosGaleria(data);
+  }
 }
 
 /**
