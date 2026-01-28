@@ -6,5 +6,7 @@
   "modalParticiparEvento": "Agradecemos pelo seu interesse no \"{{evento}}\". Antes de proceder com a sua inscrição, certifique-se de ler as regras estipuladas no nosso site.",
   "modalRequisitarProduto": "Este produto só está disponível para ser requisitado e adquirido presencialmente, dirija-se a um dos nossos colaboradores no decorrer do evento para o requisitar.",
   "modalFeedbackComunidade": "Obrigado pela seu feedback! Vamos analisá-lo para melhorar a experiência de todos os que participam no Sintra Clássicos.",
-  "modalFormularioContacto": "Obrigado! Os detalhes do seu evento/parceria foram enviados. Iremos avaliar a sua proposta e entrar em contacto assim que possível."
+  "modalFormularioContacto": "Obrigado! Os detalhes do seu evento/parceria foram enviados. Iremos avaliar a sua proposta e entrar em contacto assim que possível.",
+  "galeriaTitle": "Alguns momentos dos últimos eventos.",
+  "galeriaDescription": "Experiencie o ambiente dos nossos eventos através das fotografias partilhadas pela comunidade."
 }
