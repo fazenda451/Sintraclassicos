@@ -969,6 +969,18 @@ function renderConfig(data) {
     agendaDescriptionEl.textContent = data.agendaDescription;
   }
 
+  // Atualizar título da seção da loja
+  const lojaTitleEl = document.getElementById('store-title');
+  if (lojaTitleEl && data.lojaTitle) {
+    lojaTitleEl.textContent = data.lojaTitle;
+  }
+
+  // Atualizar descrição da seção da loja
+  const lojaDescriptionEl = document.getElementById('store-description');
+  if (lojaDescriptionEl && data.lojaDescription) {
+    lojaDescriptionEl.textContent = data.lojaDescription;
+  }
+
   // Atualizar textos das modais se a função estiver disponível
   if (window.atualizarTextosModais) {
     window.atualizarTextosModais(data);
@@ -987,6 +999,11 @@ function renderConfig(data) {
   // Atualizar textos da agenda se a função estiver disponível
   if (window.atualizarTextosAgenda) {
     window.atualizarTextosAgenda(data);
+  }
+
+  // Atualizar textos da loja se a função estiver disponível
+  if (window.atualizarTextosLoja) {
+    window.atualizarTextosLoja(data);
   }
 }
 
