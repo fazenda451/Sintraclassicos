@@ -736,7 +736,6 @@ a:hover {
   padding: 1rem;
   width: 2.5rem;
   height: 2.5rem;
-  border: 2px solid var(--sc-gold);
   transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
 }
@@ -744,7 +743,6 @@ a:hover {
 #galleryCarouselModal .carousel-control-prev:hover .carousel-control-prev-icon,
 #galleryCarouselModal .carousel-control-next:hover .carousel-control-next-icon {
   background-color: var(--sc-gold-strong);
-  border-color: var(--sc-gold-strong);
   transform: scale(1.08);
 }
 
@@ -754,7 +752,6 @@ a:hover {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.75rem 1rem;
-  border-top: 1px solid var(--sc-gold);
   letter-spacing: 0.04em;
   text-align: center;
 }
