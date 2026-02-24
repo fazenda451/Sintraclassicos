@@ -174,3 +174,13 @@ collections:
       - {label: "Agenda Description", name: "agendaDescription", widget: "text", hint: "Descrição da secção de agenda anual na página inicial"}
       - {label: "Loja Title", name: "lojaTitle", widget: "string", hint: "Título da secção de loja na página inicial"}
       - {label: "Loja Description", name: "lojaDescription", widget: "text", hint: "Descrição da secção de loja na página inicial"}
+      - {label: "Evento em destaque - Ativo", name: "featuredEventEnabled", widget: "boolean", default: true, hint: "Ativa ou desativa o card de evento em destaque na secção Agenda anual"}
+      - {label: "Evento em destaque - Título", name: "featuredEventTitle", widget: "string", hint: "Título do evento em destaque (ex: Evento Mercedes-Benz W123)"}
+      - {label: "Evento em destaque - Mês / Local", name: "featuredEventLocation", widget: "string", hint: "Texto de mês e local (ex: Fevereiro 2026 • Base Aérea Nº1)"}
+      - {label: "Evento em destaque - Badge", name: "featuredEventBadge", widget: "string", default: "Gratuito", hint: "Texto do badge (ex: Gratuito, Lotado, Inscrições Abertas)"}
+      - {label: "Evento em destaque - Descrição", name: "featuredEventDescription", widget: "text", hint: "Descrição breve do evento em destaque"}
+      - {label: "Evento em destaque - Horário de início", name: "featuredEventStartTime", widget: "string", required: false, hint: "Linha de horário (ex: Início às 09h30)"}
+      - {label: "Evento em destaque - Informação de inscrição", name: "featuredEventRegistration", widget: "string", required: false, hint: "Linha sobre inscrições (ex: Inscrições obrigatórias)"}
+      - {label: "Evento em destaque - Informação para visitantes", name: "featuredEventVisitantFee", widget: "string", required: false, hint: "Linha sobre visitantes (ex: Entrada gratuita para visitantes)"}
+      - {label: "Evento em destaque - Texto do botão", name: "featuredEventButtonText", widget: "string", default: "Quero participar", hint: "Texto do botão do card do evento em destaque"}
+      - {label: "Evento em destaque - Imagem", name: "featuredEventImage", widget: "image", required: false, hint: "Imagem principal do evento em destaque"}

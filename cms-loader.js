@@ -981,6 +981,87 @@ function renderConfig(data) {
     lojaDescriptionEl.textContent = data.lojaDescription;
   }
 
+  // Evento em destaque na secção Agenda
+  const featuredCard = document.getElementById('featured-event-card');
+  if (featuredCard) {
+    // Se explicitamente desativado no CMS, esconde o card
+    if (data.featuredEventEnabled === false) {
+      featuredCard.style.display = 'none';
+    } else {
+      featuredCard.style.display = '';
+
+      const featuredImage = document.getElementById('featured-event-image');
+      if (featuredImage && data.featuredEventImage) {
+        featuredImage.src = data.featuredEventImage;
+        if (data.featuredEventTitle) {
+          featuredImage.alt = data.featuredEventTitle;
+        }
+      }
+
+      const featuredLocation = document.getElementById('featured-event-location');
+      if (featuredLocation && data.featuredEventLocation) {
+        featuredLocation.textContent = data.featuredEventLocation;
+      }
+
+      const featuredBadge = document.getElementById('featured-event-badge');
+      if (featuredBadge && data.featuredEventBadge) {
+        featuredBadge.textContent = data.featuredEventBadge;
+      }
+
+      const featuredTitle = document.getElementById('featured-event-title');
+      if (featuredTitle && data.featuredEventTitle) {
+        featuredTitle.textContent = data.featuredEventTitle;
+      }
+
+      const featuredDescription = document.getElementById('featured-event-description');
+      if (featuredDescription && data.featuredEventDescription) {
+        featuredDescription.textContent = data.featuredEventDescription;
+      }
+
+      const featuredStartTime = document.getElementById('featured-event-startTime');
+      if (featuredStartTime) {
+        if (data.featuredEventStartTime) {
+          featuredStartTime.textContent = data.featuredEventStartTime;
+          featuredStartTime.style.display = '';
+        } else {
+          featuredStartTime.style.display = 'none';
+        }
+      }
+
+      const featuredRegistration = document.getElementById('featured-event-registration');
+      if (featuredRegistration) {
+        if (data.featuredEventRegistration) {
+          featuredRegistration.textContent = data.featuredEventRegistration;
+          featuredRegistration.style.display = '';
+        } else {
+          featuredRegistration.style.display = 'none';
+        }
+      }
+
+      const featuredVisitantFee = document.getElementById('featured-event-visitantFee');
+      if (featuredVisitantFee) {
+        if (data.featuredEventVisitantFee) {
+          featuredVisitantFee.textContent = data.featuredEventVisitantFee;
+          featuredVisitantFee.style.display = '';
+        } else {
+          featuredVisitantFee.style.display = 'none';
+        }
+      }
+
+      const featuredButton = document.getElementById('featured-event-button');
+      if (featuredButton) {
+        if (data.featuredEventButtonText) {
+          featuredButton.textContent = data.featuredEventButtonText;
+        }
+        const eventName =
+          data.featuredEventTitle ||
+          featuredButton.getAttribute('data-event') ||
+          'Evento em destaque';
+        featuredButton.setAttribute('data-event', eventName);
+      }
+    }
+  }
+
   // Atualizar textos das modais se a função estiver disponível
   if (window.atualizarTextosModais) {
     window.atualizarTextosModais(data);
