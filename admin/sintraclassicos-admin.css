@@ -23,30 +23,31 @@ body {
   background-color: transparent;
 }
 
-/* Barra superior da aplicação (AppBar) */
-.MuiAppBar-root,
-.MuiToolbar-root.MuiAppBar-root {
-  background: linear-gradient(90deg, var(--sc-primary), #111827);
-  color: #f9fafb;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.4);
+/* Barra superior da aplicação (AppBar) – classes do Decap CMS */
+.nc-appHeader {
+  background: linear-gradient(90deg, var(--sc-primary), #111827) !important;
+  color: #f9fafb !important;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.4) !important;
 }
 
-.MuiAppBar-root .MuiTypography-root,
-.MuiAppBar-root .MuiButton-root {
+.nc-appHeader .nc-appHeader-main,
+.nc-appHeader .nc-appHeader-nav,
+.nc-appHeader button,
+.nc-appHeader a {
+  color: #f9fafb !important;
+  font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-size: 0.72rem;
 }
 
-/* Pequeno “selo” Sintraclássicos na AppBar */
-.MuiAppBar-root::after {
+.nc-appHeader::after {
   content: "SINTRACLÁSSICOS • ADMIN";
   margin-left: auto;
-  margin-right: 0.75rem;
-  padding: 0.25rem 0.65rem;
+  margin-right: 1.5rem;
+  padding: 0.25rem 0.9rem;
   border-radius: 999px;
-  background: rgba(249, 250, 251, 0.12);
-  border: 1px solid rgba(249, 250, 251, 0.28);
+  background: rgba(249, 250, 251, 0.1);
+  border: 1px solid rgba(249, 250, 251, 0.25);
   font-size: 0.7rem;
   letter-spacing: 0.18em;
 }
@@ -96,20 +97,45 @@ a:hover,
   color: var(--sc-gold-strong);
 }
 
-/* Sidebar / lista de colecções */
-.MuiDrawer-paper {
-  background: #111827;
-  color: #f9fafb;
+/* Sidebar / lista de colecções (Decap CMS) */
+.nc-sidebar {
+  background: #111827 !important;
+  color: #f9fafb !important;
+  border-right: 1px solid rgba(15, 23, 42, 0.9);
 }
 
-.MuiListItem-root.Mui-selected,
-.MuiListItem-root.Mui-selected:hover {
-  background: rgba(248, 250, 252, 0.06);
+.nc-sidebar-header {
+  border-bottom: 1px solid rgba(55, 65, 81, 0.8);
 }
 
-.MuiListItemText-primary {
-  font-weight: 600;
+.nc-sidebar-collectionsSearch input {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(55, 65, 81, 0.9) !important;
+  color: #e5e7eb !important;
+}
+
+.nc-collectionPage-sidebar-listItem,
+.nc-collectionPage-sidebar-listItem a {
+  color: rgba(249, 250, 251, 0.85) !important;
+  font-weight: 500;
   letter-spacing: 0.04em;
+}
+
+.nc-collectionPage-sidebar-listItem-active,
+.nc-collectionPage-sidebar-listItem-active a {
+  background: rgba(17, 24, 39, 0.9) !important;
+  border-left: 3px solid var(--sc-gold) !important;
+  color: #fefce8 !important;
+}
+
+/* “Cartões” de colecção / entradas */
+.nc-collectionCard,
+.nc-entryCard {
+  border-radius: 10px !important;
+  border: 1px solid var(--sc-muted) !important;
+  background: linear-gradient(180deg, #ffffff, rgba(250, 244, 235, 0.98)) !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14) !important;
 }
 
 /* Campos de formulário */
