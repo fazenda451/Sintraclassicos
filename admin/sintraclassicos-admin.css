@@ -12,8 +12,8 @@
 
 html,
 body {
-  /* TESTE: fundo VERMELHO para identificar este ficheiro */
-  background: #ff0000 !important;
+  /* Fundo claro vintage Sintraclássicos para a área de admin */
+  background: radial-gradient(circle at top, #ffffff 0, var(--sc-bg-light) 42%, #ede4d5 100%) !important;
   color: var(--sc-foreground) !important;
   font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
