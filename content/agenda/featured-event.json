@@ -1,13 +1,12 @@
 {
-  "featuredEventEnabled": true,
-  "featuredEventTitle": "Evento Mercedes-Benz W123",
   "featuredEventLocation": "Fevereiro 2026 • Museu do Ar (Sintra)",
-  "featuredEventBadge": "Gratuito",
-  "featuredEventDescription": "Evento que partilha a paixão pelo modelo W123 da Mercedes-Benz, celebrando os seus 50 anos de existência.",
   "featuredEventStartTime": "Início às 09h30",
   "featuredEventRegistration": "Inscrições obrigatórias",
-  "featuredEventVisitantFee": "Entrada gratuita para visitantes",
   "featuredEventButtonText": "Quero participar",
-  "featuredEventImage": "img/MESFEVEREIROW123.jpeg"
+  "featuredEventTitle": "Evento Mercedes-Benz W123",
+  "featuredEventImage": "/img/mesfevereirow123.jpeg",
+  "featuredEventDescription": "Evento que partilha a paixão pelo modelo W123 da Mercedes-Benz, celebrando os seus 50 anos de existência.",
+  "featuredEventEnabled": true,
+  "featuredEventBadge": "Gratuito",
+  "featuredEventVisitantFee": "Entrada gratuita para visitantes"
 }
-
