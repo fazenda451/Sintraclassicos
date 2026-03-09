@@ -7,17 +7,17 @@ public_folder: /img # The src attribute for uploaded media will begin with /img
 
 collections:
   - name: "hero" # Used in routes, e.g., /admin/collections/hero
-    label: "Hero Section"
+    label: "Secção Hero"
     folder: "content/hero"
     create: false
     format: "json"
     slug: "hero.json"
     fields:
-      - {label: "Subtitle", name: "subtitle", widget: "string"}
-      - {label: "Button 1 Text", name: "button1Text", widget: "string"}
-      - {label: "Button 1 Link", name: "button1Link", widget: "string"}
-      - {label: "Button 2 Text", name: "button2Text", widget: "string"}
-      - {label: "Button 2 Link", name: "button2Link", widget: "string"}
+      - {label: "Subtítulo", name: "subtitle", widget: "string"}
+      - {label: "Texto do Botão 1", name: "button1Text", widget: "string"}
+      - {label: "Ligação do Botão 1", name: "button1Link", widget: "string"}
+      - {label: "Texto do Botão 2", name: "button2Text", widget: "string"}
+      - {label: "Ligação do Botão 2", name: "button2Link", widget: "string"}
 
   - name: "eventos" # Collection Namespace
     label: "Próximos Eventos"
@@ -29,16 +29,16 @@ collections:
     summary: "{{title}} - {{location}}"
     filter: {field: "published", value: true} # Exclui index.json e outros arquivos sem published: true
     fields: # The fields for each document, usually in front matter
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
-      - {label: "Location", name: "location", widget: "string"}
-      - {label: "Image", name: "image", widget: "image", required: false}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Price", name: "price", widget: "string", default: "Gratuito"}
-      - {label: "Start Time", name: "startTime", widget: "string"}
-      - {label: "Registration", name: "Registration", widget: "string"}
-      - {label: "Visitant Fee", name: "visitantFee", widget: "string"}
-      - {label: "Published", name: "published", widget: "boolean", default: true}
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Local", name: "location", widget: "string"}
+      - {label: "Imagem", name: "image", widget: "image", required: false}
+      - {label: "Descrição", name: "description", widget: "text"}
+      - {label: "Preço", name: "price", widget: "string", default: "Gratuito"}
+      - {label: "Hora de início", name: "startTime", widget: "string"}
+      - {label: "Informação de inscrição", name: "Registration", widget: "string"}
+      - {label: "Informação para visitantes", name: "visitantFee", widget: "string"}
+      - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "agenda"
     label: "Agenda Anual"
@@ -109,12 +109,12 @@ collections:
     slug: "{{slug}}.json"
     summary: "{{title}} - {{price}}"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Price", name: "price", widget: "string"}
-      - {label: "Image", name: "image", widget: "image"}
-      - {label: "Available", name: "available", widget: "boolean", default: true}
-      - {label: "Published", name: "published", widget: "boolean", default: true}
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descrição", name: "description", widget: "text"}
+      - {label: "Preço", name: "price", widget: "string"}
+      - {label: "Imagem", name: "image", widget: "image"}
+      - {label: "Disponível", name: "available", widget: "boolean", default: true}
+      - {label: "Publicado", name: "published", widget: "boolean", default: true}
 
   - name: "comunidade"
     label: "Comunidade"
@@ -123,14 +123,14 @@ collections:
     format: "json"
     slug: "comunidade.json"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "For Owners Title", name: "forOwnersTitle", widget: "string"}
-      - {label: "For Owners Text", name: "forOwnersText", widget: "text"}
-      - {label: "For Enthusiasts Title", name: "forEnthusiastsTitle", widget: "string"}
-      - {label: "For Enthusiasts Text", name: "forEnthusiastsText", widget: "text"}
-      - {label: "Suggestion Title", name: "suggestionTitle", widget: "string"}
-      - {label: "Suggestion Text", name: "suggestionText", widget: "text"}
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descrição", name: "description", widget: "text"}
+      - {label: "Título para Proprietários", name: "forOwnersTitle", widget: "string"}
+      - {label: "Texto para Proprietários", name: "forOwnersText", widget: "text"}
+      - {label: "Título para Entusiastas", name: "forEnthusiastsTitle", widget: "string"}
+      - {label: "Texto para Entusiastas", name: "forEnthusiastsText", widget: "text"}
+      - {label: "Título da sugestão", name: "suggestionTitle", widget: "string"}
+      - {label: "Texto da sugestão", name: "suggestionText", widget: "text"}
 
   - name: "contactos"
     label: "Contactos"
@@ -139,12 +139,12 @@ collections:
     format: "json"
     slug: "contactos.json"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descrição", name: "description", widget: "text"}
       - {label: "Email", name: "email", widget: "string"}
-      - {label: "Instagram URL", name: "instagramUrl", widget: "string"}
-      - {label: "Facebook URL", name: "facebookUrl", widget: "string"}
-      - {label: "Benefits List", name: "benefits", widget: "list", field: {label: "Benefit", name: "benefit", widget: "string"}}
+      - {label: "URL do Instagram", name: "instagramUrl", widget: "string"}
+      - {label: "URL do Facebook", name: "facebookUrl", widget: "string"}
+      - {label: "Lista de benefícios", name: "benefits", widget: "list", field: {label: "Benefício", name: "benefit", widget: "string"}}
 
   - name: "regras"
     label: "Regras"
@@ -153,19 +153,19 @@ collections:
     format: "json"
     slug: "regras.json"
     fields:
-      - {label: "Subtitle", name: "subtitle", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Introduction Paragraph 1", name: "introParagraph1", widget: "text"}
-      - {label: "Introduction Paragraph 2", name: "introParagraph2", widget: "text"}
-      - {label: "Introduction Paragraph 3", name: "introParagraph3", widget: "text"}
-      - {label: "Classicos Title", name: "classicosTitle", widget: "string"}
-      - {label: "Classicos Description", name: "classicosDescription", widget: "text"}
-      - {label: "Classicos Note", name: "classicosNote", widget: "text"}
-      - {label: "Desportivos Title", name: "desportivosTitle", widget: "string"}
-      - {label: "Desportivos Badge", name: "desportivosBadge", widget: "string"}
-      - {label: "Desportivos Description", name: "desportivosDescription", widget: "text"}
-      - {label: "Desportivos Note", name: "desportivosNote", widget: "text"}
-      - {label: "Rules List", name: "rules", widget: "list", field: {label: "Rule", name: "rule", widget: "text"}}
+      - {label: "Subtítulo", name: "subtitle", widget: "string"}
+      - {label: "Descrição", name: "description", widget: "text"}
+      - {label: "Parágrafo de introdução 1", name: "introParagraph1", widget: "text"}
+      - {label: "Parágrafo de introdução 2", name: "introParagraph2", widget: "text"}
+      - {label: "Parágrafo de introdução 3", name: "introParagraph3", widget: "text"}
+      - {label: "Título Clássicos", name: "classicosTitle", widget: "string"}
+      - {label: "Descrição Clássicos", name: "classicosDescription", widget: "text"}
+      - {label: "Nota Clássicos", name: "classicosNote", widget: "text"}
+      - {label: "Título Desportivos", name: "desportivosTitle", widget: "string"}
+      - {label: "Badge Desportivos", name: "desportivosBadge", widget: "string"}
+      - {label: "Descrição Desportivos", name: "desportivosDescription", widget: "text"}
+      - {label: "Nota Desportivos", name: "desportivosNote", widget: "text"}
+      - {label: "Lista de regras", name: "rules", widget: "list", field: {label: "Regra", name: "rule", widget: "text"}}
 
   - name: "config"
     label: "Configurações Gerais"
@@ -175,10 +175,10 @@ collections:
         name: "site"
         format: "json"
         fields:
-          - {label: "Site Title", name: "siteTitle", widget: "string"}
-          - {label: "Site Description", name: "siteDescription", widget: "text"}
-          - {label: "Footer Text", name: "footerText", widget: "text"}
-          - {label: "Footer Tagline", name: "footerTagline", widget: "string", hint: "Frase exibida no footer (ex: Desde 2014 a proporcionar um espaço para entusiastas do automóvel)"}
+          - {label: "Título do site", name: "siteTitle", widget: "string"}
+          - {label: "Descrição do site", name: "siteDescription", widget: "text"}
+          - {label: "Texto do rodapé", name: "footerText", widget: "text"}
+          - {label: "Frase do rodapé", name: "footerTagline", widget: "string", hint: "Frase exibida no footer (ex: Desde 2014 a proporcionar um espaço para entusiastas do automóvel)"}
 
       - file: "content/config/modals.json"
         label: "Textos das Modais"
@@ -195,11 +195,11 @@ collections:
         name: "home_sections"
         format: "json"
         fields:
-          - {label: "Galeria Title", name: "galeriaTitle", widget: "string", hint: "Título da secção de galeria na página inicial"}
-          - {label: "Galeria Description", name: "galeriaDescription", widget: "text", hint: "Descrição da secção de galeria na página inicial"}
-          - {label: "Eventos Title", name: "eventosTitle", widget: "string", hint: "Título da secção de próximos eventos na página inicial"}
-          - {label: "Eventos Description", name: "eventosDescription", widget: "text", hint: "Descrição da secção de próximos eventos na página inicial"}
-          - {label: "Agenda Title", name: "agendaTitle", widget: "string", hint: "Título da secção de agenda anual na página inicial"}
-          - {label: "Agenda Description", name: "agendaDescription", widget: "text", hint: "Descrição da secção de agenda anual na página inicial"}
-          - {label: "Loja Title", name: "lojaTitle", widget: "string", hint: "Título da secção de loja na página inicial"}
-          - {label: "Loja Description", name: "lojaDescription", widget: "text", hint: "Descrição da secção de loja na página inicial"}
+          - {label: "Título da Galeria", name: "galeriaTitle", widget: "string", hint: "Título da secção de galeria na página inicial"}
+          - {label: "Descrição da Galeria", name: "galeriaDescription", widget: "text", hint: "Descrição da secção de galeria na página inicial"}
+          - {label: "Título de Eventos", name: "eventosTitle", widget: "string", hint: "Título da secção de próximos eventos na página inicial"}
+          - {label: "Descrição de Eventos", name: "eventosDescription", widget: "text", hint: "Descrição da secção de próximos eventos na página inicial"}
+          - {label: "Título da Agenda", name: "agendaTitle", widget: "string", hint: "Título da secção de agenda anual na página inicial"}
+          - {label: "Descrição da Agenda", name: "agendaDescription", widget: "text", hint: "Descrição da secção de agenda anual na página inicial"}
+          - {label: "Título da Loja", name: "lojaTitle", widget: "string", hint: "Título da secção de loja na página inicial"}
+          - {label: "Descrição da Loja", name: "lojaDescription", widget: "text", hint: "Descrição da secção de loja na página inicial"}
