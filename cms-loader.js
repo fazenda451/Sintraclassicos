@@ -350,8 +350,19 @@ async function loadRegras(forceReload = false) {
  */
 async function loadConfig(forceReload = false) {
   if (!forceReload && ENABLE_CACHE && cmsCache.config) return cmsCache.config;
-  const data = await loadJSON('content/config/site.json', forceReload || !ENABLE_CACHE);
-  if (data && ENABLE_CACHE) cmsCache.config = data;
+
+  const [site, modals, homeSections] = await Promise.all([
+    loadJSON('content/config/site.json', forceReload || !ENABLE_CACHE),
+    loadJSON('content/config/modals.json', forceReload || !ENABLE_CACHE),
+    loadJSON('content/config/home-sections.json', forceReload || !ENABLE_CACHE)
+  ]);
+
+  const data = Object.assign({}, site || {}, modals || {}, homeSections || {});
+
+  if (Object.keys(data).length > 0 && ENABLE_CACHE) {
+    cmsCache.config = data;
+  }
+
   return data;
 }
 
