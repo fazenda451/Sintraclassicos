@@ -12,8 +12,8 @@
 
 html,
 body {
-  /* Fundo claro vintage, forçado para verificar carregamento do CSS */
-  background: radial-gradient(circle at top, #ffffff 0, var(--sc-bg-light) 42%, #ede4d5 100%) !important;
+  /* TESTE: fundo VERDE para identificar este ficheiro */
+  background: #00ff00 !important;
   color: var(--sc-foreground) !important;
   font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
