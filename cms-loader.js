@@ -1092,12 +1092,23 @@ function renderConfig(data) {
  * Inicializa e carrega todo o conteúdo do CMS
  * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
  */
+/**
+ * Carrega dados do evento em destaque da agenda anual
+ * @param {boolean} forceReload - Se true, força recarregamento ignorando cache
+ */
+async function loadFeaturedEvent(forceReload = false) {
+  if (!forceReload && ENABLE_CACHE && cmsCache.featuredEvent) return cmsCache.featuredEvent;
+  const data = await loadJSON('content/agenda/featured-event.json', forceReload || !ENABLE_CACHE);
+  if (data && ENABLE_CACHE) cmsCache.featuredEvent = data;
+  return data;
+}
+
 async function initCMS(forceReload = false) {
   try {
     console.log('initCMS: Iniciando carregamento do CMS...');
     
     // Carregar todos os dados em paralelo
-    const [hero, eventos, agenda, galeria, loja, comunidade, contactos, regras, config] = await Promise.all([
+    const [hero, eventos, agenda, galeria, loja, comunidade, contactos, regras, config, featuredEvent] = await Promise.all([
       loadHero(forceReload),
       loadEventos(forceReload),
       loadAgenda(forceReload),
@@ -1106,7 +1117,8 @@ async function initCMS(forceReload = false) {
       loadComunidade(forceReload),
       loadContactos(forceReload),
       loadRegras(forceReload),
-      loadConfig(forceReload)
+      loadConfig(forceReload),
+      loadFeaturedEvent(forceReload)
     ]);
     
     console.log('initCMS: Dados carregados:', {
@@ -1118,7 +1130,8 @@ async function initCMS(forceReload = false) {
       comunidade: !!comunidade,
       contactos: !!contactos,
       regras: !!regras,
-      config: !!config
+      config: !!config,
+      featuredEvent: !!featuredEvent
     });
     
     // Renderizar tudo
@@ -1130,7 +1143,9 @@ async function initCMS(forceReload = false) {
     renderComunidade(comunidade);
     renderContactos(contactos);
     renderRegras(regras);
-    renderConfig(config);
+    // Combinar configurações gerais com dados do evento em destaque
+    const mergedConfig = Object.assign({}, config || {}, featuredEvent || {});
+    renderConfig(mergedConfig);
     
     console.log('initCMS: Renderização concluída');
     
@@ -1164,6 +1179,7 @@ window.cmsLoader = {
   loadContactos,
   loadRegras,
   loadConfig,
+   loadFeaturedEvent,
   initCMS,
   clearCMSCache,
   reloadCMS
