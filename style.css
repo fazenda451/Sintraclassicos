@@ -373,6 +373,113 @@ a:hover {
   object-position: center !important;
 }
 
+/* Destaque visual específico para o "Evento em destaque" da Agenda" */
+#featured-event-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--sc-muted);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+  transform-origin: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#featured-event-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(148, 119, 82, 0.18));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#featured-event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.32);
+  border-color: var(--sc-gold);
+}
+
+#featured-event-card:hover::before {
+  opacity: 1;
+}
+
+/* Imagem de destaque dinâmica, sem cortes agressivos */
+#featured-event-card img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+  background: var(--sc-bg-light);
+  border-bottom: 2px solid rgba(229, 231, 235, 0.9);
+  transition: transform 0.35s ease;
+}
+
+#featured-event-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Conteúdo interno mais limpo e respirado */
+#featured-event-card .p-3,
+#featured-event-card .p-md-4 {
+  padding: 1.6rem 1.75rem !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1),
+    rgba(250, 244, 235, 0.96)
+  );
+}
+
+/* Ribbon / badge inclinada para o destaque */
+#featured-event-badge {
+  position: absolute;
+  top: 18px;
+  left: -10px;
+  background: var(--sc-gold);
+  color: var(--sc-foreground) !important;
+  padding: 0.35rem 1.1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 800;
+  transform: rotate(-10deg);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+  border-radius: 4px;
+}
+
+/* Lista de informações com ícones */
+#featured-event-card .event-info {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.4rem;
+}
+
+#featured-event-card .event-info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+#featured-event-card .event-info i {
+  color: var(--sc-primary);
+  margin-top: 2px;
+}
+
+@media (max-width: 576px) {
+  #featured-event-card {
+    border-radius: 14px;
+  }
+
+  #featured-event-card .p-3,
+  #featured-event-card .p-md-4 {
+    padding-inline: 1.3rem !important;
+  }
+}
+
 /* Loja: cartões de produto (vibes semelhantes a "Próximos eventos") */
 .product-card {
   background: linear-gradient(to bottom, rgba(17,24,39,0.04), rgba(17,24,39,0.02));
