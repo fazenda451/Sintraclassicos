@@ -1,0 +1,22 @@
+{
+  "classicosTitle": "Clássicos",
+  "classicosDescription": "Veículos a partir dos 30 anos de idade, com data da primeira matrícula até 1996, movidos a gasolina, dentro da sua originalidade de fábrica ou com modificações de época.",
+  "classicosNote": "Só são admitidos automóveis a gasóleo cuja primeira matricula seja até 1983, os quais devem estar dentro da sua originalidade de fábrica.",
+  "introParagraph1": "Após a revalidação da parceria com o Museu do Ar, a participação nos eventos do Sintra Clássicos que se realizam na Base aérea de Sintra, foram alvo de uma revisão das regras.",
+  "introParagraph2": "Assim, agradecemos que leia as mesmas para estar inteirado no procedimento de participação e visita do Sintra Clássicos. Estão estipuladas por questões de segurança e para efetuar o controlo das entradas em todos os eventos",
+  "introParagraph3": "O Sintra Clássicos está aberto a Automóveis e Motas de teor Clássico e Desportivo Topo de Gama. Estes últimos só entrarão por convite da organização.",
+  "desportivosTitle": "Desportivos Topo de Gama",
+  "desportivosNote": "*A cada mês serão selecionados cerca de 30 automóveis Desportivos Topos de Gama e será enviado um email com o convite para participar no evento.",
+  "rules": [
+    "O número máximo de entrada de veículos é de 150.",
+    "Os eventos mensais são de entrada livre para visitantes e participantes (* participantes-mediante inscrição prévia) e realizam-se todos os primeiros domingos do mês entre as 09h30 e 12h30. Qualquer tipo de alteração será devidamente comunicada junto do respetivo evento.",
+    "Todas as inscrições serão alvo de seleção por parte da organização.",
+    "Apenas as inscrições não aceites serão comunicadas via email, as restantes consideram-se inscritas 3 dias após a data de inscrição.",
+    "As inscrições devem ser efetuadas até 3 dias antes da data do evento.",
+    "Temática mensal - Os eventos de temática mensal fornecem o palco a uma marca ou modelo específico, isto não implica a exclusão da participação de qualquer outro automóvel, desde que este esteja de acordo com as restantes regras estipuladas."
+  ],
+  "subtitle": "As regras que deve conhecer.",
+  "desportivosDescription": "Veículos desportivos movidos a gasolina com motorizações de cariz desportivo, que tenham sido pensados para uma condução desportiva, tais como coupes, roadsters, cabrios, hatchbacks ou sedans de séries limitadas ou com motorizações fora do comum, assim como superdesportivos.",
+  "description": "Todos os eventos SintraClássicos contam com um conjunto de regras estipuladas para fornecer a melhor experiência ao espaço que nos recebe, participantes e visitantes, fique a conhecê-las abaixo.",
+  "desportivosBadge": "Entrada por convite da organização via email"
+}

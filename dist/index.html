@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sintra Clássicos | Clássicos e Desportivos</title>
+        <meta name="description" content="Comunidade de automóveis clássicos e desportivos. Descobre automóveis únicos e junta-te a outros entusiastas." />
+
+        <meta property="og:title" content="Sintra Clássicos | Clássicos e Desportivos" />
+        <meta property="og:description" content="Comunidade de automóveis clássicos e desportivos. Descobre automóveis únicos e junta-te a outros entusiastas." />
+    <meta property="og:image" content="https://sintra-classicos.netlify.app/img/logo.jpg" />
+    <meta property="og:url" content="https://sintraclassicos.pt" />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg" />
+
+    <!-- Bootstrap 5 (Twitter / CSS framework) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Fontes Google -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Mapa interativo - DEVE ser carregado ANTES da Google Maps API -->
+    <script src="mapa.js"></script>
+
+    <!-- Config (gerado a partir de .env) -->
+    <script src="config.js"></script>
+
+    <!-- Injeta dinamicamente a Google Maps JavaScript API usando a chave em window.__ENV -->
+    <script>
+      (function() {
+        var key = window.__ENV && window.__ENV.GOOGLE_API_KEY;
+        if (!key) {
+          console.warn('Google API key not found in window.__ENV; the map will not be loaded. Copy .env.example → .env and run `npm run generate-config`.');
+          return;
+        }
+        var s = document.createElement('script');
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&loading=async&callback=inicializarMapaQuandoPronto';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      })();
+    </script>
+    <!-- MarkerClusterer para agrupar waypoints -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Estilos custom -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Site loader: blackout with blinking logo -->
+    <div id="site-loader" role="status" aria-label="A carregar" aria-live="polite">
+      <img src="img/Sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="loader-logo" />
+    </div>
+    <script>
+      (function(){
+        var start = performance.now();
+        var loader = document.getElementById('site-loader');
+        function hideLoader(){
+          if(!loader) return;
+          loader.classList.add('loader-hidden');
+          setTimeout(function(){ if(loader.parentNode) loader.parentNode.removeChild(loader); }, 500);
+        }
+        function onLoad(){
+          var elapsed = performance.now() - start;
+          var remaining = Math.max(0, 2500 - elapsed);
+          setTimeout(hideLoader, remaining);
+        }
+        if (document.readyState === 'complete') {
+          onLoad();
+        } else {
+          window.addEventListener('load', onLoad);
+          // Fallback: garante que o loader desaparece após 5s se load falhar
+          setTimeout(hideLoader, 5000);
+        }
+      })();
+    </script>
+
+    <!-- Header -->
+    <nav
+      id="mainNav"
+      class="navbar navbar-expand-lg fixed-top"
+    >
+      <div class="container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#topo">
+          <img src="img/Sintra_Classico_logo(Preto).png" alt="Sintra Clássicos" class="navbar-logo" />
+          <span class="visually-hidden">Sintra Clássicos</span>
+        </a>
+        <!-- Botão para abrir menu móvel (offcanvas) -->
+        <button
+          class="btn btn-mobile d-lg-none ms-2"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#mobileMenu"
+          aria-controls="mobileMenu"
+          aria-label="Abrir menu móvel"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+          <ul class="navbar-nav align-items-lg-center mb-2 mb-lg-0 small text-uppercase fw-semibold">
+            <li class="nav-item px-lg-2">
+              <a class="nav-link active" href="#topo">Início</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#proximos-eventos">Eventos</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#regras">Regras</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#agenda">Agenda anual</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#galeria">Galeria</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#loja">Loja</a>
+            </li>
+            <li class="nav-item px-lg-2">
+              <a class="nav-link" href="#comunidade">Comunidade</a>
+            </li>
+            <li class="nav-item px-lg-2 me-lg-3">
+              <a class="nav-link" href="#contactos">Contactos</a>
+            </li>
+          </ul>
+          <div class="d-none d-lg-block">
+            <a href="#contactos" class="btn btn-header-cta px-4 py-2">
+              Juntar-se
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <main id="topo" class="hero-section">
+      <div class="hero-gradient"></div>
+      <div class="container hero-content">
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-9 text-center">
+            <h1 class="hero-title mb-3">
+              <img src="img/sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="hero-logo" />
+            </h1>
+            <p class="hero-subtitle mb-4">
+              Uma comunidade criada para receber e expôr o património automóvel clássico e desportivo nacional.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+              <a href="#proximos-eventos" class="btn btn-gradient px-4 py-2">
+                Explorar Eventos
+              </a>
+              <a href="#comunidade" class="btn btn-ghost px-4 py-2">
+                Conhecer a Comunidade
+              </a>
+            </div>
+            <div class="hero-discover small text-uppercase tracking-wide">
+              <span>Descobrir</span>
+              <div class="hero-discover-arrow mt-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Próximos Eventos -->
+    <section id="proximos-eventos" class="section-padding">
+      <div class="container">
+        <div class="row align-items-end mb-4">
+          <div class="col-md-8">
+            <div class="section-title mb-2">Próximos eventos</div>
+            <h2 class="section-heading mb-2" id="events-heading">Quando nos pode visitar?</h2>
+            <p class="text-secondary mb-0" id="events-description">
+                Os eventos que se irão realizar brevemente.
+            </p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <span class="badge-soft text-light">
+              Atualizado em tempo real pelos organizadores locais
+            </span>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="event-card h-100 d-flex flex-column">
+              <img
+              src="img/MESFEVEREIROW123.jpeg"
+              class="w-100"
+                style="height: 180px"
+                alt="Evento de carros clássicos e desportivos na base aérea Nº1"
+              />
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2 small text-secondary"
+                >
+                  <span>Fevereiro 2026 • Base Aérea Nº1</span>
+                  <span class="badge-soft text-success">Gratuito</span>
+                </div>
+                <h3 class="h5 mb-2">Evento Mercedes-Benz W123</h3>
+                <p class="text-secondary small mb-3 flex-grow-1">
+                  Concentração estática para celebrar os 50 anos do icónico modelo
+                  Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior. 
+                </p>
+                <ul class="small text-secondary mb-3 ps-3">
+                  <li>Início ás 09h30</li>
+                  <li>Término ás 12h30</li>
+                  <li>A entrada a visitantes é gratuita</li>
+                </ul>
+                <button class="btn btn-outline-info btn-sm mt-auto w-100" data-event="Evento Mercedes-Benz W123">
+                  Quero participar
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="event-card h-100 d-flex flex-column">
+              <img
+              src="img/MESFEVEREIROW123.jpeg"
+              class="w-100"
+                style="height: 180px"
+                alt="Evento de carros clássicos e desportivos na base aérea Nº1"
+              />
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2 small text-secondary"
+                >
+                  <span>Fevereiro 2026 • Base Aérea Nº1</span>
+                  <span class="badge-soft text-success">Gratuito</span>
+                </div>
+                <h3 class="h5 mb-2">Evento Mercedes-Benz W123</h3>
+                <p class="text-secondary small mb-3 flex-grow-1">
+                  Concentração estática para celebrar os 50 anos do icónico modelo
+                  Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior. 
+                </p>
+                <ul class="small text-secondary mb-3 ps-3">
+                  <li>Início ás 09h30</li>
+                  <li>Término ás 12h30</li>
+                  <li>A entrada a visitantes é gratuita</li>
+                </ul>
+                <button class="btn btn-outline-info btn-sm mt-auto w-100" data-event="Evento Mercedes-Benz W123">
+                  Quero participar
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="event-card h-100 d-flex flex-column">
+              <img
+              src="img/MESFEVEREIROW123.jpeg"
+              class="w-100"
+                style="height: 180px"
+                alt="Evento de carros clássicos e desportivos na base aérea Nº1"
+              />
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2 small text-secondary"
+                >
+                  <span>Fevereiro 2026 • Base Aérea Nº1</span>
+                  <span class="badge-soft text-success">Gratuito</span>
+                </div>
+                <h3 class="h5 mb-2">Evento Mercedes-Benz W123</h3>
+                <p class="text-secondary small mb-3 flex-grow-1">
+                  Concentração estática para celebrar os 50 anos do icónico modelo
+                  Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior. 
+                </p>
+                <ul class="small text-secondary mb-3 ps-3">
+                  <li>Início ás 09h30</li>
+                  <li>Término ás 12h30</li>
+                  <li>A entrada a visitantes é gratuita</li>
+                </ul>
+                <button class="btn btn-outline-info btn-sm mt-auto w-100" data-event="Evento Mercedes-Benz W123">
+                  Quero participar
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regras -->
+    <section id="regras" class="section-padding border-top border-secondary border-opacity-25">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="section-title mb-2">Regras</div>
+            <h2 class="section-heading mb-2" id="regras-subtitle">As regras que deve conhecer</h2>
+            <p class="text-secondary mb-4" id="regras-description">
+              Todos os eventos SintraClássicos contam com um conjunto de regras estipuladas para fornecer a melhor experiência ao espaço que nos recebe, participantes e visitantes, fique a conhecê-las abaixo.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12">
+            <!-- Introdução -->
+            <div class="glass-card p-4 p-md-5 mb-4">
+              <h3 class="h5 mb-3" style="color: var(--sc-foreground); font-family: 'Playfair Display', serif;">Caro Participante</h3>
+              <div class="text-secondary" id="regras-intro">
+                <p class="mb-3">Após a revalidação da parceria com o Museu do Ar, a participação nos eventos do Sintra Clássicos que se realizam na Base aérea de Sintra, foram alvo de uma revisão das regras.</p>
+                <p class="mb-3">Assim, agradecemos que leia as mesmas e responda a este formulário de inscrição com as informações pedidas. Estas apenas serão usadas por questões de segurança e para efectuar o controlo das entradas em todos os eventos</p>
+                <p class="mb-0">O encontro está aberto a Automóveis e Motos Clássicos e Desportivos Topos de Gama. Estes últimos só entrarão por convite da organização</p>
+              </div>
+            </div>
+
+            <!-- Definições -->
+            <h3 class="h5 mb-4" style="color: var(--sc-foreground); font-family: 'Playfair Display', serif;">Entende-se por:</h3>
+            
+            <div class="row g-4 mb-5">
+              <div class="col-lg-6">
+                <div class="event-card h-100 p-4" id="regras-classicos-card">
+                  <h4 class="h6 mb-3" style="color: var(--sc-foreground); font-family: 'Playfair Display', serif;" id="regras-classicos-title">Clássicos</h4>
+                  <div class="text-secondary small">
+                    <p class="mb-2" id="regras-classicos-desc">Veículos a partir dos 30 anos de idade, com data da primeira matrícula até 1994, movidos a gasolina, dentro da sua originalidade de fábrica ou com modificações de época.</p>
+                    <p class="mb-0 small" style="color: var(--sc-primary);" id="regras-classicos-note">
+                      <strong>Nota:</strong> Só são admitidos automóveis a gasóleo cuja primeira matricula seja até 1983, os quais devem estar dentro da sua originalidade de fábrica.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-6">
+                <div class="event-card h-100 p-4" id="regras-desportivos-card">
+                  <h4 class="h6 mb-3" style="color: var(--sc-foreground); font-family: 'Playfair Display', serif;" id="regras-desportivos-title">Desportivos Topos de Gama</h4>
+                  <div class="text-secondary small mb-2">
+                    <span class="badge-soft text-secondary mb-2 d-inline-block" id="regras-desportivos-badge">Entrada por convite da organização via email</span>
+                  </div>
+                  <div class="text-secondary small">
+                    <p class="mb-2" id="regras-desportivos-desc">Veículos desportivos movidos a gasolina com motorizações de cariz desportivo, que tenham sido pensados para uma condução desportiva, tais como coupes, roadsters, cabrios, hatchbacks ou sedans de séries limitadas ou com motorizações fora do comum, assim como superdesportivos.</p>
+                    <p class="mb-0 small" style="color: var(--sc-primary);" id="regras-desportivos-note">
+                      <strong>*</strong>A cada mês serão selecionados cerca de 30 automóveis Desportivos Topos de Gama e será enviado um email com o convite para participar no evento.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Regras -->
+            <div class="glass-card p-4 p-md-5">
+              <h3 class="h5 mb-4" style="color: var(--sc-foreground); font-family: 'Playfair Display', serif;">REGRAS:</h3>
+              <div class="text-secondary">
+                <ul class="list-unstyled mb-0" id="regras-list">
+                  <li class="mb-3 d-flex align-items-start">
+                    <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+                    <span>O número máximo de entrada de veículos passa a ser de 150.</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-start">
+                    <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+                    <span>O evento é de entrada livre para visitantes e participantes (* participantes-mediante inscrição prévia) e realiza-se todos os primeiros domingos do mês entre as 09h30 e 12h30, salvo alterações!</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-start">
+                    <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+                    <span>Todas as inscrições serão alvo de selecção por parte da organização.</span>
+                  </li>
+                  <li class="mb-3 d-flex align-items-start">
+                    <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+                    <span>Apenas as inscrições não aceites serão comunicadas via email, as restantes consideram-se inscritas 3 dias após a data de inscrição..</span>
+                  </li>
+                  <li class="mb-0 d-flex align-items-start">
+                    <i class="fa fa-check-circle text-primary me-3 mt-1" style="color: var(--sc-primary);"></i>
+                    <span>As inscrições devem ser efectuadas até 3 dias antes da data do evento.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agenda -->
+    <section id="agenda" class="section-padding border-top border-secondary border-opacity-25">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <div class="section-title mb-2">Agenda anual</div>
+            <h2 class="section-heading mb-3" id="agenda-title">Os eventos que este ano tem reservado.</h2>
+            <p class="text-secondary mb-3" id="agenda-description">
+              Planeie o seu ano com antecedência. 
+              Aqui pode encontrar uma antevisão dos eventos programados para o ano corrente. 
+              Qualquer alteração será devidamente comunicada através das nossas redes sociais.
+            </p>
+            <ul class="text-secondary small mb-3 ps-3">
+             
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+
+            </div>
+
+            <div class="mt-4">
+              <div class="section-title mb-2">Evento em destaque</div>
+              <article id="featured-event-card" class="event-card h-100 d-flex flex-column">
+                <img
+                  id="featured-event-image"
+                  src="img/MESFEVEREIROW123.jpeg"
+                  class="w-100"
+                  style="height: 180px"
+                  alt="Evento em destaque"
+                />
+                <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-2 small text-secondary"
+                  >
+                    <span id="featured-event-location">Fevereiro 2026 • Base Aérea Nº1</span>
+                  </div>
+                  <h3 class="h5 mb-2" id="featured-event-title">Evento Mercedes-Benz W123</h3>
+                  <p class="text-secondary small mb-3 flex-grow-1" id="featured-event-description">
+                    Concentração estática para celebrar os 50 anos do icónico modelo
+                    Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior.
+                  </p>
+                  <ul class="small text-secondary mb-3 event-info">
+                    <li id="featured-event-startTime">
+                      <i class="fa fa-clock me-2"></i>
+                      <span>Início às 09h30</span>
+                    </li>
+                    <li id="featured-event-registration">
+                      <i class="fa fa-pencil me-2"></i>
+                      <span>Inscrições obrigatórias</span>
+                    </li>
+                    <li id="featured-event-visitantFee">
+                      <i class="fa fa-door-open me-2"></i>
+                      <span>Entrada gratuita para visitantes</span>
+                    </li>
+                  </ul>
+                  <button
+                    class="btn btn-outline-info btn-sm mt-auto w-100"
+                    id="featured-event-button"
+                    data-event="Evento Mercedes-Benz W123"
+                  >
+                    Quero participar
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+          <!-- Timeline no lado direito -->
+          <div class="col-lg-7 position-relative">
+            <div class="timeline-line d-none d-md-block"></div>
+            <div class="d-flex flex-column gap-4 ms-md-5">
+              <div class="d-flex gap-3">
+                <div class="d-none d-md-flex flex-column align-items-center pt-1">
+                  <div class="timeline-dot"></div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="badge-soft text-secondary mb-1">Fevereiro 2026</div>
+                  <h3 class="h6 text-light mb-1">Aquecimento Clássicos &amp; Café</h3>
+                  <p class="text-secondary small mb-1">
+                    Evento que partilha a paixão pelo modelo W123 da Mercedes-Benz. Celebrando os seus 50 anos de existência.
+                  </p>
+                  <span class="small text-info">Evento temático • Base aérea Nº1(Pêro Pinheiro)</span>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3">
+                <div class="d-none d-md-flex flex-column align-items-center pt-1">
+                  <div class="timeline-dot"></div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="badge-soft text-secondary mb-1">Março 2026</div>
+                  <h3 class="h6 text-light mb-1">Clássicos Solidários – Rota das Quintas</h3>
+                  <p class="text-secondary small mb-1">
+                    Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.
+                  </p>
+                  <span class="small text-info">Evento temático • Base aérea Nº1(Pêro Pinheiro)</span>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3">
+                <div class="d-none d-md-flex flex-column align-items-center pt-1">
+                  <div class="timeline-dot"></div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="badge-soft text-secondary mb-1">Abril 2026</div>
+                  <h3 class="h6 text-light mb-1">Sintra Clássicos Festival</h3>
+                  <p class="text-secondary small mb-1">
+                    Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.
+                  </p>
+                  <span class="small text-info">Evento temático • Base aérea Nº1(Pêro Pinheiro)</span>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3">
+                <div class="d-none d-md-flex flex-column align-items-center pt-1">
+                  <div class="timeline-dot"></div>
+                </div>  
+                <div class="flex-grow-1">
+                  <div class="badge-soft text-secondary mb-1">Todo o ano</div>
+                  <h3 class="h6 text-light mb-1">Encontros & Eventos</h3>
+                  <p class="text-secondary small mb-1">
+                    Ao longo do ano, o SintraClássicos visa organizar eventos que abrangem diversas eras e modelos do mundo automóvel.
+                  </p>
+                  <span class="small text-info"> Mais informações nas nossas redes sociais</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="section-padding">
+      <div class="container">
+        <div class="row align-items-end mb-4">
+          <div class="col-md-8">
+            <div class="section-title mb-2">Galeria</div>
+            <h2 class="section-heading mb-2" id="gallery-title">Alguns momentos dos últimos eventos.</h2>
+            <p class="text-secondary mb-0" id="gallery-description">
+              Experiencie o ambiente dos nossos eventos através das fotografias partilhadas pela comunidade.
+            </p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="https://ig.me/m/sintraclassicos" class="btn btn-classic btn-sm" target="_blank">
+              Enviar fotografias
+            </a>
+          </div>
+        </div>
+
+        <!-- Navegação da galeria -->
+        <div class="gallery-navigation mb-4 d-flex justify-content-between align-items-center">
+          <button class="btn btn-nav-gallery" id="gallery-prev" aria-label="Meses anteriores">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="gallery-position-indicator" id="gallery-position">
+            <span>Meses 1-4 de 4</span>
+          </div>
+          <button class="btn btn-nav-gallery" id="gallery-next" aria-label="Próximos meses">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Grid da galeria (será preenchido dinamicamente) -->
+        <div class="row g-3 g-md-4 gallery-grid" id="gallery-grid">
+          <!-- Conteúdo será renderizado via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal do Carrossel -->
+    <div class="modal fade" id="galleryCarouselModal" tabindex="-1" aria-labelledby="galleryCarouselModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-black text-light">
+          <div class="modal-header border-secondary border-opacity-25">
+            <h5 class="modal-title" id="galleryCarouselModalLabel">Galeria de Fotos</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner" id="gallery-carousel-inner">
+                <!-- Itens do carrossel serão adicionados dinamicamente -->
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+              </button>
+            </div>
+            <div class="gallery-photo-counter text-center py-2" id="gallery-photo-counter">
+              <span>Foto 1 de 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loja -->
+    <section id="loja" class="section-padding border-top border-secondary border-opacity-25">
+      <div class="container">
+        <div class="row align-items-end mb-4">
+          <div class="col-md-8">
+            <div class="section-title mb-2">Loja</div>
+            <h2 class="section-heading mb-2" id="store-title">Merchandising</h2>
+            <p class="text-secondary mb-0" id="store-description">Stickers e t-shirts com o logo Sintra Clássicos. Para requisitar estes itens, desloca-te a um dos nossos colaboradores nos eventos.</p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <span class="badge-soft text-light">Vendas presenciais</span>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Pack de Stickers">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Pack de Stickers (3 unidades)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Conjunto de 3 autocolantes com designs exclusivos Sintra Clássicos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€5</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Sticker Individual">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Sticker Individual</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Autocolante individual com o logo. Perfeito para capacetes e carros.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€2</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="T-Shirt Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">T-Shirt (Algodão) - Unisexo</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">T-shirt de algodão com o logo Sintra Clássicos. Disponível em várias cores e tamanhos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€20</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Gorra Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Gorra (Unisexo)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Gorra com o logo bordado, ajustável para vários tamanhos.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€15</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Caneca Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Caneca (Cerâmica)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Caneca de cerâmica com impressão da logo Sintra Clássicos — resistente à máquina de lavar.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€10</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card h-100 d-flex flex-column">
+              <div class="product-media position-relative">
+                <img src="img/stickers.png" class="w-100 product-img" alt="Poster Sintra Clássicos">
+                <div class="product-badge">Loja Oficial</div>
+              </div>
+              <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
+                <h3 class="h5 mb-1">Poster (A3)</h3>
+                <div class="small text-secondary mb-2">Disponível nos nossos eventos</div>
+                <p class="text-secondary small mb-3 flex-grow-1">Poster A3 com arte exclusiva Sintra Clássicos, papel couché de alta qualidade.</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <div class="price fw-bold">€8</div>
+                  <button class="btn btn-outline-info btn-sm mt-auto" enable>Requisitar no evento</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comunidade -->
+    <section id="comunidade" class="section-padding border-top border-secondary border-opacity-25">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6">
+            <div class="section-title mb-2">Comunidade</div>
+            <h2 class="section-heading mb-3">Mais do que um evento, uma família automóvel</h2>
+            <p class="text-secondary mb-3">
+              O Sintra Clássicos nasce da paixão pelo automóvel, e pela vontade de expôr o património
+              automóvel clássico na região de Sintra e nacional. Queremos proporcionar um espaço onde proprietários e entusiastas podem conviver e apreciar automóveis.
+            </p>
+            <div class="row small text-secondary g-3 mb-3">
+              <div class="col-sm-6">
+                <div class="community-pill h-100" id="community-owners">
+                  <h3 class="h6 mb-1" id="community-owners-title">Para proprietários</h3>
+                  <p class="mb-0" id="community-owners-text">
+                    Espaço para mostrares o teu clássico/desportivo, trocar experiências e obter contactos de outros proprietários conhecedores.
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="community-pill h-100" id="community-enthusiasts">
+                  <h3 class="h6 mb-1" id="community-enthusiasts-title">Para entusiastas</h3>
+                  <p class="mb-0" id="community-enthusiasts-text">
+                    Não precisas de ter carro clássico para nos visitar. Vem apreciar automóveis únicos,
+                    fotografar e aprender.
+                  </p>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="col-lg-6">
+            <div class="glass-card p-4 p-md-5">
+              <h3 class="h5 mb-1">Tem alguma sugestão para nós?</h3>
+              <p class="text-secondary small mb-3">
+                Estamos sempre há procura de sugestões e feedback da comunidade. Partilhe a sua experiência nos nossos eventos e diga-nos no que podemos melhorar.
+              </p>
+              <form id="comunidade-form" class="row g-3" action="https://formsubmit.co/sintraclassicos14@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nova sugestão da Comunidade - Sintra Clássicos">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="#" id="comunidade-next">
+                
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="nomeComunidade">Nome</label>
+                  <input
+                    id="nomeComunidade"
+                    name="Nome"
+                    type="text"
+                    class="form-control form-control-sm"
+                    placeholder="O teu nome"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="emailComunidade">Email</label>
+                  <input
+                    id="emailComunidade"
+                    name="Email"
+                    type="email"
+                    class="form-control form-control-sm"
+                    placeholder="email@exemplo.pt"
+                    required
+                  />
+                </div>
+                
+                <div class="col-12">
+                  <label class="form-label small text-secondary mb-1" for="mensagemComunidade"
+                    >Mensagem</label
+                  >
+                  <textarea
+                    id="mensagemComunidade"
+                    name="Mensagem"
+                    rows="3"
+                    class="form-control form-control-sm"
+                    placeholder="Conta-nos um pouco da tua experiência..."
+                    required
+                  ></textarea>
+                </div>
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <button type="submit" class="btn btn-gradient btn-sm px-4">
+                    Enviar feedback
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contactos -->
+    <section id="contactos" class="section-padding">
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-5">
+            <div class="section-title mb-2">Contactos</div>
+            <h2 class="section-heading mb-3">Junte-se a nós</h2>
+            <p class="text-secondary mb-3">
+              Se organiza um evento de teor automóvel clássico na zona de Sintra, ou se representa um
+              espaço/parceiro que gostaria de receber/juntar-se há comunidade, fale connosco.
+            </p>
+            <ul class="text-secondary small mb-3 ps-3">
+              <li>Divulgação de eventos na página inicial e agenda.</li>
+              <li>Criação de formulários de inscrição dedicados.</li>
+              <li>Estipulação de zonas dedicadas do grupo colaborador</li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <div class="glass-card p-4 p-md-5">
+              <h3 class="h5 mb-3">Formulário rápido de contacto</h3>
+              <form id="contacto-form" class="row g-3" action="https://formsubmit.co/sintraclassicos14@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nova proposta de evento/parceria - Sintra Clássicos">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="#" id="contacto-next">
+                
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="nomeContacto"
+                    >Nome / Organizador</label
+                  >
+                  <input
+                    id="nomeContacto"
+                    name="Nome / Organizador"
+                    type="text"
+                    class="form-control form-control-sm"
+                    placeholder="O teu nome ou nome do clube"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="emailContacto"
+                    >Email</label
+                  >
+                  <input
+                    id="emailContacto"
+                    name="Email"
+                    type="email"
+                    class="form-control form-control-sm"
+                    placeholder="email@exemplo.pt"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="tipoEvento"
+                    >Tipo de evento</label
+                  >
+                  <select
+                    id="tipoEvento"
+                    name="Tipo de evento"
+                    class="form-select form-select-sm"
+                    required
+                  >
+                    <option value="" selected disabled>Seleciona uma opção</option>
+                    <option value="Evento estático">Evento estático</option>
+                    <option value="Passeio / roteiro">Passeio / roteiro</option>
+                    <option value="Festival / exposição alargada">Festival / exposição alargada</option>
+                    <option value="Proposta de parceria">Proposta de parceria</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary mb-1" for="dataPrevista"
+                    >Data prevista</label
+                  >
+                  <input
+                    id="dataPrevista"
+                    name="Data prevista"
+                    type="date"
+                    class="form-control form-control-sm"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small text-secondary mb-1" for="detalhesEvento"
+                    >Detalhes do evento</label
+                  >
+                  <textarea
+                    id="detalhesEvento"
+                    name="Detalhes do evento"
+                    rows="3"
+                    class="form-control form-control-sm"
+                    placeholder="Local, horário, número estimado de viaturas, necessidades específicas..."
+                    required
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <div class="form-check small text-secondary">
+                    <input
+                      class="form-check-input bg-black border-secondary"
+                      type="checkbox"
+                      value=""
+                      id="aceitoTermos"
+                      required
+                    />
+                    <label class="form-check-label" for="aceitoTermos">
+                      Concordo em ser contactado pela equipa Sintra Clássicos para efeitos de organização
+                      e divulgação de eventos.
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <small class="text-secondary" id="contacto-feedback"></small>
+                  <button type="submit" class="btn btn-gradient btn-sm px-4">
+                    Enviar mensagem
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer pt-5 pb-3">
+      <div class="container small">
+        <div class="row gy-4">
+          <div class="col-md-5">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="footer-mark d-inline-flex align-items-center justify-content-center">
+                <img src="img/Sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="navbar-logo" />
+              </div>
+            </div>
+            <p style="padding-top: 5px;"><i id="footer-tagline">"Desde 2014 a proporcionar um espaço para entusiastas do automóvel"</i></p>
+          </div>
+
+          <div class="col-md-3">
+            <h3 class="footer-heading">Links rápidos</h3>
+            <ul class="list-unstyled mb-0 footer-links-list">
+              <li><a href="#topo" class="footer-link">Início</a></li>
+              <li><a href="#proximos-eventos" class="footer-link">Eventos</a></li>
+              <li><a href="#regras" class="footer-link">Regras</a></li>
+              <li><a href="#agenda" class="footer-link">Agenda</a></li>
+              <li><a href="#galeria" class="footer-link">Galeria</a></li>
+              <li><a href="#contactos" class="footer-link">Contacto</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-4">
+            <h3 class="footer-heading">Siga-nos</h3>
+            <div class="d-flex align-items-center gap-2 mb-2">
+            <a href="https://www.instagram.com/sintraclassicos/" target="_blank">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/sintraclassicos/" target="_blank">
+              <i class="fa-brands fa-facebook"></i>
+              </a>
+            </div>
+            <div class="text-muted-75 mb-0">sintraclassicos14@gmail.com</div>
+          </div>
+        </div>
+
+        <hr class="footer-separator my-4" />
+
+        <div class="d-flex flex-column align-items-center gap-2 text-muted-75 text-center">
+          <div>© 2026 Sintra Clássicos. Todos os direitos reservados.</div>
+          <div class="small" style="opacity: 0.8;">Desenvolvido por <a href="https://github.com/fazenda451" target="_blank" class="developer-link">RodrigoFazenda</a></div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-black text-light">
+          <div class="modal-header border-secondary border-opacity-25">
+            <h5 class="modal-title">Obrigado!</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body small text-secondary" id="feedbackModalBody">
+            A tua mensagem foi registada. Entraremos em contacto em breve.
+          </div>
+          <div class="modal-footer border-secondary border-opacity-25">
+            <button type="button" class="btn btn-ghost btn-sm" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile off-canvas menu -->
+    <div class="offcanvas offcanvas-end mobile-offcanvas" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+      <div class="offcanvas-header border-0">
+        <img src="img/Sintra_Classicos_logo(branco).png" alt="Sintra Clássicos" class="offcanvas-logo" />
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+      </div>
+      <div class="offcanvas-body">
+
+
+        <img src="img/banner.jpg" alt="" class="offcanvas-feature-image mb-3" />
+
+        <nav class="mobile-nav mb-3">
+          <ul class="list-unstyled mb-0">
+            <li><a href="#topo">Início</a></li>
+            <li><a href="#proximos-eventos">Eventos</a></li>
+            <li><a href="#regras">Regras</a></li>
+            <li><a href="#agenda">Agenda</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#loja">Loja</a></li>
+            <li><a href="#comunidade">Comunidade</a></li>
+            <li><a href="#contactos">Contactos</a></li>
+          </ul>
+        </nav>
+
+
+        <div class="d-flex align-items-center gap-2 small mt-2">
+          <i class="fa fa-envelope"></i>
+          <span>sintraclassicos14@gmail.com</span>
+        </div>
+
+        <div class="mt-4 small text-secondary">Segue-nos nas redes sociais</div>
+        <div class="d-flex gap-3 mt-4 social-icons" aria-label="Redes Sociais">
+          <a href="https://www.instagram.com/sintraclassicos/" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.facebook.com/sintraclassicos/" target="_blank">
+            <i class="fa-brands fa-facebook"></i>
+            </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS + Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CMS Content Loader - DEVE ser carregado ANTES do main.js -->
+    <script src="cms-loader.js"></script>
+    
+    <!-- JS custom organizado -->
+    <script src="main.js"></script>
+  </body>
+</html>
+
+

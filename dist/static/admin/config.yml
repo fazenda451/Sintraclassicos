@@ -1,0 +1,165 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: img # Media files will be stored in the repo under img/
+public_folder: /img # The src attribute for uploaded media will begin with /img
+
+collections:
+  - name: "hero" # Used in routes, e.g., /admin/collections/hero
+    label: "Hero Section"
+    folder: "content/hero"
+    create: false
+    format: "json"
+    slug: "hero.json"
+    fields:
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Button 1 Text", name: "button1Text", widget: "string"}
+      - {label: "Button 1 Link", name: "button1Link", widget: "string"}
+      - {label: "Button 2 Text", name: "button2Text", widget: "string"}
+      - {label: "Button 2 Link", name: "button2Link", widget: "string"}
+
+  - name: "eventos" # Collection Namespace
+    label: "Próximos Eventos"
+    folder: "content/eventos" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    format: "json"
+    extension: "json"
+    slug: "evento-{{slug}}.json" # Filename template, e.g., evento-1.json
+    summary: "{{title}} - {{location}}"
+    filter: {field: "published", value: true} # Exclui index.json e outros arquivos sem published: true
+    # NOTA: O arquivo index.json não deve ser editado - é usado apenas para listar os arquivos
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Price", name: "price", widget: "string", default: "Gratuito"}
+      - {label: "Start Time", name: "startTime", widget: "string"}
+      - {label: "Registration", name: "Registration", widget: "string"}
+      - {label: "Visitant Fee", name: "visitantFee", widget: "string"}
+      - {label: "Published", name: "published", widget: "boolean", default: true}
+
+  - name: "agenda"
+    label: "Agenda Anual"
+    files:
+      - file: "content/agenda/agenda.json"
+        label: "Secções da Agenda"
+        name: "agenda"
+        format: "json"
+        fields:
+          - label: "Secções da Agenda"
+            name: "sections"
+            widget: "list"
+            summary: "{{month}} - {{title}}"
+            hint: "Secções da timeline no lado direito. Use «Adicionar secção» para novas entradas e o ícone do lixo para remover."
+            fields:
+              - {label: "Mês / Período", name: "month", widget: "string", hint: "Ex: Fevereiro 2026, Todo o ano"}
+              - {label: "Título", name: "title", widget: "string"}
+              - {label: "Descrição", name: "description", widget: "text"}
+              - {label: "Tipo", name: "type", widget: "string", hint: "Ex: Evento temático • Local"}
+              - {label: "Local", name: "location", widget: "string", required: false}
+              - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 0, hint: "Ordenação (0, 1, 2...)"}
+              - {label: "Publicado", name: "published", widget: "boolean", default: true}
+
+  - name: "galeria"
+    label: "Galeria de Meses"
+    folder: "content/galeria"
+    create: true
+    format: "json"
+    slug: "{{slug}}.json"
+    summary: "{{nome}}"
+    filter: {field: "published", value: true}
+    fields:
+      - {label: "ID (automático)", name: "id", widget: "string", hint: "Será gerado automaticamente baseado no nome (ex: dezembro-2025). Não edite manualmente.", required: false}
+      - {label: "Nome do Mês", name: "nome", widget: "string", hint: "Ex: Dezembro 2025, Novembro 2025", required: true}
+      - {label: "Descrição", name: "descricao", widget: "text", hint: "Descrição breve do conjunto de fotos"}
+      - {label: "Imagem Principal (Capa)", name: "imagemPrincipal", widget: "image", hint: "Esta é a imagem que aparece na galeria principal. Escolha a melhor foto como capa.", required: true}
+      - label: "Fotos do Mês"
+        name: "fotos"
+        widget: "list"
+        hint: "Adicione todas as fotos que deseja exibir no carrossel quando o utilizador clicar na imagem principal. Pode adicionar quantas fotos quiser."
+        allow_add: true
+        field: {label: "Foto", name: "foto", widget: "image"}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", hint: "Data do evento/mês", required: false}
+      - {label: "Ordem", name: "order", widget: "number", value_type: "int", min: 0, default: 1, hint: "Ordem de exibição (1 = mais recente, aparece primeiro). Quando adicionar novo mês, defina como 1 e os outros descerão automaticamente."}
+      - {label: "Publicado", name: "published", widget: "boolean", default: true}
+
+  - name: "loja"
+    label: "Loja - Produtos"
+    folder: "content/loja"
+    create: true
+    format: "json"
+    slug: "{{slug}}.json"
+    summary: "{{title}} - {{price}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Price", name: "price", widget: "string"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Available", name: "available", widget: "boolean", default: true}
+      - {label: "Published", name: "published", widget: "boolean", default: true}
+
+  - name: "comunidade"
+    label: "Comunidade"
+    folder: "content/comunidade"
+    create: false
+    format: "json"
+    slug: "comunidade.json"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "For Owners Title", name: "forOwnersTitle", widget: "string"}
+      - {label: "For Owners Text", name: "forOwnersText", widget: "text"}
+      - {label: "For Enthusiasts Title", name: "forEnthusiastsTitle", widget: "string"}
+      - {label: "For Enthusiasts Text", name: "forEnthusiastsText", widget: "text"}
+      - {label: "Suggestion Title", name: "suggestionTitle", widget: "string"}
+      - {label: "Suggestion Text", name: "suggestionText", widget: "text"}
+
+  - name: "contactos"
+    label: "Contactos"
+    folder: "content/contactos"
+    create: false
+    format: "json"
+    slug: "contactos.json"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Email", name: "email", widget: "string"}
+      - {label: "Instagram URL", name: "instagramUrl", widget: "string"}
+      - {label: "Facebook URL", name: "facebookUrl", widget: "string"}
+      - {label: "Benefits List", name: "benefits", widget: "list", field: {label: "Benefit", name: "benefit", widget: "string"}}
+
+  - name: "regras"
+    label: "Regras"
+    folder: "content/regras"
+    create: false
+    format: "json"
+    slug: "regras.json"
+    fields:
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Introduction Paragraph 1", name: "introParagraph1", widget: "text"}
+      - {label: "Introduction Paragraph 2", name: "introParagraph2", widget: "text"}
+      - {label: "Introduction Paragraph 3", name: "introParagraph3", widget: "text"}
+      - {label: "Classicos Title", name: "classicosTitle", widget: "string"}
+      - {label: "Classicos Description", name: "classicosDescription", widget: "text"}
+      - {label: "Classicos Note", name: "classicosNote", widget: "text"}
+      - {label: "Desportivos Title", name: "desportivosTitle", widget: "string"}
+      - {label: "Desportivos Badge", name: "desportivosBadge", widget: "string"}
+      - {label: "Desportivos Description", name: "desportivosDescription", widget: "text"}
+      - {label: "Desportivos Note", name: "desportivosNote", widget: "text"}
+      - {label: "Rules List", name: "rules", widget: "list", field: {label: "Rule", name: "rule", widget: "text"}}
+
+  - name: "config"
+    label: "Configurações Gerais"
+    folder: "content/config"
+    create: false
+    format: "json"
+    slug: "site.json"
+    fields:
+      - {label: "Site Title", name: "siteTitle", widget: "string"}
+      - {label: "Site Description", name: "siteDescription", widget: "text"}
+      - {label: "Footer Text", name: "footerText", widget: "text"}
+      - {label: "Footer Tagline", name: "footerTagline", widget: "string", hint: "Frase exibida no footer (ex: Desde 2014 a proporcionar um espaço para entusiastas do automóvel)"}
