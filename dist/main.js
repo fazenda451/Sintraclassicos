@@ -207,6 +207,25 @@ function inicializarInteracoes() {
     });
   }
 
+  // Botão "voltar ao topo"
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  if (scrollTopBtn) {
+    const toggleScrollTopVisibility = () => {
+      const shouldShow = window.scrollY > 300;
+      scrollTopBtn.classList.toggle('scroll-top-btn--visible', shouldShow);
+    };
+
+    window.addEventListener('scroll', toggleScrollTopVisibility, { passive: true });
+    window.addEventListener('load', toggleScrollTopVisibility);
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Botões "Quero participar" / "Pré-inscrição"
   document.querySelectorAll('[data-event]').forEach(function (btn) {
     btn.addEventListener('click', function () {
