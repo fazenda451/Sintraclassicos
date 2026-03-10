@@ -418,10 +418,6 @@ a:hover {
   transition: transform 0.35s ease;
 }
 
-#featured-event-card:hover img {
-  transform: scale(1.05);
-}
-
 /* Conteúdo interno mais limpo e respirado */
 #featured-event-card .p-3,
 #featured-event-card .p-md-4 {
