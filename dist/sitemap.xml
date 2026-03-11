@@ -2,23 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sintraclassicos.pt/</loc>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sintraclassicos.pt/termos-condicoes.html</loc>
+    <loc>https://sintraclassicos.pt/politica-cookies.html</loc>
+    <lastmod>2026-03-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sintraclassicos.pt/politica-privacidade.html</loc>
+    <lastmod>2026-03-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sintraclassicos.pt/politica-cookies.html</loc>
+    <loc>https://sintraclassicos.pt/termos-condicoes.html</loc>
+    <lastmod>2026-03-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
-
