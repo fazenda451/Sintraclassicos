@@ -1,12 +1,12 @@
 {
-  "Registration": "N/D",
-  "price": "N/D",
+  "price": "Gratuito",
+  "visitantFee": "A entrada a visitantes é gratuita",
   "published": true,
-  "date": "1010-01-01 01:01",
-  "startTime": "N/D",
-  "location": "Abril • N/D",
-  "title": "Evento Mensal • Abril",
-  "image": "/img/sintraclassicosposterdefault.jpeg",
-  "visitantFee": "N/D",
+  "date": "2026-04-05 09:30",
+  "startTime": "Início às 09h30 | Término às 12h30",
+  "location": "Abril • Museu Do Ar(Sintra)",
+  "title": "Evento aos 60's /70's e 80's",
+  "Registration": "Inscrição obrigatória para participantes",
+  "image": "/img/mes.abril.jpg",
   "description": "Evento com especificações ainda por determinar. Mais informações em breve!"
 }
