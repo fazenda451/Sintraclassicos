@@ -8,7 +8,8 @@
       name="description"
       content="Comunidade de carros clássicos na zona de Sintra. Descobre eventos, galerias e junta-te aos entusiastas locais."
     />
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow" />
+    <meta name="application-name" content="Sintra Clássicos" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Sintra Clássicos Encontros & Eventos" />
@@ -19,6 +20,21 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="img/logo.jpg" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Sintra Clássicos",
+        "url": "https://sintra-classicos.netlify.app",
+        "logo": "https://sintra-classicos.netlify.app/img/logo.jpg",
+        "sameAs": [
+          "https://www.instagram.com/sintraclassicos/",
+          "https://www.facebook.com/sintraclassicos/"
+        ]
+      }
+    </script>
 
     <!-- Bootstrap 5 (Twitter / CSS framework) -->
     <link
