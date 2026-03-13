@@ -10,21 +10,39 @@
       "published": true
     },
     {
+      "order": 2,
+      "published": true,
       "month": "Março 2026",
-      "title": "Sintra Clássicos • Março",
+      "title": "O BMW serie 3",
+      "description": "O BMW serie 3 E21, faz 50 anos! No próximo dia 1 de Março, traga o seu e junte-se a nós!",
+      "type": "Evento temático • Museu Do Ar(Sintra)",
+      "location": "Museu Do Ar(Sintra)"
+    },
+    {
+      "order": 2,
+      "published": true,
+      "month": "Abril 2026",
+      "title": "Evento aos 60's /70's e 80's",
+      "description": "Evento com especificações ainda por determinar. Mais informações em breve!",
+      "type": "Evento temático • Museu Do Ar(Sintra)",
+      "location": "Museu Do Ar(Sintra)"
+    },
+    {
+      "month": "Maio 2026",
+      "title": "Sintra Clássicos • Maio",
       "description": "Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.",
       "type": "Evento temático • N/D",
       "location": "N/D",
-      "order": 2,
+      "order": 4,
       "published": true
     },
     {
-      "month": "Abril 2026",
-      "title": "Sintra Clássicos • Abril",
+      "month": "Junho 2026",
+      "title": "Sintra Clássicos • Junho",
       "description": "Evento temático ainda por estipular. Mantenha-se atento às nossas redes sociais para mais informações.",
       "type": "Evento temático • N/D",
       "location": "N/D",
-      "order": 3,
+      "order": 5,
       "published": true
     },
     {
@@ -33,7 +51,7 @@
       "description": "Ao longo do ano, o SintraClássicos visa organizar eventos que abrangem diversas eras e modelos do mundo automóvel.",
       "type": "Mais informações nas nossas redes sociais",
       "location": " ",
-      "order": 5,
+      "order": 6,
       "published": true
     }
   ]

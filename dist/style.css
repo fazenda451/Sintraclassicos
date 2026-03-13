@@ -1043,7 +1043,7 @@ a:hover {
 }
 
 .developer-link {
-  color: rgba(249, 250, 251, 0.55);
+  color: var(--sc-gold);
   text-decoration: none;
   transition: color 0.2s ease;
 }

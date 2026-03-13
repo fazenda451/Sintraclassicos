@@ -1,12 +1,12 @@
 {
-  "Registration": "N/D",
-  "price": "N/D",
+  "price": "Gratuito",
+  "visitantFee": "A entrada a visitantes é gratuita",
   "published": true,
-  "date": "1010-01-01 01:01",
-  "startTime": "N/D",
-  "location": "Março • N/D",
-  "title": "Evento Mensal • Março",
-  "image": "/img/sintraclassicosposterdefault.jpeg",
-  "visitantFee": "N/D",
-  "description": "Evento com especificações ainda por determinar. Mais informações em breve!"
+  "date": "2026-03-01 09:30",
+  "startTime": "Início às 09h30 | Término às 12h30",
+  "location": "Março • Museu Do Ar(Sintra)",
+  "title": "O BMW serie 3",
+  "Registration": "Inscrição obrigatória para participantes",
+  "image": "/img/mes.março.jpg",
+  "description": "O BMW serie 3 E21, faz 50 anos!\nNo próximo dia 1 de Março, traga o seu e junte-se a nós!"
 }
