@@ -432,48 +432,64 @@
 
             <div class="mt-4">
               <div class="section-title mb-2">Evento em destaque</div>
-              <article id="featured-event-card" class="event-card h-100 d-flex flex-column">
-                <img
-                  id="featured-event-image"
-                  src="img/MESFEVEREIROW123.jpeg"
-                  class="w-100"
-                  style="height: 180px"
-                  alt="Evento em destaque"
-                />
-                <div class="p-3 p-md-4 d-flex flex-column flex-grow-1">
-                  <div
-                    class="d-flex justify-content-between align-items-center mb-2 small text-secondary"
-                  >
-                    <span id="featured-event-location">Fevereiro 2026 • Base Aérea Nº1</span>
+              <!-- 3D Poster Scene -->
+              <div class="poster-scene">
+                <!-- Shadow on the "ground" -->
+                <div class="poster-shadow"></div>
+                <!-- The poster itself -->
+                <div class="poster-3d" id="featured-event-card">
+                  <!-- Thick physical edges -->
+                  <div class="poster-edge poster-edge--right"></div>
+                  <div class="poster-edge poster-edge--bottom"></div>
+                  <!-- Poster face (front) -->
+                  <div class="poster-face">
+                    <!-- Top banner area -->
+                    <div class="poster-banner">
+                      <div class="poster-banner-badge">
+                        <i class="fa fa-star me-1"></i> Destaque
+                      </div>
+                      <img
+                        id="featured-event-image"
+                        src="img/MESFEVEREIROW123.jpeg"
+                        alt="Evento em destaque"
+                      />
+                      <div class="poster-banner-overlay"></div>
+                    </div>
+                    <!-- Event details -->
+                    <div class="poster-content">
+                      <div class="d-flex justify-content-between align-items-center mb-2 small text-secondary">
+                        <span id="featured-event-location">Fevereiro 2026 • Base Aérea Nº1</span>
+                      </div>
+                      <h3 class="h5 mb-2" id="featured-event-title">Evento Mercedes-Benz W123</h3>
+                      <p class="text-secondary small mb-3" id="featured-event-description">
+                        Concentração estática para celebrar os 50 anos do icónico modelo
+                        Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior.
+                      </p>
+                      <ul class="small text-secondary mb-3 poster-info-list">
+                        <li id="featured-event-startTime">
+                          <i class="fa fa-clock me-2"></i>
+                          <span>Início às 09h30</span>
+                        </li>
+                        <li id="featured-event-registration">
+                          <i class="fa fa-pencil me-2"></i>
+                          <span>Inscrições obrigatórias</span>
+                        </li>
+                        <li id="featured-event-visitantFee">
+                          <i class="fa fa-door-open me-2"></i>
+                          <span>Entrada gratuita para visitantes</span>
+                        </li>
+                      </ul>
+                      <button
+                        class="btn btn-outline-info btn-sm mt-auto w-100"
+                        id="featured-event-button"
+                        data-event="Evento Mercedes-Benz W123"
+                      >
+                        Quero participar
+                      </button>
+                    </div>
                   </div>
-                  <h3 class="h5 mb-2" id="featured-event-title">Evento Mercedes-Benz W123</h3>
-                  <p class="text-secondary small mb-3 flex-grow-1" id="featured-event-description">
-                    Concentração estática para celebrar os 50 anos do icónico modelo
-                    Mercedes-Benz W123, na base aérea Nº1 com exposição de viaturas no seu interior.
-                  </p>
-                  <ul class="small text-secondary mb-3 event-info">
-                    <li id="featured-event-startTime">
-                      <i class="fa fa-clock me-2"></i>
-                      <span>Início às 09h30</span>
-                    </li>
-                    <li id="featured-event-registration">
-                      <i class="fa fa-pencil me-2"></i>
-                      <span>Inscrições obrigatórias</span>
-                    </li>
-                    <li id="featured-event-visitantFee">
-                      <i class="fa fa-door-open me-2"></i>
-                      <span>Entrada gratuita para visitantes</span>
-                    </li>
-                  </ul>
-                  <button
-                    class="btn btn-outline-info btn-sm mt-auto w-100"
-                    id="featured-event-button"
-                    data-event="Evento Mercedes-Benz W123"
-                  >
-                    Quero participar
-                  </button>
                 </div>
-              </article>
+              </div>
             </div>
           </div>
           <!-- Timeline no lado direito -->

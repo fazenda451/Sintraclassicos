@@ -373,106 +373,271 @@ a:hover {
   object-position: center !important;
 }
 
-/* Destaque visual específico para o "Evento em destaque" da Agenda" */
-#featured-event-card {
-  position: relative;
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid var(--sc-muted);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
-  overflow: hidden;
-  transform-origin: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+/* ═══════════════════════════════════════════════════════════════════
+   FEATURED EVENT — 3D CARD
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Perspective wrapper — creates the 3D space */
+.featured-event-3d-wrapper {
+  perspective: 1000px;
+  padding: 30px 10px 40px;
 }
 
-#featured-event-card::before {
-  content: "";
+/* The card itself — main 3D surface */
+.featured-event-3d-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: visible;
+  background: #ffffff;
+  border: 1px solid var(--sc-muted);
+  box-shadow:
+    0 14px 28px rgba(15, 23, 42, 0.12),
+    0 4px 10px rgba(15, 23, 42, 0.08);
+  transform-style: preserve-3d;
+  transform: rotateX(2deg) rotateY(-1deg);
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: featured-3d-idle 6s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+/* Idle floating animation */
+@keyframes featured-3d-idle {
+  0%, 100% { transform: rotateX(2deg)  rotateY(-1deg)  translateZ(0); }
+  50%      { transform: rotateX(-1deg) rotateY(1.5deg) translateZ(6px); }
+}
+
+/* Hover — pop forward with tilt */
+.featured-event-3d-card:hover {
+  animation-play-state: paused;
+  transform: rotateX(4deg) rotateY(-3deg) translateZ(20px) scale(1.02);
+  box-shadow:
+    0 30px 60px rgba(15, 23, 42, 0.22),
+    0 10px 20px rgba(15, 23, 42, 0.12),
+    0 0 0 1px var(--sc-gold);
+}
+
+/* ── Decorative back layers ─────────────────────────────────────── */
+.featured-3d-layer {
   position: absolute;
   inset: 0;
+  border-radius: 16px;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(148, 119, 82, 0.18));
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-#featured-event-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.32);
-  border-color: var(--sc-gold);
+.featured-3d-layer--back {
+  transform: translateZ(-20px) translateX(8px) translateY(10px);
+  background: var(--sc-muted);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  opacity: 0.55;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
 }
 
-#featured-event-card:hover::before {
-  opacity: 1;
+.featured-3d-layer--mid {
+  transform: translateZ(-10px) translateX(4px) translateY(5px);
+  background: var(--sc-accent);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  opacity: 0.7;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
-/* Imagem de destaque dinâmica, sem cortes agressivos */
-#featured-event-card img {
-  width: 100% !important;
-  height: auto !important;
-  max-height: 420px !important;
-  object-fit: contain !important;
-  object-position: center !important;
-  display: block !important;
-  background: var(--sc-bg-light);
-  border-bottom: 2px solid rgba(229, 231, 235, 0.9);
-  transition: transform 0.35s ease;
-}
-
-/* Conteúdo interno mais limpo e respirado */
-#featured-event-card .p-3,
-#featured-event-card .p-md-4 {
-  padding: 1.6rem 1.75rem !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1),
-    rgba(250, 244, 235, 0.96)
-  );
-}
-
-/* Ribbon / badge inclinada para o destaque */
-#featured-event-badge {
+/* ── Shine / glare overlay ──────────────────────────────────────── */
+.featured-3d-shine {
   position: absolute;
-  top: 18px;
-  left: -10px;
-  background: var(--sc-gold);
-  color: var(--sc-foreground) !important;
-  padding: 0.35rem 1.1rem;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: 200% center;
+  opacity: 0;
+  transition: opacity 0.5s ease, background-position 0.8s ease;
+}
+
+.featured-event-3d-card:hover .featured-3d-shine {
+  opacity: 1;
+  background-position: -50% center;
+}
+
+/* ── Ribbon badge ───────────────────────────────────────────────── */
+.featured-3d-ribbon {
+  position: absolute;
+  top: 16px;
+  right: -8px;
+  z-index: 5;
+  background: linear-gradient(135deg, var(--sc-gold), var(--sc-gold-strong));
+  color: var(--sc-foreground);
+  padding: 0.4rem 1.2rem 0.4rem 1rem;
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 800;
-  transform: rotate(-10deg);
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
-  border-radius: 4px;
+  border-radius: 4px 4px 0 4px;
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateZ(12px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* Lista de informações com ícones */
-#featured-event-card .event-info {
+/* Fold under the ribbon */
+.featured-3d-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, var(--sc-gold-strong) 50%, transparent 50%);
+  filter: brightness(0.7);
+}
+
+.featured-event-3d-card:hover .featured-3d-ribbon {
+  transform: translateZ(22px) scale(1.06);
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ── Image area ─────────────────────────────────────────────────── */
+.featured-3d-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  z-index: 1;
+}
+
+.featured-3d-img-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, #ffffff, transparent);
+  pointer-events: none;
+}
+
+.featured-event-3d-card img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 380px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+  background: var(--sc-bg-light);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.featured-event-3d-card:hover img {
+  transform: scale(1.03);
+}
+
+/* ── Card body ──────────────────────────────────────────────────── */
+.featured-3d-body {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem 1.75rem 1.75rem !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(250, 244, 235, 0.96) 100%
+  );
+  border-radius: 0 0 16px 16px;
+}
+
+.featured-3d-body h3 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--sc-foreground);
+}
+
+/* ── Info list with icons ───────────────────────────────────────── */
+.featured-event-3d-card .event-info {
   list-style: none;
   padding-left: 0;
   margin-bottom: 1.4rem;
 }
 
-#featured-event-card .event-info li {
+.featured-event-3d-card .event-info li {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.25rem;
 }
 
-#featured-event-card .event-info i {
+.featured-event-3d-card .event-info i {
   color: var(--sc-primary);
   margin-top: 2px;
 }
 
+/* ── Edge shadow for 3D depth ───────────────────────────────────── */
+.featured-event-3d-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  z-index: -1;
+  background: linear-gradient(
+    135deg,
+    rgba(148, 119, 82, 0.12),
+    rgba(15, 23, 42, 0.06),
+    rgba(148, 119, 82, 0.08)
+  );
+  transform: translateZ(-2px);
+  filter: blur(2px);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 576px) {
-  #featured-event-card {
+  .featured-event-3d-wrapper {
+    padding: 20px 4px 30px;
+  }
+
+  .featured-event-3d-card {
     border-radius: 14px;
   }
 
-  #featured-event-card .p-3,
-  #featured-event-card .p-md-4 {
-    padding-inline: 1.3rem !important;
+  .featured-3d-body {
+    padding: 1.3rem !important;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .featured-3d-img-wrap {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .featured-3d-layer--back,
+  .featured-3d-layer--mid {
+    border-radius: 14px;
+  }
+
+  .featured-3d-ribbon {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.9rem;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .featured-event-3d-card {
+    animation: none;
+    transform: none;
+  }
+
+  .featured-event-3d-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .featured-3d-shine {
+    display: none;
   }
 }
 

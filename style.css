@@ -373,106 +373,269 @@ a:hover {
   object-position: center !important;
 }
 
-/* Destaque visual específico para o "Evento em destaque" da Agenda" */
-#featured-event-card {
+/* ═══════════════════════════════════════════════════════════════════
+   FEATURED EVENT — REALISTIC 3D POSTER / CARTAZ
+   Simulates a physical poster with visible thickness, edges,
+   and a floor shadow — like an event poster floating in space.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Scene — sets up the 3D perspective viewport */
+.poster-scene {
+  perspective: 900px;
+  perspective-origin: 50% 40%;
+  padding: 40px 8px 50px;
   position: relative;
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid var(--sc-muted);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
-  overflow: hidden;
-  transform-origin: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-#featured-event-card::before {
+/* Floor shadow — blurred dark ellipse beneath the poster */
+.poster-shadow {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(85deg);
+  width: 80%;
+  height: 40px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 23, 42, 0.28) 0%,
+    rgba(15, 23, 42, 0.10) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 0;
+  transition: all 0.5s ease;
+}
+
+/* The poster object — tilted to show depth */
+.poster-3d {
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  transform: rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.5s ease;
+  cursor: default;
+}
+
+/* Hover — poster lifts and tilts more to reveal 3D edges */
+.poster-3d:hover {
+  transform: rotateY(-12deg) rotateX(6deg) translateZ(16px) scale(1.01);
+}
+
+.poster-3d:hover ~ .poster-shadow {
+  width: 85%;
+  height: 50px;
+  filter: blur(12px);
+  bottom: 10px;
+  opacity: 0.9;
+}
+
+/* ── Physical edges (thickness) ─────────────────────────────────── */
+
+/* Right edge — visible side of the poster "board" */
+.poster-edge--right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  transform-origin: left center;
+  transform: rotateY(90deg) translateX(-4px);
+  background: linear-gradient(
+    180deg,
+    hsl(35, 20%, 82%) 0%,
+    hsl(35, 18%, 72%) 50%,
+    hsl(35, 15%, 65%) 100%
+  );
+  border-radius: 0 2px 2px 0;
+}
+
+/* Bottom edge — visible underside of the poster */
+.poster-edge--bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  transform-origin: center top;
+  transform: rotateX(-90deg) translateY(-4px);
+  background: linear-gradient(
+    90deg,
+    hsl(35, 18%, 72%) 0%,
+    hsl(35, 15%, 65%) 50%,
+    hsl(35, 20%, 75%) 100%
+  );
+  border-radius: 0 0 2px 2px;
+}
+
+/* ── Poster front face ──────────────────────────────────────────── */
+.poster-face {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  border: 3px solid var(--sc-gold);
+  box-shadow:
+    inset 0 0 0 1px rgba(148, 119, 82, 0.12),
+    0 2px 8px rgba(15, 23, 42, 0.08);
+  transform: translateZ(1px);
+}
+
+/* Subtle "paper" texture overlay */
+.poster-face::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(148, 119, 82, 0.18));
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.008) 2px,
+      rgba(0, 0, 0, 0.008) 4px
+    );
+  mix-blend-mode: multiply;
 }
 
-#featured-event-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.32);
-  border-color: var(--sc-gold);
+/* Gold decorative inner border — like a poster frame */
+.poster-face::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(148, 119, 82, 0.2);
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 2;
 }
 
-#featured-event-card:hover::before {
-  opacity: 1;
+/* ── Banner / image area ────────────────────────────────────────── */
+.poster-banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--sc-muted);
 }
 
-/* Imagem de destaque dinâmica, sem cortes agressivos */
-#featured-event-card img {
+.poster-banner img {
   width: 100% !important;
   height: auto !important;
-  max-height: 420px !important;
+  max-height: 360px !important;
   object-fit: contain !important;
   object-position: center !important;
   display: block !important;
   background: var(--sc-bg-light);
-  border-bottom: 2px solid rgba(229, 231, 235, 0.9);
-  transition: transform 0.35s ease;
+  transition: transform 0.5s ease;
 }
 
-/* Conteúdo interno mais limpo e respirado */
-#featured-event-card .p-3,
-#featured-event-card .p-md-4 {
-  padding: 1.6rem 1.75rem !important;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1),
-    rgba(250, 244, 235, 0.96)
-  );
+.poster-3d:hover .poster-banner img {
+  transform: scale(1.02);
 }
 
-/* Ribbon / badge inclinada para o destaque */
-#featured-event-badge {
+/* Gradient overlay at bottom of image */
+.poster-banner-overlay {
   position: absolute;
-  top: 18px;
-  left: -10px;
-  background: var(--sc-gold);
-  color: var(--sc-foreground) !important;
-  padding: 0.35rem 1.1rem;
-  font-size: 0.7rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to top, #ffffff, transparent);
+  pointer-events: none;
+}
+
+/* Destaque badge */
+.poster-banner-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  background: linear-gradient(135deg, var(--sc-gold), var(--sc-gold-strong));
+  color: var(--sc-foreground);
+  padding: 0.35rem 1rem;
+  font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 800;
-  transform: rotate(-10deg);
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
   border-radius: 4px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.25);
 }
 
-/* Lista de informações com ícones */
-#featured-event-card .event-info {
+/* ── Content area ───────────────────────────────────────────────── */
+.poster-content {
+  padding: 1.4rem 1.6rem 1.6rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(252, 248, 240, 1) 100%
+  );
+}
+
+.poster-content h3 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--sc-foreground);
+}
+
+/* ── Info list ───────────────────────────────────────────────────── */
+.poster-info-list {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.2rem;
 }
 
-#featured-event-card .event-info li {
+.poster-info-list li {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.25rem;
 }
 
-#featured-event-card .event-info i {
+.poster-info-list i {
   color: var(--sc-primary);
   margin-top: 2px;
 }
 
+/* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 576px) {
-  #featured-event-card {
-    border-radius: 14px;
+  .poster-scene {
+    padding: 24px 0 40px;
   }
 
-  #featured-event-card .p-3,
-  #featured-event-card .p-md-4 {
-    padding-inline: 1.3rem !important;
+  .poster-3d {
+    transform: rotateY(-5deg) rotateX(3deg);
+  }
+
+  .poster-3d:hover {
+    transform: rotateY(-8deg) rotateX(5deg) translateZ(10px);
+  }
+
+  .poster-content {
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .poster-edge--right {
+    width: 6px;
+  }
+
+  .poster-edge--bottom {
+    height: 6px;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .poster-3d {
+    transform: none;
+    transition: none;
+  }
+
+  .poster-3d:hover {
+    transform: translateY(-4px);
+  }
+
+  .poster-shadow {
+    display: none;
   }
 }
 
